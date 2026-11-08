@@ -38,6 +38,7 @@ respira/
 │   ├── components/
 │   │   ├── ParticleCanvas.js   # Animasi partikel udara & PM2.5 melayang
 │   │   └── NewsModal.js        # Modal daftar berita & Reader View artikel
+│   ├── public/assets/          # Aset ilustrasi & maskot paru-paru RESPIRA
 │   ├── lib/api.js              # Client helper ke Backend API & Supabase
 │   └── .env.local.example      # Template environment frontend
 │
@@ -50,10 +51,8 @@ respira/
 │   │   └── supabase.js         # Inisialisasi koneksi Supabase Client & Admin
 │   └── .env.example            # Template environment backend
 │
-├── supabase/
-│   └── schema.sql              # Skema tabel PostgreSQL (profiles, risk_assessments) & RLS
-│
-└── assets/                     # Aset ilustrasi & maskot paru-paru RESPIRA
+└── supabase/
+    └── schema.sql              # Skema tabel PostgreSQL (profiles, risk_assessments) & RLS
 ```
 
 ---

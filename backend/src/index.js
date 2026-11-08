@@ -102,55 +102,18 @@ async function getAuthenticatedUser(req) {
   return null;
 }
 
-// Proteksi file statis frontend
-const frontendPath = path.join(__dirname, '..', '..');
-
-const BLOCKED_STATIC_PATTERNS = [
-  /^\/backend(\/|$)/i,
-  /^\/frontend(\/|$)/i,
-  /^\/supabase(\/|$)/i,
-  /^\/node_modules(\/|$)/i,
-  /^\/\./i, // Blok file tersembunyi seperti .env, .git
-  /\.(env|git|json|sql|md|log|lock|yml|yaml|config|sh|ps1|bat)$/i
-];
-
-app.use((req, res, next) => {
-  if (req.path.startsWith('/api')) {
-    return next();
-  }
-
-  // Cek path traversal
-  if (req.path.includes('..')) {
-    return res.status(403).json({ error: 'Akses ditolak.' });
-  }
-
-  const normalized = path.normalize(req.path).replace(/\\/g, '/').toLowerCase();
-  const isBlocked = BLOCKED_STATIC_PATTERNS.some(pat => pat.test(normalized));
-  if (isBlocked) {
-    return res.status(403).json({ error: 'Akses ditolak.' });
-  }
-
-  const allowedExactFiles = [
-    '/', '', '/index.html', '/login.html', '/register.html',
-    '/dashboard.html', '/profile-assessment.html', '/lungs-themed.png'
-  ];
-  const isAllowedExt = /\.(css|js|png|jpg|jpeg|svg|ico|webp|woff|woff2|ttf|map)$/i.test(normalized);
-  const isAssetsDir = normalized.startsWith('/assets/') || normalized.startsWith('/.previews/');
-
-  if (allowedExactFiles.includes(normalized) || isAllowedExt || isAssetsDir) {
-    return next();
-  }
-
-  return res.status(403).json({ error: 'Akses file statis dibatasi.' });
-});
-
-app.use(express.static(frontendPath, {
-  dotfiles: 'deny',
-  index: ['index.html']
-}));
-
 // Apply general API rate limiting to all /api routes
 app.use('/api', generalLimiter);
+
+app.get('/', (req, res) => {
+  res.json({
+    service: 'RESPIRA Backend API',
+    version: '1.0.0',
+    status: 'running',
+    frontend: 'http://localhost:3000',
+    health: '/api/health'
+  });
+});
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', service: 'RESPIRA Backend API', time: new Date().toISOString() });
