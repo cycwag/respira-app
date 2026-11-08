@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RESPIRA - Asesmen Risiko Personal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assessment.css?v=2">
+  <script>
+    (function () {
+      try {
+        const u = sessionStorage.getItem('respira_user');
+        if (!u) {
+          window.location.replace('index.html#login');
+          return;
+        }
+        const parsed = JSON.parse(u);
+        if (!parsed || (!parsed.id && !parsed.identifier && !parsed.fullName)) {
+          sessionStorage.removeItem('respira_user');
+          window.location.replace('index.html#login');
+        }
+      } catch (e) {
+        sessionStorage.removeItem('respira_user');
+        window.location.replace('index.html#login');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <canvas id="particleCanvas" class="particles-bg" aria-hidden="true"></canvas>
+
+  <main class="page-container">
+    <div class="assessment-card">
+      <header class="card-header">
+        <div class="card-header-top">
+          <div class="brand-badge">RESPIRA HEALTH TECH</div>
+          <a href="dashboard.html" class="back-link">← Kembali ke Dashboard</a>
+        </div>
+        <h1>Profil Kerentanan Personal</h1>
+        <p>Lengkapi data internal untuk menghitung skor Odds Ratio kerentanan ISPA Anda.</p>
+      </header>
+
+      <div class="or-summary-banner">
+        <div class="or-info">
+          <span class="or-label">Estimasi Odds Ratio (OR) Personal</span>
+          <span class="or-value" id="liveOrValue">1.00x</span>
+        </div>
+        <div class="or-status-pill" id="orStatusPill">Risiko Dasar</div>
+      </div>
+
+      <form id="assessmentForm" novalidate>
+        <section class="form-section">
+          <h2 class="section-title">1. Karakteristik Fisik</h2>
+          
+          <div class="gender-selector">
+            <label class="gender-option">
+              <input type="radio" name="gender" value="female" checked>
+              <span class="gender-btn">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="8" r="5"/>
+                  <path d="M12 13v8M9 18h6"/>
+                </svg>
+                <span>Perempuan</span>
+              </span>
+            </label>
+            <label class="gender-option">
+              <input type="radio" name="gender" value="male">
+              <span class="gender-btn">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="10" cy="14" r="5"/>
+                  <path d="M19 5l-5.5 5.5M14 5h5v5"/>
+                </svg>
+                <span>Laki-Laki (OR 1.30)</span>
+              </span>
+            </label>
+          </div>
+
+          <div class="measure-grid">
+            <div class="input-field">
+              <label for="heightCm">Tinggi Badan <span class="range-hint">(120 – 220 cm)</span></label>
+              <div class="input-control">
+                <input type="number" id="heightCm" min="120" max="220" placeholder="170" value="170" required>
+              </div>
+              <span class="field-range-warn" id="heightWarn"></span>
+            </div>
+
+            <div class="input-field">
+              <label for="weightKg">Berat Badan <span class="range-hint">(30 – 180 kg)</span></label>
+              <div class="input-control">
+                <input type="number" id="weightKg" min="30" max="180" placeholder="60" value="60" required>
+              </div>
+              <span class="field-range-warn" id="weightWarn"></span>
+            </div>
+          </div>
+
+          <div class="bmi-result-card" id="bmiResultCard">
+            <div class="bmi-left">
+              <span class="bmi-label">Indeks Massa Tubuh (BMI)</span>
+              <span class="bmi-score" id="bmiScore">20.76</span>
+            </div>
+            <div class="bmi-right">
+              <span class="bmi-tag" id="bmiTag">Normal (Gizi Baik)</span>
+              <span class="bmi-note" id="bmiNote">Berat badan ideal mendukung daya tahan tubuh.</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h2 class="section-title">2. Riwayat Medis & Komorbid</h2>
+
+          <div class="toggle-list">
+            <label class="toggle-card">
+              <div class="toggle-info">
+                <strong>Riwayat Penyakit Ginjal Kronis</strong>
+                <span>Kondisi ginjal kronis mempengaruhi respon imun (OR 1.47)</span>
+              </div>
+              <div class="switch">
+                <input type="checkbox" id="hasKidneyDisease">
+                <span class="slider"></span>
+              </div>
+            </label>
+
+            <label class="toggle-card">
+              <div class="toggle-info">
+                <strong>Riwayat Penyakit Hati Kronis</strong>
+                <span>Penurunan filtrasi imunitas sistem pernapasan (OR 1.30)</span>
+              </div>
+              <div class="switch">
+                <input type="checkbox" id="hasLiverDisease">
+                <span class="slider"></span>
+              </div>
+            </label>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h2 class="section-title">3. Gaya Hidup</h2>
+
+          <label class="toggle-card">
+            <div class="toggle-info">
+              <strong>Status Perokok Aktif</strong>
+              <span>Paparan iritasi mukosa bronkus dan silia paru harian (OR 1.25)</span>
+            </div>
+            <div class="switch">
+              <input type="checkbox" id="isSmoker">
+              <span class="slider"></span>
+            </div>
+          </label>
+        </section>
+
+        <footer class="form-footer">
+          <button type="submit" class="btn-submit" id="submitAssessmentBtn">
+            <span>Simpan Profil & Lihat Dashboard</span>
+          </button>
+        </footer>
+      </form>
+    </div>
+  </main>
+
+  <script src="assessment.js?v=3"></script>
+</body>
+</html>

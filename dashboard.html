@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RESPIRA - Dashboard Tiga Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="dashboard.css?v=3">
+  <script>
+    (function () {
+      try {
+        const u = sessionStorage.getItem('respira_user');
+        if (!u) {
+          window.location.replace('index.html#login');
+          return;
+        }
+        const parsed = JSON.parse(u);
+        if (!parsed || (!parsed.id && !parsed.identifier && !parsed.fullName)) {
+          sessionStorage.removeItem('respira_user');
+          window.location.replace('index.html#login');
+        }
+      } catch (e) {
+        sessionStorage.removeItem('respira_user');
+        window.location.replace('index.html#login');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <canvas id="particleCanvas" class="particles-bg" aria-hidden="true"></canvas>
+
+  <div class="dashboard-viewport">
+    <div class="three-pane-card">
+      
+      <!-- PANE 1: SIDEBAR NAVIGASI -->
+      <aside class="sidebar-pane" aria-label="Navigasi Utama">
+        <div class="sidebar-top">
+          <div class="sidebar-brand">
+            <span class="brand-title">RESPIRA</span>
+            <span class="brand-tag">ML SYSTEM</span>
+          </div>
+
+          <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item active">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="9" rx="1"/>
+                <rect x="14" y="3" width="7" height="5" rx="1"/>
+                <rect x="14" y="12" width="7" height="9" rx="1"/>
+                <rect x="3" y="16" width="7" height="5" rx="1"/>
+              </svg>
+              <span>Dashboard</span>
+            </a>
+
+            <a href="profile-assessment.html" class="nav-item">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+              <span>Asesmen Risiko</span>
+            </a>
+
+            <a href="#analysis" class="nav-item" id="navAnalysis">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 20V10M12 20V4M6 20v-6"/>
+              </svg>
+              <span>Prediksi J00-J06</span>
+            </a>
+
+            <a href="#environment" class="nav-item" id="navEnv">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+              </svg>
+              <span>Cuaca & PM2.5</span>
+            </a>
+          </nav>
+        </div>
+
+        <div class="sidebar-footer">
+          <div class="user-pill-card">
+            <div class="user-avatar-small">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="#9ca3af">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
+            </div>
+            <div class="user-details">
+              <span class="u-name" id="sideUserName">Bagas Aditya</span>
+              <span class="u-status" id="backendStatusTag">● Offline (Lokal)</span>
+            </div>
+            <a href="index.html#login" class="btn-logout" id="logoutBtn" title="Keluar">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </aside>
+
+      <!-- PANE 2: FEED UTAMA (DESAIN REFERENSI PDF) -->
+      <main class="feed-pane" aria-label="Ringkasan Utama">
+        <header class="feed-header">
+          <div class="user-greeting">
+            <span class="greeting-time" id="greetingTime">Selamat Siang,</span>
+            <h1 class="greeting-user" id="greetingUser">Bagas Aditya!</h1>
+          </div>
+          <button type="button" class="bell-action-btn" aria-label="Notifikasi">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+              <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+            </svg>
+          </button>
+        </header>
+
+        <div class="news-banner-pill" id="newsPill">
+          <span>Baca berita terbaru mengenai ISPA</span>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+          </svg>
+        </div>
+
+        <section class="section-group">
+          <h2 class="group-title">Fitur</h2>
+          <div class="filter-chips">
+            <button type="button" class="chip active" id="tabDaily">Daily</button>
+            <button type="button" class="chip" id="tabTips">Tips</button>
+          </div>
+        </section>
+
+        <!-- KONTEN FEED 1: DAILY (DEFAULT) -->
+        <div class="feed-content-pane active-feed" id="dailyFeedContainer">
+          <!-- KARTU HERO RISIKO -->
+          <div class="hero-risk-card" id="heroRiskCard">
+            <div class="hero-rings"></div>
+            <div class="hero-top">
+              <p>Persentase risiko anda terpapar ISPA hari ini sebesar:</p>
+            </div>
+            <div class="hero-percentage" id="overallRiskValue">25%</div>
+            <div class="hero-subtext">*Persentase di atas adalah prediksi, bukan tolak ukur pasti</div>
+          </div>
+
+          <!-- RINCIAN DUA KARTU (KLIK UNTUK LIHAT DETAIL DI PANE 3) -->
+          <div class="split-breakdown-grid">
+            <div class="mini-breakdown-card active-selection" id="cardPolutan" tabindex="0">
+              <div class="mini-card-header">
+                <span>Rincian Faktor</span>
+              </div>
+              <div class="mini-rank">1. Polutan</div>
+              <div class="mini-stat">70%</div>
+              <div class="mini-hint">*Klik untuk lihat detail di panel</div>
+            </div>
+
+            <div class="mini-breakdown-card" id="cardPenyakit" tabindex="0">
+              <div class="mini-card-header">
+                <span>Rincian Penyakit</span>
+              </div>
+              <div class="mini-rank">1. Influenza</div>
+              <div class="mini-stat">30%</div>
+              <div class="mini-hint">*Klik untuk lihat detail di panel</div>
+            </div>
+          </div>
+
+          <!-- OVERVIEW STATISTICS -->
+          <section class="section-group">
+            <h2 class="group-title">Overview Statistics</h2>
+            <div class="overview-stats-row">
+              <div class="stat-soft-box">
+                <span class="stat-box-title">Persentase anda naik</span>
+                <span class="stat-box-val val-violet">1,5%</span>
+                <span class="stat-box-sub">dari kemarin</span>
+              </div>
+
+              <div class="stat-soft-box">
+                <span class="stat-box-title">Kasus ISPA mingguan</span>
+                <span class="stat-box-val val-indigo">2.412 Kasus</span>
+                <span class="stat-box-sub">DKI Jakarta</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- STRIP DATA LINGKUNGAN / CUACA -->
+          <div class="env-data-strip">
+            <div class="env-col">
+              <span class="env-k">PM2.5</span>
+              <span class="env-v" id="livePm25">42 µg/m³</span>
+            </div>
+            <div class="env-col">
+              <span class="env-k">Suhu</span>
+              <span class="env-v" id="liveTemp">29.4°C</span>
+            </div>
+            <div class="env-col">
+              <span class="env-k">Kelembapan</span>
+              <span class="env-v" id="liveHumidity">78%</span>
+            </div>
+            <div class="env-col">
+              <span class="env-k">Curah Hujan</span>
+              <span class="env-v" id="liveRain">8.2 mm</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- KONTEN FEED 2: TIPS KESEHATAN PERNAPASAN ISPA -->
+        <div class="feed-content-pane" id="tipsFeedContainer" style="display: none;">
+          <div class="tips-intro-card">
+            <div class="tips-intro-badge">STANDAR KEMENKES RI & WHO</div>
+            <h3>Panduan Pencegahan Infeksi Saluran Pernapasan Akut</h3>
+            <p>Terapkan langkah-langkah proteksi terbukti ilmiah untuk memutus rantai transmisi virus dan paparan polutan halus.</p>
+          </div>
+
+          <div class="tips-card-list">
+            <article class="interactive-tip-card active-tip" data-tip="masker" tabindex="0">
+              <div class="tip-card-top">
+                <span class="tip-pill-tag">PROTEKSI FISIK</span>
+                <span class="tip-target-tag">Target: PM2.5 & J00</span>
+              </div>
+              <h4>Kenakan Masker Standar Medis / Respirator</h4>
+              <p>Pakai masker minimal 3-ply atau tipe KF94/KN95 saat indeks PM2.5 di atas 35 µg/m³ atau berada di transportasi umum padat.</p>
+            </article>
+
+            <article class="interactive-tip-card" data-tip="cuci-tangan" tabindex="0">
+              <div class="tip-card-top">
+                <span class="tip-pill-tag">HIGIENITAS DIRI</span>
+                <span class="tip-target-tag">Target: J02 & J06</span>
+              </div>
+              <h4>Cuci Tangan Rutin 20 Detik & Etika Batuk</h4>
+              <p>Gunakan sabun atau antiseptik berbahan dasar alkohol sebelum menyentuh wajah (mata, hidung, mulut) setelah beraktivitas luar.</p>
+            </article>
+
+            <article class="interactive-tip-card" data-tip="ventilasi" tabindex="0">
+              <div class="tip-card-top">
+                <span class="tip-pill-tag">LINGKUNGAN RUANG</span>
+                <span class="tip-target-tag">Target: Sirkulasi Udara</span>
+              </div>
+              <h4>Optimalkan Ventilasi & Filter Udara (HEPA)</h4>
+              <p>Buka sirkulasi udara di waktu pagi saat kualitas udara bersih, gunakan penyaring udara HEPA saat polusi luar ruangan melonjak.</p>
+            </article>
+
+            <article class="interactive-tip-card" data-tip="hidrasi" tabindex="0">
+              <div class="tip-card-top">
+                <span class="tip-pill-tag">PERAWATAN MUKOSA</span>
+                <span class="tip-target-tag">Target: Silia Saluran Napas</span>
+              </div>
+              <h4>Jaga Hidrasi Cairan Hangat (2 - 2.5 L/Hari)</h4>
+              <p>Cairan menjaga lapisan lendir dan silia saluran napas tetap lembap dan aktif mengeluarkan partikel debu serta patogen kotor.</p>
+            </article>
+
+            <article class="interactive-tip-card" data-tip="rokok" tabindex="0">
+              <div class="tip-card-top">
+                <span class="tip-pill-tag">GAYA HIDUP SEHAT</span>
+                <span class="tip-target-tag">Target: Penurunan OR 1.25x</span>
+              </div>
+              <h4>Hindari Paparan Asap Rokok & Asap Bakaran</h4>
+              <p>Asap rokok dan pembakaran sampah merusak pertahanan silia bronkus dan mempermudah bakteri patogen menginfeksi paru-paru.</p>
+            </article>
+
+            <article class="interactive-tip-card" data-tip="imunitas" tabindex="0">
+              <div class="tip-card-top">
+                <span class="tip-pill-tag">IMUNITAS TUBUH</span>
+                <span class="tip-target-tag">Target: Daya Tahan Seluler</span>
+              </div>
+              <h4>Asupan Antioksidan, Vitamin D & Vaksinasi Rutin</h4>
+              <p>Konsumsi buah tinggi vitamin C, cukup istirahat 7-8 jam, dan pertimbangkan vaksinasi influenza tahunan bagi kelompok rentan.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="feedback-capsule-btn">
+          <span>Berikan penilaian untuk aplikasi kami!</span>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="#fbbf24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+          </svg>
+        </div>
+      </main>
+
+      <!-- PANE 3: DETAIL PANEL -->
+      <aside class="detail-pane" id="detailPane" aria-label="Panel Detail">
+        <div class="detail-container">
+          
+          <div class="mascot-status-widget">
+            <div class="mascot-aura-glow"></div>
+            <img src="assets/lungs-themed.png" alt="Maskot Paru RESPIRA" class="detail-mascot-img">
+            <div class="mascot-meta">
+              <span class="meta-tag">KONDISI PERNAPASAN</span>
+              <h3 class="meta-heading">Status Terlindungi</h3>
+              <p class="meta-desc">Indeks paparan lingkungan dalam ambang batas terkontrol.</p>
+            </div>
+          </div>
+
+          <!-- DETAIL SECTION: DINAMIS SESUAI KLIK -->
+          <div class="detail-content-card" id="detailContentCard">
+            <div class="detail-card-head">
+              <h3 id="detailPaneTitle">Analisis Faktor Polutan</h3>
+              <span class="detail-badge" id="detailBadge">Eksternal</span>
+            </div>
+
+            <div class="detail-breakdown-rows" id="detailBreakdownRows">
+              <div id="breakdownPolutan" class="detail-breakdown-group">
+                <div class="data-row">
+                  <span>Konsentrasi PM2.5 (Live)</span>
+                  <strong id="detailPm25">42.8 µg/m³</strong>
+                </div>
+                <div class="data-row">
+                  <span>Skor Odds Ratio Personal</span>
+                  <strong id="detailOrScore">2.78x</strong>
+                </div>
+                <div class="data-row">
+                  <span>Bobot Eksternal vs Internal</span>
+                  <strong>60% / 40%</strong>
+                </div>
+                <div class="data-row">
+                  <span>Riwayat Kasus Minggu Lalu</span>
+                  <strong id="detailPrevCases">2.412 Kasus</strong>
+                </div>
+              </div>
+              <div id="breakdownPenyakit" class="detail-breakdown-group" style="display: none;">
+                <div class="data-row">
+                  <span>J06 (Multiple/Unspecified)</span>
+                  <strong id="detailJ06">38% (Prediksi Dominan)</strong>
+                </div>
+                <div class="data-row">
+                  <span>J00 (Nasopharyngitis Akut)</span>
+                  <strong id="detailJ00">28%</strong>
+                </div>
+                <div class="data-row">
+                  <span>J02 (Pharyngitis Akut)</span>
+                  <strong id="detailJ02">24%</strong>
+                </div>
+                <div class="data-row">
+                  <span>Kategori Tingkat Risiko</span>
+                  <strong id="detailRiskLevel" style="color: #5c4ae4;">Sedang - Waspada</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ML PREDICTION BREAKDOWN: J00, J02, J06 -->
+          <div class="ml-prediction-widget">
+            <div class="widget-head">
+              <h4>Prediksi Sub-Kategori ISPA (ML)</h4>
+            </div>
+
+            <div class="progress-bar-group">
+              <div class="bar-header">
+                <span>J06 (Multiple / Unspecified)</span>
+                <strong id="barLabelJ06">38%</strong>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill fill-violet" id="barFillJ06" style="width: 38%;"></div>
+              </div>
+            </div>
+
+            <div class="progress-bar-group">
+              <div class="bar-header">
+                <span>J00 (Nasopharyngitis Akut)</span>
+                <strong id="barLabelJ00">28%</strong>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill fill-cyan" id="barFillJ00" style="width: 28%;"></div>
+              </div>
+            </div>
+
+            <div class="progress-bar-group">
+              <div class="bar-header">
+                <span>J02 (Pharyngitis Akut)</span>
+                <strong id="barLabelJ02">24%</strong>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill fill-indigo" id="barFillJ02" style="width: 24%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- REKOMENDASI PREVENTIF PERSONAL -->
+          <div class="advice-card-preview" id="advicePreviewCard">
+            <div class="advice-icon">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <div class="advice-text">
+              <strong>Saran Hari Ini</strong>
+              <p id="adviceText">Gunakan masker saat berkendara atau beraktivitas luar ruangan karena partikel PM2.5 sedang tinggi.</p>
+            </div>
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- MODAL BERITA & READER VIEW -->
+  <div class="news-modal-overlay" id="newsModal" style="display: none;" role="dialog" aria-modal="true">
+    <div class="news-modal-container" id="newsModalContainer">
+      <div class="news-modal-header">
+        <div class="news-modal-title-wrap">
+          <span class="news-badge-live">LIVE NEWS FEED</span>
+          <h3 id="newsModalHeading">Berita Terkini Mengenai ISPA & Kualitas Udara</h3>
+        </div>
+        <button type="button" class="news-modal-close" id="closeNewsModalBtn" aria-label="Tutup">✕</button>
+      </div>
+
+      <div class="news-modal-body" id="newsModalBody">
+        <!-- Rendered by dashboard.js -->
+      </div>
+    </div>
+  </div>
+
+  <script src="dashboard.js?v=5"></script>
+</body>
+</html>

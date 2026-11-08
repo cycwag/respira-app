@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RESPIRA - Autentikasi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=4">
+</head>
+<body>
+  <canvas id="particleCanvas" class="particles-bg" aria-hidden="true"></canvas>
+
+  <main class="page-container">
+    <div class="split-auth-card" id="authCard">
+      <div class="forms-wrapper">
+        <div class="form-pane pane-login" id="loginPane">
+          <div class="brand-header">
+            <div class="brand-logo">RESPIRA</div>
+          </div>
+
+          <div class="form-title-group">
+            <h1>Masuk Akun</h1>
+            <p>Pantau estimasi risiko ISPA harian personal Anda berbasis Machine Learning.</p>
+          </div>
+
+          <form id="loginForm" novalidate>
+            <div class="input-field">
+              <label for="email">Email atau Username</label>
+              <div class="input-control">
+                <input type="text" id="email" name="email" placeholder="nama@email.com" required autocomplete="username">
+              </div>
+              <span class="field-error" id="emailError"></span>
+            </div>
+
+            <div class="input-field">
+              <div class="label-split">
+                <label for="password">Kata Sandi</label>
+                <a href="#" class="forgot-pwd">Lupa sandi?</a>
+              </div>
+              <div class="input-control pwd-control">
+                <input type="password" id="password" name="password" placeholder="Minimal 6 karakter" required autocomplete="current-password">
+                <button type="button" class="pwd-toggle" id="togglePassword" aria-label="Lihat kata sandi">
+                  <svg id="eyeIcon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                </button>
+              </div>
+              <span class="field-error" id="passwordError"></span>
+            </div>
+
+            <div class="form-actions-row">
+              <label class="remember-checkbox">
+                <input type="checkbox" id="rememberMe">
+                <span>Ingat sesi saya</span>
+              </label>
+            </div>
+
+            <button type="submit" class="btn-primary" id="submitBtn">
+              <span>Masuk ke Dashboard</span>
+            </button>
+
+            <div class="switch-auth">
+              Belum punya akun? <button type="button" class="btn-inline-switch" id="toRegisterBtn">Daftar profil baru</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="form-pane pane-register" id="registerPane">
+          <div class="brand-header">
+            <div class="brand-logo">RESPIRA</div>
+          </div>
+
+          <div class="form-title-group">
+            <h1>Buat Akun</h1>
+            <p>Daftarkan profil untuk mulai memantau risiko pernapasan ISPA personal.</p>
+          </div>
+
+          <form id="registerForm" novalidate>
+            <div class="input-field">
+              <label for="regFullName">Nama Lengkap</label>
+              <div class="input-control">
+                <input type="text" id="regFullName" name="fullName" placeholder="Bagas Aditya" required autocomplete="name">
+              </div>
+              <span class="field-error" id="regFullNameError"></span>
+            </div>
+
+            <div class="input-field">
+              <label for="regEmail">Alamat Email</label>
+              <div class="input-control">
+                <input type="email" id="regEmail" name="email" placeholder="nama@email.com" required autocomplete="email">
+              </div>
+              <span class="field-error" id="regEmailError"></span>
+            </div>
+
+            <div class="input-field">
+              <label for="regPassword">Kata Sandi</label>
+              <div class="input-control pwd-control">
+                <input type="password" id="regPassword" name="password" placeholder="Minimal 6 karakter" required autocomplete="new-password">
+                <button type="button" class="pwd-toggle" id="toggleRegPassword" aria-label="Lihat kata sandi">
+                  <svg id="eyeRegIcon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                </button>
+              </div>
+              <span class="field-error" id="regPasswordError"></span>
+            </div>
+
+            <div class="input-field">
+              <label for="regConfirmPassword">Konfirmasi Kata Sandi</label>
+              <div class="input-control">
+                <input type="password" id="regConfirmPassword" name="confirmPassword" placeholder="Ulangi kata sandi" required autocomplete="new-password">
+              </div>
+              <span class="field-error" id="regConfirmPasswordError"></span>
+            </div>
+
+            <button type="submit" class="btn-primary" id="regSubmitBtn">
+              <span>Daftar Akun Baru</span>
+            </button>
+
+            <div class="switch-auth">
+              Sudah punya akun? <button type="button" class="btn-inline-switch" id="toLoginBtn">Masuk di sini</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <aside class="visual-side" id="visualPanel" aria-label="Mascot Showcase">
+        <div class="welcome-hero-panel">
+          <div class="welcome-mascot-wrap">
+            <div class="mascot-glow-bg"></div>
+            <img src="assets/lungs-themed.png" alt="Maskot Paru-Paru RESPIRA" class="welcome-mascot-img" id="mascotImg">
+          </div>
+
+          <div class="welcome-text-wrap" id="welcomeText">
+            <h2 id="visualTitle">Selamat Datang</h2>
+            <p id="visualDesc">Bernapas lebih tenang dengan sistem cerdas pemantauan risiko ISPA harian berbasis Machine Learning.</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="script.js?v=4"></script>
+</body>
+</html>

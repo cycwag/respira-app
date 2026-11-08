@@ -1,0 +1,438 @@
+:root {
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --bg-body: #f4f5fa;
+  --bg-card: rgba(255, 255, 255, 0.96);
+  --color-brand: #5c4ae4;
+  --color-brand-hover: #4b39d1;
+  --color-lime: #d6f93b;
+  --color-surface-tint: #edf0fd;
+  --color-text-dark: #0f121d;
+  --color-text-body: #4b5268;
+  --color-text-muted: #8b92a7;
+  --color-border: #e3e6f2;
+  --radius-outer: 32px;
+  --radius-pill: 9999px;
+  --radius-card: 20px;
+  --radius-input: 14px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+}
+
+body {
+  background-color: var(--bg-body);
+  color: var(--color-text-dark);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.particles-bg {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.page-container {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 16px;
+}
+
+.assessment-card {
+  width: 100%;
+  max-width: 620px;
+  background: var(--bg-card);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(227, 230, 242, 0.95);
+  border-radius: var(--radius-outer);
+  box-shadow: 0 30px 80px -20px rgba(92, 74, 228, 0.16), 0 4px 20px rgba(0, 0, 0, 0.02);
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.card-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.brand-badge {
+  display: inline-block;
+  background: var(--color-surface-tint);
+  color: var(--color-brand);
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.06em;
+}
+
+.back-link {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-brand);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.card-header h1 {
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-text-dark);
+  margin-bottom: 6px;
+}
+
+.card-header p {
+  font-size: 0.9rem;
+  color: var(--color-text-body);
+  line-height: 1.5;
+}
+
+.or-summary-banner {
+  background: linear-gradient(135deg, var(--color-brand) 0%, #745ff8 100%);
+  border-radius: var(--radius-card);
+  padding: 18px 22px;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 12px 28px -6px rgba(92, 74, 228, 0.4);
+}
+
+.or-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.or-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.or-value {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-top: 4px;
+}
+
+.or-status-pill {
+  background: var(--color-lime);
+  color: #0c0d12;
+  font-size: 0.76rem;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-top: 1px solid var(--color-border);
+  padding-top: 20px;
+}
+
+.section-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--color-text-dark);
+}
+
+.gender-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.gender-option input {
+  display: none;
+}
+
+.gender-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--color-surface-tint);
+  border: 2px solid transparent;
+  border-radius: var(--radius-input);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-text-body);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.gender-option input:checked + .gender-btn {
+  background: #ffffff;
+  border-color: var(--color-brand);
+  color: var(--color-brand);
+  box-shadow: 0 6px 18px -4px rgba(92, 74, 228, 0.25);
+}
+
+.measure-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.range-hint {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.field-range-warn {
+  color: #ef4444;
+  font-size: 0.72rem;
+  margin-top: 4px;
+  min-height: 14px;
+}
+
+.input-control input {
+  width: 100%;
+  padding: 12px 14px;
+  background: #f8f9fe;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-input);
+  font-size: 0.92rem;
+  color: var(--color-text-dark);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.input-control input:focus {
+  background: #ffffff;
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 4px rgba(92, 74, 228, 0.12);
+}
+
+.bmi-result-card {
+  background: var(--color-surface-tint);
+  border-radius: var(--radius-card);
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.bmi-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.bmi-label {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #616880;
+}
+
+.bmi-score {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--color-text-dark);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.bmi-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.bmi-tag {
+  display: inline-block;
+  background: #ffffff;
+  color: var(--color-brand);
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 4px;
+}
+
+.bmi-tag.warn {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.bmi-note {
+  font-size: 0.7rem;
+  color: #798199;
+}
+
+.toggle-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toggle-card {
+  background: #f8f9fe;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-input);
+  padding: 14px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.toggle-card:hover {
+  background: #ffffff;
+}
+
+.toggle-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.toggle-info strong {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-text-dark);
+}
+
+.toggle-info span {
+  font-size: 0.74rem;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #d1d5db;
+  border-radius: var(--radius-pill);
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.switch input:checked + .slider {
+  background-color: var(--color-brand);
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+.form-footer {
+  margin-top: 10px;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 15px;
+  background: var(--color-brand);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-pill);
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 12px 28px -8px rgba(92, 74, 228, 0.45);
+}
+
+.btn-submit:hover {
+  background: var(--color-brand-hover);
+  transform: translateY(-1px);
+}
+
+.btn-submit:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 580px) {
+  .assessment-card {
+    padding: 28px 20px;
+    border-radius: 24px;
+  }
+  .measure-grid, .gender-selector {
+    grid-template-columns: 1fr;
+  }
+  .bmi-result-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .bmi-right {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
