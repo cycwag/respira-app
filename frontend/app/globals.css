@@ -1085,6 +1085,601 @@ label {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* =========================================================
+   PREDICTION J00 - J06 TAB STYLES
+========================================================= */
+.prediction-intro-card {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border-radius: var(--radius-card);
+  padding: 22px 24px;
+  color: #ffffff;
+  box-shadow: 0 16px 36px -8px rgba(15, 23, 42, 0.4);
+}
+
+.prediction-intro-badge {
+  display: inline-block;
+  background: rgba(214, 249, 59, 0.2);
+  color: var(--color-lime);
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.prediction-intro-card h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.prediction-intro-card p {
+  font-size: 0.82rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+}
+
+.disease-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.disease-card {
+  background: #ffffff;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 6px 18px -4px rgba(92, 74, 228, 0.06);
+  transition: all 0.2s ease;
+}
+
+.disease-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -6px rgba(92, 74, 228, 0.12);
+}
+
+.disease-card.j06-theme {
+  border-left: 5px solid var(--color-primary);
+}
+
+.disease-card.j00-theme {
+  border-left: 5px solid #0284c7;
+}
+
+.disease-card.j02-theme {
+  border-left: 5px solid #6366f1;
+}
+
+.disease-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.disease-code-pill {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #1e293b;
+  background: var(--color-surface-tint);
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.04em;
+}
+
+.disease-status-tag {
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+}
+
+.tag-high {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.tag-med {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.tag-low {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.disease-title-wrap h4 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--color-text-title);
+  line-height: 1.35;
+  margin-bottom: 4px;
+}
+
+.disease-title-wrap p {
+  font-size: 0.78rem;
+  color: var(--color-text-body);
+  line-height: 1.45;
+}
+
+.disease-metric-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+
+.disease-stat-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.d-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.d-val {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--color-text-title);
+  margin-top: 2px;
+}
+
+.disease-progress-track {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.disease-progress-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.disease-factor-footnote {
+  font-size: 0.68rem;
+  color: #64748b;
+  line-height: 1.4;
+  font-style: italic;
+}
+
+/* =========================================================
+   CUACA & PM2.5 TAB STYLES
+========================================================= */
+.env-intro-card {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  border-radius: var(--radius-card);
+  padding: 22px 24px;
+  color: #ffffff;
+  box-shadow: 0 16px 36px -8px rgba(2, 132, 199, 0.4);
+}
+
+.env-intro-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.env-intro-card h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.env-intro-card p {
+  font-size: 0.82rem;
+  color: #e0f2fe;
+  line-height: 1.5;
+}
+
+.env-today-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.env-today-card {
+  background: #ffffff;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  box-shadow: 0 4px 12px -2px rgba(92, 74, 228, 0.05);
+}
+
+.et-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.et-val {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--color-text-title);
+  letter-spacing: -0.02em;
+}
+
+.et-sub {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--color-brand);
+}
+
+.env-chart-card {
+  background: #ffffff;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.env-chart-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.env-chart-head h4 {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--color-text-title);
+}
+
+.env-chart-unit {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background: var(--color-surface-tint);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+}
+
+.env-bar-chart {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  height: 150px;
+  align-items: flex-end;
+  padding-bottom: 4px;
+}
+
+.env-bar-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.env-bar-value {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--color-text-title);
+}
+
+.env-bar-track {
+  width: 100%;
+  max-width: 32px;
+  flex-grow: 1;
+  background: #f1f5f9;
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.env-bar-fill {
+  width: 100%;
+  border-radius: 8px 8px 0 0;
+  transition: height 0.6s ease;
+}
+
+.bar-ok { background: #10b981; }
+.bar-warn { background: #f59e0b; }
+.bar-danger { background: #ef4444; }
+
+.env-bar-day {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.env-chart-legend {
+  display: flex;
+  gap: 14px;
+  font-size: 0.68rem;
+  color: var(--color-text-body);
+  border-top: 1px solid var(--color-border);
+  padding-top: 10px;
+  flex-wrap: wrap;
+}
+
+.lg-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.env-table-card {
+  background: #ffffff;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.env-table-card h4 {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--color-text-title);
+}
+
+.env-table {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.env-tr {
+  display: grid;
+  grid-template-columns: 1.2fr 1.2fr 1fr 1fr 1.6fr;
+  align-items: center;
+  font-size: 0.74rem;
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+
+.env-tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+.env-th {
+  font-weight: 700;
+  color: var(--color-text-muted);
+  background: var(--color-surface-tint) !important;
+  font-size: 0.7rem;
+}
+
+.aqi-pill {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.aqi-good { background: #dcfce7; color: #16a34a; }
+.aqi-mid { background: #fef3c7; color: #d97706; }
+.aqi-bad { background: #fee2e2; color: #dc2626; }
+
+/* =========================================================
+   JAKARTA INTERACTIVE MAP CARD STYLES
+========================================================= */
+.jakarta-map-card {
+  background: #ffffff;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 4px 16px -2px rgba(92, 74, 228, 0.05);
+}
+
+.map-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.map-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 500px;
+}
+
+.map-badge {
+  display: inline-block;
+  align-self: flex-start;
+  background: rgba(92, 74, 228, 0.1);
+  color: var(--color-brand);
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.06em;
+  margin-bottom: 2px;
+}
+
+.map-title-wrap h4 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--color-text-title);
+  line-height: 1.3;
+}
+
+.map-title-wrap p {
+  font-size: 0.78rem;
+  color: var(--color-text-body);
+  line-height: 1.45;
+}
+
+.map-legend-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.legend-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  background: #f8fafc;
+  border: 1px solid var(--color-border);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+}
+
+.leg-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dot-baik { background: #10b981; }
+.dot-sedang { background: #f59e0b; }
+.dot-buruk { background: #ef4444; }
+
+.map-svg-container {
+  position: relative;
+  width: 100%;
+  background: #f8fafc;
+  border: 1.5px solid rgba(227, 230, 242, 0.8);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.jakarta-interactive-svg {
+  width: 100%;
+  max-width: 580px;
+  height: auto;
+  display: block;
+}
+
+.map-region-group {
+  cursor: pointer;
+  outline: none;
+}
+
+.map-region-group:focus .region-polygon {
+  stroke: #1e1b4b;
+  stroke-width: 3.5;
+}
+
+.region-polygon {
+  cursor: pointer;
+}
+
+.map-region-group:hover .region-polygon {
+  stroke-width: 3;
+}
+
+.region-label-text {
+  user-select: none;
+  pointer-events: none;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.85);
+}
+
+.map-floating-tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.4);
+  z-index: 50;
+  transition: transform 0.1s ease-out;
+  min-width: 200px;
+}
+
+.tooltip-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.tooltip-head strong {
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.tooltip-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+}
+
+.tooltip-sub {
+  font-size: 0.68rem;
+  color: #94a3b8;
+  margin-bottom: 4px;
+}
+
+.tooltip-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 5px;
+  font-size: 0.7rem;
+  color: #cbd5e1;
+}
+
+.tooltip-metrics strong {
+  color: #38bdf8;
+}
+
+.map-card-footer {
+  font-size: 0.72rem;
+  color: var(--color-brand);
+  background: var(--color-surface-tint);
+  padding: 8px 14px;
+  border-radius: 12px;
+}
+
 .hero-risk-card {
   position: relative;
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);

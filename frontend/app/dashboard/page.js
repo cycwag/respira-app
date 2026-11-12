@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import ParticleCanvas from '@/components/ParticleCanvas';
 import NewsModal from '@/components/NewsModal';
-import { assessRisk, getProfile } from '@/lib/api';
+import JakartaAirMap from '@/components/JakartaAirMap';
+import { assessRisk, getProfile, getEnvironmentHistory, getJakartaRegionsAirQuality } from '@/lib/api';
 
 const TIP_DETAILS_MAP = {
   masker: {
@@ -98,10 +99,14 @@ export default function DashboardPage() {
   });
 
   const [assessmentData, setAssessmentData] = useState(null);
-  const [activeTab, setActiveTab] = useState('daily'); // 'daily' | 'tips'
+  const [activeTab, setActiveTab] = useState('daily'); // 'daily' | 'tips' | 'prediction' | 'environment'
   const [activeCard, setActiveCard] = useState('polutan'); // 'polutan' | 'penyakit'
   const [selectedTip, setSelectedTip] = useState('masker');
   const [isNewsModalOpen, setIsNewsModalOpen] = useState(false);
+  const [envHistory, setEnvHistory] = useState([]);
+  const [loadingEnvHistory, setLoadingEnvHistory] = useState(false);
+  const [regionsData, setRegionsData] = useState([]);
+  const [selectedRegion, setSelectedRegion] = useState(null);
 
   const mlWidgetRef = useRef(null);
   const envStripRef = useRef(null);
@@ -215,6 +220,24 @@ export default function DashboardPage() {
     }
 
     loadData();
+
+    // Auto fetch environment history and 5 regions in background
+    getEnvironmentHistory()
+      .then((res) => {
+        if (isMounted && res && res.history) {
+          setEnvHistory(res.history);
+        }
+      })
+      .catch((e) => console.warn('Pre-fetch env history:', e.message));
+
+    getJakartaRegionsAirQuality()
+      .then((res) => {
+        if (isMounted && res && res.regions) {
+          setRegionsData(res.regions);
+        }
+      })
+      .catch((e) => console.warn('Pre-fetch regions air quality:', e.message));
+
     return () => { isMounted = false; };
   }, [router]);
 
@@ -252,7 +275,36 @@ export default function DashboardPage() {
   let detailRows = [];
   let currentAdvice = defaultAdvice;
 
-  if (activeTab === 'tips') {
+  if (activeTab === 'environment') {
+    if (selectedRegion) {
+      detailTitle = `ISPU ${selectedRegion.name}`;
+      detailBadge = selectedRegion.ispu?.status || 'SEDANG';
+      detailRows = [
+        { k: 'Stasiun Pemantau', v: selectedRegion.station },
+        { k: 'Status Klasifikasi ML', v: selectedRegion.ispu?.status || 'SEDANG' },
+        { k: 'PM2.5 Wilayah', v: `${selectedRegion.ispu?.pollutants?.pm25 ?? 42} µg/m³` },
+        { k: 'PM10 Wilayah', v: `${selectedRegion.ispu?.pollutants?.pm10 ?? 55}` },
+        { k: 'Polutan Dominan', v: selectedRegion.ispu?.dominantPollutant || 'PM2.5' },
+        { k: 'Suhu Wilayah', v: `${selectedRegion.temperature}°C` },
+        { k: 'Kelembapan Udara', v: `${selectedRegion.humidity}%` }
+      ];
+      currentAdvice = selectedRegion.ispu?.advice || defaultAdvice;
+    } else {
+      detailTitle = 'Monitoring Cuaca & Polutan';
+      detailBadge = 'Open-Meteo';
+      detailRows = [
+        { k: 'PM2.5 Real-Time', v: pm25Val },
+        { k: 'Suhu Udara', v: tempVal },
+        { k: 'Kelembapan Udara', v: humVal },
+        { k: 'Curah Hujan', v: rainVal },
+        { k: 'Kecepatan Angin', v: env.windSpeed ? `${env.windSpeed} km/h` : '5.4 km/h' },
+        { k: 'Stasiun Pengamatan', v: 'DKI Jakarta (Pusat)' }
+      ];
+      currentAdvice = (env.pm25 ?? 42) > 55.4
+        ? 'Kualitas udara saat ini tidak sehat bagi kelompok sensitif. Disarankan memakai masker KF94 dan kurangi aktivitas luar.'
+        : 'Kualitas udara Jakarta dalam batas wajar. Tetap perhatikan fluktuasi suhu dan jaga hidrasi.';
+    }
+  } else if (activeTab === 'tips') {
     const tipData = TIP_DETAILS_MAP[selectedTip] || TIP_DETAILS_MAP.masker;
     detailTitle = tipData.title;
     detailBadge = tipData.badge;
@@ -280,28 +332,36 @@ export default function DashboardPage() {
   }
 
   const handleNavAnalysis = (e) => {
-    e.preventDefault();
-    setActiveTab('daily');
+    if (e && e.preventDefault) e.preventDefault();
+    setActiveTab('prediction');
     setActiveCard('penyakit');
-    if (mlWidgetRef.current) {
-      mlWidgetRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      mlWidgetRef.current.style.outline = '2px solid var(--color-primary)';
-      setTimeout(() => {
-        if (mlWidgetRef.current) mlWidgetRef.current.style.outline = 'none';
-      }, 1500);
-    }
   };
 
-  const handleNavEnv = (e) => {
-    e.preventDefault();
-    setActiveTab('daily');
+  const handleNavEnv = async (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    setActiveTab('environment');
     setActiveCard('polutan');
-    if (envStripRef.current) {
-      envStripRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      envStripRef.current.style.outline = '2px solid var(--color-primary)';
-      setTimeout(() => {
-        if (envStripRef.current) envStripRef.current.style.outline = 'none';
-      }, 1500);
+
+    if (regionsData.length === 0) {
+      getJakartaRegionsAirQuality()
+        .then((res) => {
+          if (res && res.regions) setRegionsData(res.regions);
+        })
+        .catch((err) => console.warn('Gagal memuat kualitas udara 5 wilayah:', err));
+    }
+
+    if (envHistory.length === 0) {
+      setLoadingEnvHistory(true);
+      try {
+        const res = await getEnvironmentHistory();
+        if (res && res.history) {
+          setEnvHistory(res.history);
+        }
+      } catch (err) {
+        console.warn('Gagal memuat riwayat lingkungan:', err);
+      } finally {
+        setLoadingEnvHistory(false);
+      }
     }
   };
 
@@ -350,14 +410,22 @@ export default function DashboardPage() {
                   <span>Asesmen Risiko</span>
                 </Link>
 
-                <button type="button" className="nav-item" onClick={handleNavAnalysis}>
+                <button
+                  type="button"
+                  className={`nav-item ${activeTab === 'prediction' ? 'active' : ''}`}
+                  onClick={handleNavAnalysis}
+                >
                   <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M18 20V10M12 20V4M6 20v-6" />
                   </svg>
                   <span>Prediksi J00-J06</span>
                 </button>
 
-                <button type="button" className="nav-item" onClick={handleNavEnv}>
+                <button
+                  type="button"
+                  className={`nav-item ${activeTab === 'environment' ? 'active' : ''}`}
+                  onClick={handleNavEnv}
+                >
                   <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
                   </svg>
@@ -429,6 +497,16 @@ export default function DashboardPage() {
                 </button>
                 <button
                   type="button"
+                  className={`chip ${activeTab === 'prediction' ? 'active' : ''}`}
+                  onClick={() => {
+                    setActiveTab('prediction');
+                    setActiveCard('penyakit');
+                  }}
+                >
+                  Prediksi J00-J06
+                </button>
+                <button
+                  type="button"
                   className={`chip ${activeTab === 'tips' ? 'active' : ''}`}
                   onClick={() => {
                     setActiveTab('tips');
@@ -436,6 +514,13 @@ export default function DashboardPage() {
                   }}
                 >
                   Tips
+                </button>
+                <button
+                  type="button"
+                  className={`chip ${activeTab === 'environment' ? 'active' : ''}`}
+                  onClick={handleNavEnv}
+                >
+                  Cuaca & PM2.5
                 </button>
               </div>
             </section>
@@ -522,7 +607,104 @@ export default function DashboardPage() {
               </div>
             )}
 
-            {/* TAB 2: TIPS FEED */}
+            {/* TAB 2: PREDIKSI J00 - J06 (PANEL TENGAH) */}
+            {activeTab === 'prediction' && (
+              <div className="feed-content-pane">
+                <div className="prediction-intro-card">
+                  <div className="prediction-intro-badge">MULTIVARIATE LINEAR REGRESSION</div>
+                  <h3>Prediksi Spesifik Sub-Kategori ISPA (ICD-10)</h3>
+                  <p>Estimasi probabilitas kasus mingguan di DKI Jakarta berdasarkan interaksi konsentrasi PM2.5, suhu, kelembapan, curah hujan, angin, dan kasus historis.</p>
+                </div>
+
+                <div className="disease-cards-container">
+                  {/* Card J06 */}
+                  <div className="disease-card j06-theme">
+                    <div className="disease-card-header">
+                      <div className="disease-code-pill">ICD-10: J06</div>
+                      <span className="disease-status-tag tag-high">Prediksi Tertinggi</span>
+                    </div>
+                    <div className="disease-title-wrap">
+                      <h4>Acute Upper Respiratory Infections of Multiple and Unspecified Sites</h4>
+                      <p>Infeksi akut saluran pernapasan atas pada beberapa lokasi sekaligus atau tidak spesifik.</p>
+                    </div>
+                    <div className="disease-metric-row">
+                      <div className="disease-stat-box">
+                        <span className="d-label">Probabilitas Risiko</span>
+                        <span className="d-val val-violet">{j06Val}%</span>
+                      </div>
+                      <div className="disease-stat-box">
+                        <span className="d-label">Estimasi Kasus Mingguan</span>
+                        <span className="d-val">{assessmentData?.regressionCases?.j06Cases || Math.round(overallRisk * 1.8)} Kasus</span>
+                      </div>
+                    </div>
+                    <div className="disease-progress-track">
+                      <div className="disease-progress-fill fill-violet" style={{ width: `${j06Val}%` }}></div>
+                    </div>
+                    <div className="disease-factor-footnote">
+                      *Dipengaruhi kuat oleh riwayat tren kasus sebelumnya dan akumulasi partikel PM2.5 tinggi.
+                    </div>
+                  </div>
+
+                  {/* Card J00 */}
+                  <div className="disease-card j00-theme">
+                    <div className="disease-card-header">
+                      <div className="disease-code-pill">ICD-10: J00</div>
+                      <span className="disease-status-tag tag-med">Moderat</span>
+                    </div>
+                    <div className="disease-title-wrap">
+                      <h4>Acute Nasopharyngitis (Common Cold)</h4>
+                      <p>Peradangan akut membran mukosa rongga hidung dan faring belakang.</p>
+                    </div>
+                    <div className="disease-metric-row">
+                      <div className="disease-stat-box">
+                        <span className="d-label">Probabilitas Risiko</span>
+                        <span className="d-val val-cyan">{j00Val}%</span>
+                      </div>
+                      <div className="disease-stat-box">
+                        <span className="d-label">Estimasi Kasus Mingguan</span>
+                        <span className="d-val">{assessmentData?.regressionCases?.j00Cases || Math.round(overallRisk * 1.2)} Kasus</span>
+                      </div>
+                    </div>
+                    <div className="disease-progress-track">
+                      <div className="disease-progress-fill fill-cyan" style={{ width: `${j00Val}%` }}></div>
+                    </div>
+                    <div className="disease-factor-footnote">
+                      *Sensitif terhadap penurunan suhu udara malam hari dan kelembapan udara yang tinggi.
+                    </div>
+                  </div>
+
+                  {/* Card J02 */}
+                  <div className="disease-card j02-theme">
+                    <div className="disease-card-header">
+                      <div className="disease-code-pill">ICD-10: J02</div>
+                      <span className="disease-status-tag tag-low">Terkontrol</span>
+                    </div>
+                    <div className="disease-title-wrap">
+                      <h4>Acute Pharyngitis</h4>
+                      <p>Radang tenggorokan akut yang memicu nyeri menelan, batuk kering, dan demam.</p>
+                    </div>
+                    <div className="disease-metric-row">
+                      <div className="disease-stat-box">
+                        <span className="d-label">Probabilitas Risiko</span>
+                        <span className="d-val val-indigo">{j02Val}%</span>
+                      </div>
+                      <div className="disease-stat-box">
+                        <span className="d-label">Estimasi Kasus Mingguan</span>
+                        <span className="d-val">{assessmentData?.regressionCases?.j02Cases || Math.round(overallRisk * 0.95)} Kasus</span>
+                      </div>
+                    </div>
+                    <div className="disease-progress-track">
+                      <div className="disease-progress-fill fill-indigo" style={{ width: `${j02Val}%` }}></div>
+                    </div>
+                    <div className="disease-factor-footnote">
+                      *Korelasi meningkat saat paparan asap rokok dan iritasi saluran pernapasan aktif.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* TAB 3: TIPS FEED */}
             {activeTab === 'tips' && (
               <div className="feed-content-pane">
                 <div className="tips-intro-card">
@@ -609,6 +791,107 @@ export default function DashboardPage() {
                     <h4>Asupan Antioksidan, Vitamin D & Vaksinasi Rutin</h4>
                     <p>Konsumsi buah tinggi vitamin C, cukup istirahat 7-8 jam, dan pertimbangkan vaksinasi influenza tahunan bagi kelompok rentan.</p>
                   </article>
+                </div>
+              </div>
+            )}
+
+            {/* TAB 4: CUACA & PM2.5 DASHBOARD */}
+            {activeTab === 'environment' && (
+              <div className="feed-content-pane">
+                <div className="env-intro-card">
+                  <div className="env-intro-badge">OPEN-METEO LIVE DATA</div>
+                  <h3>Kondisi Cuaca & Kualitas Udara DKI Jakarta</h3>
+                  <p>Pemantauan PM2.5, suhu, kelembapan, dan curah hujan harian sebagai variabel input model prediksi ISPA.</p>
+                </div>
+
+                {/* Kartu kondisi hari ini */}
+                <div className="env-today-grid">
+                  <div className="env-today-card">
+                    <span className="et-label">PM2.5 Saat Ini</span>
+                    <span className="et-val">{pm25Val}</span>
+                    <span className="et-sub">{(env.pm25 ?? 42) > 55.4 ? 'Tidak Sehat (Sensitif)' : (env.pm25 ?? 42) > 12 ? 'Sedang' : 'Baik'}</span>
+                  </div>
+                  <div className="env-today-card">
+                    <span className="et-label">Suhu Udara</span>
+                    <span className="et-val">{tempVal}</span>
+                    <span className="et-sub">Real-time</span>
+                  </div>
+                  <div className="env-today-card">
+                    <span className="et-label">Kelembapan</span>
+                    <span className="et-val">{humVal}</span>
+                    <span className="et-sub">Relatif</span>
+                  </div>
+                  <div className="env-today-card">
+                    <span className="et-label">Curah Hujan</span>
+                    <span className="et-val">{rainVal}</span>
+                    <span className="et-sub">Per jam</span>
+                  </div>
+                </div>
+
+                {/* PETA INTERAKTIF 5 WILAYAH DKI JAKARTA */}
+                <JakartaAirMap
+                  regions={regionsData}
+                  selectedRegionId={selectedRegion?.id}
+                  onSelectRegion={(reg) => setSelectedRegion(reg)}
+                />
+
+                {/* Grafik batang PM2.5 7 hari */}
+                <div className="env-chart-card">
+                  <div className="env-chart-head">
+                    <h4>Tren PM2.5 — 7 Hari Terakhir</h4>
+                    <span className="env-chart-unit">µg/m³</span>
+                  </div>
+                  {loadingEnvHistory ? (
+                    <div className="news-loading-state">
+                      <div className="spinner-dots"></div>
+                      <span>Memuat data historis...</span>
+                    </div>
+                  ) : (
+                    <div className="env-bar-chart">
+                      {envHistory.map((d) => {
+                        const maxPm = Math.max(...envHistory.map((x) => x.pm25), 60);
+                        const h = Math.max(6, Math.round((d.pm25 / maxPm) * 100));
+                        const level = d.pm25 > 55.4 ? 'bar-danger' : d.pm25 > 35.4 ? 'bar-warn' : 'bar-ok';
+                        return (
+                          <div className="env-bar-col" key={d.date}>
+                            <span className="env-bar-value">{d.pm25}</span>
+                            <div className="env-bar-track">
+                              <div className={`env-bar-fill ${level}`} style={{ height: `${h}%` }}></div>
+                            </div>
+                            <span className="env-bar-day">{d.dayName}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                  <div className="env-chart-legend">
+                    <span><i className="lg-dot bar-ok"></i>Baik/Sedang (≤35.4)</span>
+                    <span><i className="lg-dot bar-warn"></i>Waspada (35.5–55.4)</span>
+                    <span><i className="lg-dot bar-danger"></i>Tidak Sehat (&gt;55.4)</span>
+                  </div>
+                </div>
+
+                {/* Tabel riwayat cuaca */}
+                <div className="env-table-card">
+                  <h4>Riwayat Cuaca Harian</h4>
+                  <div className="env-table">
+                    <div className="env-tr env-th">
+                      <span>Hari</span>
+                      <span>Suhu (°C)</span>
+                      <span>Lembap</span>
+                      <span>Hujan</span>
+                      <span>Status Udara</span>
+                    </div>
+                    {envHistory.map((d) => (
+                      <div className="env-tr" key={d.date}>
+                        <span><strong>{d.dayName}</strong> <small>{d.date.slice(5)}</small></span>
+                        <span>{d.tempMin}–{d.tempMax}</span>
+                        <span>{d.humidity}%</span>
+                        <span>{d.rain} mm</span>
+                        <span className={d.pm25 > 55.4 ? 'aqi-pill aqi-bad' : d.pm25 > 12 ? 'aqi-pill aqi-mid' : 'aqi-pill aqi-good'}>{d.aqiCategory}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             )}

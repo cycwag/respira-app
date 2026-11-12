@@ -26,7 +26,7 @@ function getAuthHeaders() {
   return {};
 }
 
-async function fetchWithTimeout(url, options = {}, timeoutMs = 8000) {
+async function fetchWithTimeout(url, options = {}, timeoutMs = 15000) {
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeoutMs);
   try {
@@ -37,7 +37,7 @@ async function fetchWithTimeout(url, options = {}, timeoutMs = 8000) {
     return res;
   } catch (err) {
     if (err.name === 'AbortError') {
-      throw new Error('Koneksi ke server timeout (melebihi 8 detik).');
+      throw new Error('Koneksi ke server timeout (melebihi 15 detik).');
     }
     throw new Error('Gagal terhubung ke server backend.');
   } finally {
@@ -126,6 +126,24 @@ export async function getEnvironmentData() {
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
     throw new Error(data.error || `Gagal memuat data cuaca (status ${res.status}).`);
+  }
+  return data;
+}
+
+export async function getEnvironmentHistory() {
+  const res = await fetchWithTimeout(`${BACKEND_URL}/api/environment/history`);
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(data.error || `Gagal memuat data historis cuaca (status ${res.status}).`);
+  }
+  return data;
+}
+
+export async function getJakartaRegionsAirQuality() {
+  const res = await fetchWithTimeout(`${BACKEND_URL}/api/environment/regions`);
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(data.error || `Gagal memuat kualitas udara 5 wilayah (status ${res.status}).`);
   }
   return data;
 }

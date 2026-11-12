@@ -1,0 +1,303 @@
+{
+  "communities": {
+    "0": [
+      "backend_src_index",
+      "backend_src_index_app",
+      "backend_src_index_authlimiter",
+      "backend_src_index_cors",
+      "backend_src_index_createratelimiter",
+      "backend_src_index_express",
+      "backend_src_index_generallimiter",
+      "backend_src_index_generateadvice",
+      "backend_src_index_getauthenticateduser",
+      "backend_src_index_isvaliduuid",
+      "backend_src_index_newslimiter",
+      "backend_src_index_path",
+      "backend_src_index_sanitizestring",
+      "backend_src_scoring",
+      "backend_src_scoring_calculatepersonaloddsratio",
+      "backend_src_scoring_calculateweightedrisk",
+      "backend_src_scoring_mockregressioninference",
+      "backend_src_scoring_parsenum",
+      "backend_src_supabase",
+      "backend_src_supabase_createclient",
+      "backend_src_supabase_isconfigured",
+      "backend_src_supabase_path",
+      "backend_src_supabase_supabase",
+      "backend_src_supabase_supabaseadmin",
+      "ref_path",
+      "ref_supabase_supabase_js"
+    ],
+    "1": [
+      "frontend_app_dashboard_page",
+      "frontend_app_dashboard_page_dashboardpage",
+      "frontend_app_dashboard_page_dashboardpage_loaddata",
+      "frontend_app_dashboard_page_tip_details_map",
+      "frontend_components_newsmodal",
+      "frontend_components_newsmodal_newsmodal",
+      "frontend_components_newsmodal_newsmodal_getsafeimg",
+      "frontend_components_newsmodal_newsmodal_getsafeurl",
+      "frontend_components_newsmodal_newsmodal_handleselectarticle",
+      "frontend_components_newsmodal_newsmodal_loadnews",
+      "frontend_lib_api",
+      "frontend_lib_api_assessrisk",
+      "frontend_lib_api_fetcharticledetail",
+      "frontend_lib_api_fetchispanews",
+      "frontend_lib_api_fetchwithtimeout",
+      "frontend_lib_api_getauthheaders",
+      "frontend_lib_api_getenvironmentdata",
+      "frontend_lib_api_getenvironmenthistory",
+      "frontend_lib_api_getprofile",
+      "frontend_lib_api_saveprofile",
+      "frontend_lib_api_supabase"
+    ],
+    "2": [
+      "backend_package",
+      "backend_package_dependencies",
+      "backend_package_dependencies_cors",
+      "backend_package_dependencies_dotenv",
+      "backend_package_dependencies_express",
+      "backend_package_devdependencies",
+      "backend_package_devdependencies_nodemon",
+      "backend_package_main",
+      "backend_package_name",
+      "backend_package_scripts",
+      "backend_package_scripts_dev",
+      "backend_package_scripts_start",
+      "backend_package_type",
+      "backend_package_version",
+      "ref_cors",
+      "ref_dotenv",
+      "ref_express",
+      "ref_nodemon"
+    ],
+    "3": [
+      "backend_package_dependencies_supabase_supabase_js",
+      "backend_package_json_ref_supabase_supabase_js",
+      "frontend_package",
+      "frontend_package_dependencies",
+      "frontend_package_dependencies_next",
+      "frontend_package_dependencies_react",
+      "frontend_package_dependencies_react_dom",
+      "frontend_package_dependencies_supabase_supabase_js",
+      "frontend_package_name",
+      "frontend_package_private",
+      "frontend_package_scripts",
+      "frontend_package_scripts_build",
+      "frontend_package_scripts_dev",
+      "frontend_package_scripts_start",
+      "frontend_package_version",
+      "ref_next",
+      "ref_react_dom"
+    ],
+    "4": [
+      "frontend_app_assessment_page",
+      "frontend_app_assessment_page_assessmentpage",
+      "frontend_app_page",
+      "frontend_app_page_authpage",
+      "frontend_components_particlecanvas",
+      "frontend_components_particlecanvas_particlecanvas",
+      "frontend_components_particlecanvas_particlecanvas_animate",
+      "frontend_components_particlecanvas_particlecanvas_resizecanvas",
+      "frontend_lib_api_loginuser",
+      "frontend_lib_api_registeruser",
+      "ref_react"
+    ],
+    "5": [
+      "backend_src_weatherservice",
+      "backend_src_weatherservice_fetchjakarta7dayshistory",
+      "backend_src_weatherservice_fetchjakartaenvironmentaldata",
+      "backend_src_weatherservice_fetchjson",
+      "backend_src_weatherservice_http",
+      "backend_src_weatherservice_https",
+      "backend_src_weatherservice_parseenvnum",
+      "ref_http",
+      "ref_https"
+    ],
+    "6": [
+      "backend_src_newsservice",
+      "backend_src_newsservice_cache",
+      "backend_src_newsservice_decodehtmlentities",
+      "backend_src_newsservice_fallback_articles",
+      "backend_src_newsservice_getarticledetail",
+      "backend_src_newsservice_getispanewslist",
+      "backend_src_newsservice_prunecache",
+      "backend_src_newsservice_validatenewsurl"
+    ],
+    "7": [
+      "frontend_app_globals",
+      "frontend_app_layout",
+      "frontend_app_layout_metadata",
+      "frontend_app_layout_plusjakartasans",
+      "frontend_app_layout_rootlayout"
+    ],
+    "8": [
+      "frontend_jsconfig",
+      "frontend_jsconfig_compileroptions",
+      "frontend_jsconfig_compileroptions_baseurl",
+      "frontend_jsconfig_compileroptions_paths"
+    ],
+    "9": [
+      "frontend_next_config",
+      "frontend_next_config_nextconfig",
+      "next"
+    ],
+    "10": [
+      "start"
+    ]
+  },
+  "cohesion": {
+    "0": 0.10153846153846154,
+    "1": 0.22380952380952382,
+    "2": 0.13725490196078433,
+    "3": 0.13970588235294118,
+    "4": 0.32727272727272727,
+    "5": 0.3333333333333333,
+    "6": 0.42857142857142855,
+    "7": 0.4,
+    "8": 0.5,
+    "9": 0.6666666666666666,
+    "10": 1.0
+  },
+  "gods": [
+    {
+      "id": "frontend_lib_api_fetchwithtimeout",
+      "label": "fetchWithTimeout()",
+      "degree": 10
+    },
+    {
+      "id": "frontend_components_newsmodal_newsmodal",
+      "label": "NewsModal()",
+      "degree": 9
+    },
+    {
+      "id": "frontend_components_particlecanvas_particlecanvas",
+      "label": "ParticleCanvas()",
+      "degree": 9
+    },
+    {
+      "id": "frontend_app_dashboard_page_dashboardpage",
+      "label": "DashboardPage()",
+      "degree": 7
+    },
+    {
+      "id": "ref_react",
+      "label": "react",
+      "degree": 7
+    },
+    {
+      "id": "frontend_lib_api_assessrisk",
+      "label": "assessRisk()",
+      "degree": 6
+    },
+    {
+      "id": "frontend_lib_api_getprofile",
+      "label": "getProfile()",
+      "degree": 6
+    },
+    {
+      "id": "ref_next",
+      "label": "next",
+      "degree": 6
+    },
+    {
+      "id": "frontend_lib_api_fetcharticledetail",
+      "label": "fetchArticleDetail()",
+      "degree": 5
+    },
+    {
+      "id": "frontend_lib_api_fetchispanews",
+      "label": "fetchIspaNews()",
+      "degree": 5
+    }
+  ],
+  "surprises": [
+    {
+      "source": "@supabase/supabase-js@^2.45.6",
+      "target": "@supabase/supabase-js",
+      "source_files": [
+        "frontend/package.json",
+        "backend/package.json"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "declares",
+      "why": "connects across different repos/directories"
+    },
+    {
+      "source": "DashboardPage()",
+      "target": "ParticleCanvas()",
+      "source_files": [
+        "frontend/app/dashboard/page.js",
+        "frontend/components/ParticleCanvas.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "handleSelectArticle()",
+      "target": "fetchArticleDetail()",
+      "source_files": [
+        "frontend/components/NewsModal.js",
+        "frontend/lib/api.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "peripheral node `handleSelectArticle()` unexpectedly reaches hub `fetchArticleDetail()`"
+    },
+    {
+      "source": "loadNews()",
+      "target": "fetchIspaNews()",
+      "source_files": [
+        "frontend/components/NewsModal.js",
+        "frontend/lib/api.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "peripheral node `loadNews()` unexpectedly reaches hub `fetchIspaNews()`"
+    },
+    {
+      "source": "AssessmentPage()",
+      "target": "saveProfile()",
+      "source_files": [
+        "frontend/app/assessment/page.js",
+        "frontend/lib/api.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `@supabase/supabase-js` connect `Community 3` to `Community 2`?",
+      "why": "High betweenness centrality (0.211) - this node is a cross-community bridge."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 0` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.10153846153846154 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `next` connect `Community 3` to `Community 1`, `Community 4`, `Community 7`?",
+      "why": "High betweenness centrality (0.133) - this node is a cross-community bridge."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 2` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.13725490196078433 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `cors` connect `Community 2` to `Community 0`?",
+      "why": "High betweenness centrality (0.100) - this node is a cross-community bridge."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 3` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.13970588235294118 - nodes in this community are weakly interconnected."
+    }
+  ]
+}

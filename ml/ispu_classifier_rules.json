@@ -1,0 +1,48 @@
+{
+  "best_model": "Random Forest Classifier",
+  "features": [
+    "pm25",
+    "pm10",
+    "so2",
+    "co",
+    "o3",
+    "no2"
+  ],
+  "classes": [
+    "BAIK",
+    "SEDANG",
+    "TIDAK SEHAT"
+  ],
+  "metrics": {
+    "accuracy": 99.44,
+    "f1_score": 98.76,
+    "precision": 99.75,
+    "recall": 97.83
+  },
+  "permen_lhk_thresholds": {
+    "pm25": {
+      "baik_max": 15.5,
+      "sedang_max": 55.4
+    },
+    "pm10": {
+      "baik_max": 50.0,
+      "sedang_max": 100.0
+    },
+    "so2": {
+      "baik_max": 50.0,
+      "sedang_max": 180.0
+    },
+    "co": {
+      "baik_max": 25.0,
+      "sedang_max": 50.0
+    },
+    "o3": {
+      "baik_max": 50.0,
+      "sedang_max": 100.0
+    },
+    "no2": {
+      "baik_max": 50.0,
+      "sedang_max": 100.0
+    }
+  }
+}
