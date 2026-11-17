@@ -349,6 +349,42 @@ export default function DashboardPage() {
           desc: 'Indeks paparan lingkungan dalam ambang batas aman terkontrol (<10%).'
         });
 
+  // 1. Kontribusi Polutan & Cuaca vs Kerentanan Internal
+  const orValNum = parseFloat(orVal) || 1.30;
+  const internalShareScore = Math.min(1.0, Math.max(0.05, (orValNum - 1.0) / 4.0)) * 0.40;
+  const currentPm25Num = parseFloat(env.pm25) || 45.0;
+  const pmRatio = Math.min(1.0, Math.max(0.1, currentPm25Num / 75.0));
+  const externalShareScore = 0.12 + (pmRatio * 0.48);
+  const totalFactorScore = externalShareScore + internalShareScore;
+  const pollutantSharePercentage = Math.round((externalShareScore / totalFactorScore) * 100);
+
+  // 2. Penyakit Prediksi Peringkat #1
+  const topDisease = sortedDiseases[0] || {
+    code: 'J00',
+    title: 'Acute Nasopharyngitis',
+    score: 28
+  };
+  const topDiseaseShortName = topDisease.code === 'J00'
+    ? 'Common Cold'
+    : (topDisease.code === 'J06' ? 'ISPA Akut' : 'Pharyngitis');
+
+  // 3. Delta Risiko vs Kemarin dari Riwayat 7 Hari
+  let deltaPercent = 1.5;
+  let deltaDirection = 'naik';
+  if (Array.isArray(envHistory) && envHistory.length >= 2) {
+    const todayPm25 = envHistory[envHistory.length - 1]?.pm25 || 45.0;
+    const yestPm25 = envHistory[envHistory.length - 2]?.pm25 || 42.0;
+    const diff = todayPm25 - yestPm25;
+    const calcDelta = parseFloat((diff * 0.08).toFixed(1));
+    if (Math.abs(calcDelta) >= 0.1) {
+      deltaPercent = Math.abs(calcDelta);
+      deltaDirection = calcDelta >= 0 ? 'naik' : 'turun';
+    } else {
+      deltaPercent = 0.8;
+      deltaDirection = 'stabil';
+    }
+  }
+
   // Determine Pane 3 contents based on active Tab and Selection
   let detailTitle = 'Analisis Faktor Polutan';
   let detailBadge = 'Eksternal';
@@ -408,7 +444,7 @@ export default function DashboardPage() {
     detailRows = [
       { k: 'Konsentrasi PM2.5 (Live)', v: pm25Val },
       { k: 'Skor Odds Ratio Personal', v: `${orVal}x` },
-      { k: 'Bobot Eksternal vs Internal', v: '60% / 40%' },
+      { k: 'Kontribusi Polutan vs Internal', v: `${pollutantSharePercentage}% / ${100 - pollutantSharePercentage}%` },
       { k: 'Riwayat Kasus Minggu Lalu', v: prevCasesVal }
     ];
   }
@@ -624,8 +660,8 @@ export default function DashboardPage() {
                     <div className="mini-card-header">
                       <span>Rincian Faktor</span>
                     </div>
-                    <div className="mini-rank">1. Polutan</div>
-                    <div className="mini-stat">70%</div>
+                    <div className="mini-rank">1. Polutan Udara</div>
+                    <div className="mini-stat">{pollutantSharePercentage}%</div>
                     <div className="mini-hint">*Klik untuk lihat detail di panel</div>
                   </div>
 
@@ -637,8 +673,8 @@ export default function DashboardPage() {
                     <div className="mini-card-header">
                       <span>Rincian Penyakit</span>
                     </div>
-                    <div className="mini-rank">1. Influenza</div>
-                    <div className="mini-stat">30%</div>
+                    <div className="mini-rank">1. {topDisease.code} ({topDiseaseShortName})</div>
+                    <div className="mini-stat">{topDisease.score}%</div>
                     <div className="mini-hint">*Klik untuk lihat detail di panel</div>
                   </div>
                 </div>
@@ -648,8 +684,12 @@ export default function DashboardPage() {
                   <h2 className="group-title">Overview Statistics</h2>
                   <div className="overview-stats-row">
                     <div className="stat-soft-box">
-                      <span className="stat-box-title">Persentase anda naik</span>
-                      <span className="stat-box-val val-violet">1,5%</span>
+                      <span className="stat-box-title">
+                        {deltaDirection === 'turun' ? 'Persentase anda turun' : 'Persentase anda naik'}
+                      </span>
+                      <span className={`stat-box-val ${deltaDirection === 'turun' ? 'val-cyan' : 'val-violet'}`}>
+                        {deltaDirection === 'turun' ? `-${deltaPercent}%` : `+${deltaPercent}%`}
+                      </span>
                       <span className="stat-box-sub">dari kemarin</span>
                     </div>
 
