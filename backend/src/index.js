@@ -583,6 +583,7 @@ app.post('/api/assess', async (req, res) => {
     let regressionInput = null;
     let regressionCases;
     let regressionModelStatus = 'placeholder_fallback_model_not_configured';
+    let previousCasesBreakdown = null;
     if (regressionModel) {
       const featurePeriod = getPreviousCompleteJakartaWeek();
       const [dinkesWeek, weeklyEnvironment] = await Promise.all([
@@ -592,10 +593,17 @@ app.post('/api/assess', async (req, res) => {
       const targetStart = new Date(`${featurePeriod.endDate}T00:00:00.000Z`);
       targetStart.setUTCDate(targetStart.getUTCDate() + 1);
       const targetEnd = new Date(targetStart.getTime() + 6 * 86400000);
+      previousCasesBreakdown = {
+        j00Cases: dinkesWeek.j00Cases,
+        j02Cases: dinkesWeek.j02Cases,
+        j06Cases: dinkesWeek.j06Cases,
+        total: dinkesWeek.prevCases
+      };
       regressionInput = {
         ...weeklyEnvironment,
         prevCases: dinkesWeek.prevCases,
         prevCasesSource: 'dinkes',
+        previousCasesBreakdown,
         casePeriod: {
           startDate: featurePeriod.startDate,
           endDate: featurePeriod.endDate
@@ -609,6 +617,12 @@ app.post('/api/assess', async (req, res) => {
       regressionModelStatus = 'trained_model';
     } else {
       regressionCases = mockRegressionInference(activeEnv || {});
+      previousCasesBreakdown = {
+        j00Cases: 1280,
+        j02Cases: 110,
+        j06Cases: 1220,
+        total: 1850
+      };
     }
     const risks = calculateWeightedRisk({
       internalOR: oddsRatio,
@@ -659,6 +673,7 @@ app.post('/api/assess', async (req, res) => {
       environmentalData: regressionInput || activeEnv,
       oddsRatio,
       regressionCases,
+      previousCasesBreakdown,
       regressionInput,
       regressionModelStatus,
       riskPercentages: {

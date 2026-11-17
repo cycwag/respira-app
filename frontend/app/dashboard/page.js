@@ -7,7 +7,14 @@ import ParticleCanvas from '@/components/ParticleCanvas';
 import NewsModal from '@/components/NewsModal';
 import JakartaAirMap from '@/components/JakartaAirMap';
 import { assessRisk, getProfile, getEnvironmentHistory, getJakartaRegionsAirQuality } from '@/lib/api';
-import { predictCasesClientSide, calculateWeightedRisksClientSide, classifyRisk, REGRESSION_WEIGHTS } from '@/lib/regressionInference';
+import {
+  predictCasesClientSide,
+  calculateWeightedRisksClientSide,
+  classifyRisk,
+  formatDeltaCases,
+  DEFAULT_PREVIOUS_CASES,
+  REGRESSION_WEIGHTS
+} from '@/lib/regressionInference';
 
 const TIP_DETAILS_MAP = {
   masker: {
@@ -269,6 +276,22 @@ export default function DashboardPage() {
   const j00Val = risks.j00 ?? 28;
   const j02Val = risks.j02 ?? 24;
 
+  const prevCasesBreakdown = assessmentData?.previousCasesBreakdown ||
+    assessmentData?.regressionInput?.previousCasesBreakdown ||
+    DEFAULT_PREVIOUS_CASES;
+
+  const currentJ00 = assessmentData?.regressionCases?.j00Cases ?? 6241;
+  const currentJ06 = assessmentData?.regressionCases?.j06Cases ?? 4246;
+  const currentJ02 = assessmentData?.regressionCases?.j02Cases ?? 1364;
+
+  const prevJ00 = prevCasesBreakdown?.j00Cases ?? 6255;
+  const prevJ06 = prevCasesBreakdown?.j06Cases ?? 4246;
+  const prevJ02 = prevCasesBreakdown?.j02Cases ?? 1364;
+
+  const deltaJ00 = formatDeltaCases(currentJ00, prevJ00);
+  const deltaJ06 = formatDeltaCases(currentJ06, prevJ06);
+  const deltaJ02 = formatDeltaCases(currentJ02, prevJ02);
+
   const rawDiseases = [
     {
       code: 'J00',
@@ -276,7 +299,8 @@ export default function DashboardPage() {
       title: 'Acute Nasopharyngitis (Common Cold)',
       desc: 'Peradangan akut membran mukosa rongga hidung dan faring belakang.',
       score: j00Val,
-      cases: (assessmentData?.regressionCases?.j00Cases || 8531).toLocaleString('id-ID'),
+      cases: currentJ00.toLocaleString('id-ID'),
+      deltaInfo: deltaJ00,
       theme: 'j00-theme',
       colorClass: 'val-cyan',
       fillClass: 'fill-cyan',
@@ -288,7 +312,8 @@ export default function DashboardPage() {
       title: 'Acute Upper Respiratory Infections of Multiple and Unspecified Sites',
       desc: 'Infeksi akut saluran pernapasan atas pada beberapa lokasi sekaligus atau tidak spesifik.',
       score: j06Val,
-      cases: (assessmentData?.regressionCases?.j06Cases || 6983).toLocaleString('id-ID'),
+      cases: currentJ06.toLocaleString('id-ID'),
+      deltaInfo: deltaJ06,
       theme: 'j06-theme',
       colorClass: 'val-violet',
       fillClass: 'fill-violet',
@@ -300,7 +325,8 @@ export default function DashboardPage() {
       title: 'Acute Pharyngitis',
       desc: 'Radang tenggorokan akut yang memicu nyeri menelan, batuk kering, dan demam.',
       score: j02Val,
-      cases: (assessmentData?.regressionCases?.j02Cases || 1873).toLocaleString('id-ID'),
+      cases: currentJ02.toLocaleString('id-ID'),
+      deltaInfo: deltaJ02,
       theme: 'j02-theme',
       colorClass: 'val-indigo',
       fillClass: 'fill-indigo',
@@ -432,7 +458,7 @@ export default function DashboardPage() {
     detailRows = [
       ...sortedDiseases.map((d) => ({
         k: `${d.code} (${d.statusLabel})`,
-        v: `${d.score}% • ${d.cases} kasus`
+        v: `${d.score}% • ${d.cases} kasus${d.deltaInfo ? ` (${d.deltaInfo.diff > 0 ? `+${d.deltaInfo.diff}` : d.deltaInfo.diff})` : ''}`
       })),
       { k: 'Akurasi Model OLS', v: '86.6% (Validasi Uji 2026)' },
       { k: 'Kategori Tingkat Risiko', v: riskLevel }
@@ -759,6 +785,11 @@ export default function DashboardPage() {
                           <div className="disease-stat-box">
                             <span className="d-label">Estimasi Kasus Mingguan</span>
                             <span className="d-val">{disease.cases} Kasus</span>
+                            {disease.deltaInfo && (
+                              <span style={{ display: 'block', fontSize: '0.74rem', marginTop: '0.25rem', color: disease.deltaInfo.color, fontWeight: 500 }}>
+                                {disease.deltaInfo.text}
+                              </span>
+                            )}
                           </div>
                         </div>
                         <div className="disease-progress-track">

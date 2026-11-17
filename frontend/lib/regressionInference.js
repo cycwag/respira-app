@@ -125,3 +125,43 @@ export function classifyRisk(score, isHighest = false) {
     tone: 'safe'
   };
 }
+
+export const DEFAULT_PREVIOUS_CASES = {
+  j00Cases: 6255,
+  j02Cases: 1364,
+  j06Cases: 4246,
+  total: 11865
+};
+
+/**
+ * Format perbandingan selisih kasus mingguan (delta)
+ */
+export function formatDeltaCases(currentCases, previousCases) {
+  const cur = Number(currentCases);
+  const prev = Number(previousCases);
+  if (!Number.isFinite(cur) || !Number.isFinite(prev)) return null;
+
+  const diff = cur - prev;
+  if (diff > 0) {
+    return {
+      diff,
+      text: `▲ Bertambah ${diff.toLocaleString('id-ID')} kasus dari minggu lalu`,
+      color: '#ef4444',
+      type: 'increase'
+    };
+  }
+  if (diff < 0) {
+    return {
+      diff,
+      text: `▼ Berkurang ${Math.abs(diff).toLocaleString('id-ID')} kasus dari minggu lalu`,
+      color: '#10b981',
+      type: 'decrease'
+    };
+  }
+  return {
+    diff: 0,
+    text: '― Relatif stabil dari minggu lalu',
+    color: '#64748b',
+    type: 'stable'
+  };
+}
