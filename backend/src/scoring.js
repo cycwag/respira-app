@@ -277,16 +277,23 @@ function calculateWeightedRisk({ internalOR, regressionCases, caseBaselines } = 
   const orVal = parseNum(internalOR, 1.0, 1.0, 15.0);
   const normalizedInternal = Math.min(1.0, Math.max(0.0, (orVal - 1.0) / 4.0));
 
-  const cases = regressionCases || { j00Cases: 45, j02Cases: 36, j06Cases: 64 };
-  const normCase = (val, baseline) => {
-    const c = parseNum(val, 20, 0, 1000000000);
-    const scale = parseNum(baseline, 150, 1, 100000);
-    return Math.min(1.0, Math.max(0.05, c / scale));
+  const cases = regressionCases || { j00Cases: 4500, j02Cases: 1200, j06Cases: 3800 };
+  
+  // Normalisasi kasus terhadap beban kasus epidemiologis tipikal (median ~42% baseline p95)
+  // Dilengkapi baseline paparan polusi Jakarta (12%)
+  const computeScore = (caseCount, p95Baseline) => {
+    const c = parseNum(caseCount, 100, 0, 1000000);
+    const effectiveMedian = Math.max(500, parseNum(p95Baseline, 8000, 1, 100000) * 0.42);
+    const caseRatio = Math.min(1.0, Math.max(0.05, c / effectiveMedian));
+    const externalRisk = 0.12 + (caseRatio * 0.48);
+    const internalRisk = normalizedInternal * 0.40;
+    
+    return clamp((externalRisk + internalRisk) * 100);
   };
 
-  const scoreJ00 = clamp((normCase(cases.j00Cases, caseBaselines?.j00Cases) * 0.6 + normalizedInternal * 0.4) * 100);
-  const scoreJ02 = clamp((normCase(cases.j02Cases, caseBaselines?.j02Cases) * 0.6 + normalizedInternal * 0.4) * 100);
-  const scoreJ06 = clamp((normCase(cases.j06Cases, caseBaselines?.j06Cases) * 0.6 + normalizedInternal * 0.4) * 100);
+  const scoreJ00 = computeScore(cases.j00Cases, caseBaselines?.j00Cases);
+  const scoreJ02 = computeScore(cases.j02Cases, caseBaselines?.j02Cases);
+  const scoreJ06 = computeScore(cases.j06Cases, caseBaselines?.j06Cases);
 
   return {
     j00: scoreJ00,

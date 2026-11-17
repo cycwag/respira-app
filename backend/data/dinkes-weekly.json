@@ -1,0 +1,1617 @@
+{
+  "source": "Dinkes DKI Jakarta - Rawat Jalan",
+  "endpoint": "https://dashboard-dinkes.jakarta.go.id/puskesmas/get_diagnosa_all",
+  "retrievedAt": "2026-11-17T11:46:43.969Z",
+  "periods": [
+    {
+      "startDate": "2023-01-02",
+      "endDate": "2023-01-08",
+      "j00Cases": 5956,
+      "j02Cases": 1221,
+      "j06Cases": 4551,
+      "prevCases": 11728,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T10:41:26.915Z"
+    },
+    {
+      "startDate": "2023-01-09",
+      "endDate": "2023-01-15",
+      "j00Cases": 5663,
+      "j02Cases": 935,
+      "j06Cases": 5855,
+      "prevCases": 12453,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T10:42:55.139Z"
+    },
+    {
+      "startDate": "2023-01-16",
+      "endDate": "2023-01-22",
+      "j00Cases": 6034,
+      "j02Cases": 1047,
+      "j06Cases": 5896,
+      "prevCases": 12977,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T10:43:12.441Z"
+    },
+    {
+      "startDate": "2023-01-23",
+      "endDate": "2023-01-29",
+      "j00Cases": 4281,
+      "j02Cases": 883,
+      "j06Cases": 3591,
+      "prevCases": 8755,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T10:43:30.120Z"
+    },
+    {
+      "startDate": "2023-01-30",
+      "endDate": "2023-02-05",
+      "j00Cases": 6289,
+      "j02Cases": 1064,
+      "j06Cases": 5626,
+      "prevCases": 12979,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T10:43:47.890Z"
+    },
+    {
+      "startDate": "2023-02-06",
+      "endDate": "2023-02-12",
+      "j00Cases": 5156,
+      "j02Cases": 1011,
+      "j06Cases": 6454,
+      "prevCases": 12621,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T10:44:05.785Z"
+    },
+    {
+      "startDate": "2023-02-13",
+      "endDate": "2023-02-19",
+      "j00Cases": 6304,
+      "j02Cases": 1249,
+      "j06Cases": 5661,
+      "prevCases": 13214,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T10:44:23.647Z"
+    },
+    {
+      "startDate": "2023-02-20",
+      "endDate": "2023-02-26",
+      "j00Cases": 5814,
+      "j02Cases": 1519,
+      "j06Cases": 5046,
+      "prevCases": 12379,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T10:44:41.600Z"
+    },
+    {
+      "startDate": "2023-02-27",
+      "endDate": "2023-03-05",
+      "j00Cases": 5998,
+      "j02Cases": 1242,
+      "j06Cases": 5624,
+      "prevCases": 12864,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T10:44:59.828Z"
+    },
+    {
+      "startDate": "2023-03-06",
+      "endDate": "2023-03-12",
+      "j00Cases": 6228,
+      "j02Cases": 1226,
+      "j06Cases": 6675,
+      "prevCases": 14129,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T10:45:17.791Z"
+    },
+    {
+      "startDate": "2023-03-13",
+      "endDate": "2023-03-19",
+      "j00Cases": 6604,
+      "j02Cases": 1869,
+      "j06Cases": 6768,
+      "prevCases": 15241,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T10:45:35.977Z"
+    },
+    {
+      "startDate": "2023-03-20",
+      "endDate": "2023-03-26",
+      "j00Cases": 5654,
+      "j02Cases": 1500,
+      "j06Cases": 5552,
+      "prevCases": 12706,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T10:45:53.360Z"
+    },
+    {
+      "startDate": "2024-01-01",
+      "endDate": "2024-01-07",
+      "j00Cases": 4784,
+      "j02Cases": 819,
+      "j06Cases": 3508,
+      "prevCases": 9111,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T10:39:40.698Z"
+    },
+    {
+      "startDate": "2024-01-08",
+      "endDate": "2024-01-14",
+      "j00Cases": 6281,
+      "j02Cases": 1459,
+      "j06Cases": 5055,
+      "prevCases": 12795,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T10:39:58.656Z"
+    },
+    {
+      "startDate": "2024-01-15",
+      "endDate": "2024-01-21",
+      "j00Cases": 6578,
+      "j02Cases": 1525,
+      "j06Cases": 5769,
+      "prevCases": 13872,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T10:40:16.800Z"
+    },
+    {
+      "startDate": "2024-01-22",
+      "endDate": "2024-01-28",
+      "j00Cases": 6923,
+      "j02Cases": 1832,
+      "j06Cases": 6791,
+      "prevCases": 15546,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T10:40:34.683Z"
+    },
+    {
+      "startDate": "2024-01-29",
+      "endDate": "2024-02-04",
+      "j00Cases": 7216,
+      "j02Cases": 1659,
+      "j06Cases": 6538,
+      "prevCases": 15413,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T10:59:42.637Z"
+    },
+    {
+      "startDate": "2024-02-05",
+      "endDate": "2024-02-11",
+      "j00Cases": 7986,
+      "j02Cases": 2355,
+      "j06Cases": 8300,
+      "prevCases": 18641,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:00:00.451Z"
+    },
+    {
+      "startDate": "2024-02-12",
+      "endDate": "2024-02-18",
+      "j00Cases": 9363,
+      "j02Cases": 2502,
+      "j06Cases": 8820,
+      "prevCases": 20685,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:00:18.512Z"
+    },
+    {
+      "startDate": "2024-02-19",
+      "endDate": "2024-02-25",
+      "j00Cases": 10861,
+      "j02Cases": 2115,
+      "j06Cases": 10074,
+      "prevCases": 23050,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:00:36.103Z"
+    },
+    {
+      "startDate": "2024-02-26",
+      "endDate": "2024-03-03",
+      "j00Cases": 10935,
+      "j02Cases": 2199,
+      "j06Cases": 10722,
+      "prevCases": 23856,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:00:53.563Z"
+    },
+    {
+      "startDate": "2024-03-04",
+      "endDate": "2024-03-10",
+      "j00Cases": 9845,
+      "j02Cases": 2576,
+      "j06Cases": 11455,
+      "prevCases": 23876,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:01:10.862Z"
+    },
+    {
+      "startDate": "2024-03-11",
+      "endDate": "2024-03-17",
+      "j00Cases": 8628,
+      "j02Cases": 1904,
+      "j06Cases": 7053,
+      "prevCases": 17585,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:01:28.245Z"
+    },
+    {
+      "startDate": "2024-03-18",
+      "endDate": "2024-03-24",
+      "j00Cases": 10509,
+      "j02Cases": 2156,
+      "j06Cases": 8838,
+      "prevCases": 21503,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:01:45.479Z"
+    },
+    {
+      "startDate": "2024-03-25",
+      "endDate": "2024-03-31",
+      "j00Cases": 7829,
+      "j02Cases": 2388,
+      "j06Cases": 7075,
+      "prevCases": 17292,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:02:02.611Z"
+    },
+    {
+      "startDate": "2024-04-01",
+      "endDate": "2024-04-07",
+      "j00Cases": 6926,
+      "j02Cases": 1586,
+      "j06Cases": 6662,
+      "prevCases": 15174,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:02:19.984Z"
+    },
+    {
+      "startDate": "2024-04-08",
+      "endDate": "2024-04-14",
+      "j00Cases": 3617,
+      "j02Cases": 830,
+      "j06Cases": 2931,
+      "prevCases": 7378,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:02:36.931Z"
+    },
+    {
+      "startDate": "2024-04-15",
+      "endDate": "2024-04-21",
+      "j00Cases": 5951,
+      "j02Cases": 889,
+      "j06Cases": 4421,
+      "prevCases": 11261,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:02:54.397Z"
+    },
+    {
+      "startDate": "2024-04-22",
+      "endDate": "2024-04-28",
+      "j00Cases": 6017,
+      "j02Cases": 1591,
+      "j06Cases": 6650,
+      "prevCases": 14258,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:03:11.834Z"
+    },
+    {
+      "startDate": "2024-04-29",
+      "endDate": "2024-05-05",
+      "j00Cases": 5979,
+      "j02Cases": 1297,
+      "j06Cases": 5487,
+      "prevCases": 12763,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:03:28.867Z"
+    },
+    {
+      "startDate": "2024-05-06",
+      "endDate": "2024-05-12",
+      "j00Cases": 5547,
+      "j02Cases": 1241,
+      "j06Cases": 5525,
+      "prevCases": 12313,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:03:46.146Z"
+    },
+    {
+      "startDate": "2024-05-13",
+      "endDate": "2024-05-19",
+      "j00Cases": 5981,
+      "j02Cases": 870,
+      "j06Cases": 5204,
+      "prevCases": 12055,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:04:03.577Z"
+    },
+    {
+      "startDate": "2024-05-20",
+      "endDate": "2024-05-26",
+      "j00Cases": 5388,
+      "j02Cases": 1157,
+      "j06Cases": 4750,
+      "prevCases": 11295,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:04:21.329Z"
+    },
+    {
+      "startDate": "2024-05-27",
+      "endDate": "2024-06-02",
+      "j00Cases": 5519,
+      "j02Cases": 1003,
+      "j06Cases": 4717,
+      "prevCases": 11239,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:04:39.193Z"
+    },
+    {
+      "startDate": "2024-06-03",
+      "endDate": "2024-06-09",
+      "j00Cases": 5033,
+      "j02Cases": 895,
+      "j06Cases": 4701,
+      "prevCases": 10629,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:04:57.007Z"
+    },
+    {
+      "startDate": "2024-06-10",
+      "endDate": "2024-06-16",
+      "j00Cases": 5218,
+      "j02Cases": 1087,
+      "j06Cases": 4205,
+      "prevCases": 10510,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:05:14.819Z"
+    },
+    {
+      "startDate": "2024-06-17",
+      "endDate": "2024-06-23",
+      "j00Cases": 3552,
+      "j02Cases": 642,
+      "j06Cases": 2543,
+      "prevCases": 6737,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:05:32.916Z"
+    },
+    {
+      "startDate": "2024-06-24",
+      "endDate": "2024-06-30",
+      "j00Cases": 4380,
+      "j02Cases": 1157,
+      "j06Cases": 4728,
+      "prevCases": 10265,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:05:50.215Z"
+    },
+    {
+      "startDate": "2024-07-01",
+      "endDate": "2024-07-07",
+      "j00Cases": 5954,
+      "j02Cases": 1012,
+      "j06Cases": 3475,
+      "prevCases": 10441,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:11:02.177Z"
+    },
+    {
+      "startDate": "2024-07-08",
+      "endDate": "2024-07-14",
+      "j00Cases": 5473,
+      "j02Cases": 1260,
+      "j06Cases": 4633,
+      "prevCases": 11366,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:11:19.570Z"
+    },
+    {
+      "startDate": "2024-07-15",
+      "endDate": "2024-07-21",
+      "j00Cases": 6463,
+      "j02Cases": 1896,
+      "j06Cases": 5769,
+      "prevCases": 14128,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:11:36.740Z"
+    },
+    {
+      "startDate": "2024-07-22",
+      "endDate": "2024-07-28",
+      "j00Cases": 7476,
+      "j02Cases": 1864,
+      "j06Cases": 5706,
+      "prevCases": 15046,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:11:54.258Z"
+    },
+    {
+      "startDate": "2024-07-29",
+      "endDate": "2024-08-04",
+      "j00Cases": 5914,
+      "j02Cases": 1404,
+      "j06Cases": 5753,
+      "prevCases": 13071,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:12:12.209Z"
+    },
+    {
+      "startDate": "2024-08-05",
+      "endDate": "2024-08-11",
+      "j00Cases": 7699,
+      "j02Cases": 1680,
+      "j06Cases": 6216,
+      "prevCases": 15595,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:12:30.608Z"
+    },
+    {
+      "startDate": "2024-08-12",
+      "endDate": "2024-08-18",
+      "j00Cases": 6583,
+      "j02Cases": 2017,
+      "j06Cases": 6619,
+      "prevCases": 15219,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:12:48.529Z"
+    },
+    {
+      "startDate": "2024-08-19",
+      "endDate": "2024-08-25",
+      "j00Cases": 8388,
+      "j02Cases": 2209,
+      "j06Cases": 6410,
+      "prevCases": 17007,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:13:05.929Z"
+    },
+    {
+      "startDate": "2024-08-26",
+      "endDate": "2024-09-01",
+      "j00Cases": 7033,
+      "j02Cases": 2381,
+      "j06Cases": 7440,
+      "prevCases": 16854,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:13:23.036Z"
+    },
+    {
+      "startDate": "2024-09-02",
+      "endDate": "2024-09-08",
+      "j00Cases": 8084,
+      "j02Cases": 2083,
+      "j06Cases": 7946,
+      "prevCases": 18113,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:13:40.227Z"
+    },
+    {
+      "startDate": "2024-09-09",
+      "endDate": "2024-09-15",
+      "j00Cases": 7702,
+      "j02Cases": 1667,
+      "j06Cases": 6153,
+      "prevCases": 15522,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:13:57.574Z"
+    },
+    {
+      "startDate": "2024-09-16",
+      "endDate": "2024-09-22",
+      "j00Cases": 5031,
+      "j02Cases": 1085,
+      "j06Cases": 4295,
+      "prevCases": 10411,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:14:15.313Z"
+    },
+    {
+      "startDate": "2024-09-23",
+      "endDate": "2024-09-29",
+      "j00Cases": 6464,
+      "j02Cases": 1374,
+      "j06Cases": 5144,
+      "prevCases": 12982,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:14:33.075Z"
+    },
+    {
+      "startDate": "2024-09-30",
+      "endDate": "2024-10-06",
+      "j00Cases": 7575,
+      "j02Cases": 1698,
+      "j06Cases": 5218,
+      "prevCases": 14491,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:14:51.046Z"
+    },
+    {
+      "startDate": "2024-10-07",
+      "endDate": "2024-10-13",
+      "j00Cases": 8158,
+      "j02Cases": 2348,
+      "j06Cases": 6768,
+      "prevCases": 17274,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:15:10.227Z"
+    },
+    {
+      "startDate": "2024-10-14",
+      "endDate": "2024-10-20",
+      "j00Cases": 8662,
+      "j02Cases": 1944,
+      "j06Cases": 7664,
+      "prevCases": 18270,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:15:28.210Z"
+    },
+    {
+      "startDate": "2024-10-21",
+      "endDate": "2024-10-27",
+      "j00Cases": 8351,
+      "j02Cases": 2158,
+      "j06Cases": 8401,
+      "prevCases": 18910,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:15:45.796Z"
+    },
+    {
+      "startDate": "2024-10-28",
+      "endDate": "2024-11-03",
+      "j00Cases": 8193,
+      "j02Cases": 2021,
+      "j06Cases": 6564,
+      "prevCases": 16778,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:16:03.162Z"
+    },
+    {
+      "startDate": "2024-11-04",
+      "endDate": "2024-11-10",
+      "j00Cases": 8769,
+      "j02Cases": 2146,
+      "j06Cases": 7646,
+      "prevCases": 18561,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:16:20.432Z"
+    },
+    {
+      "startDate": "2024-11-11",
+      "endDate": "2024-11-17",
+      "j00Cases": 7409,
+      "j02Cases": 1840,
+      "j06Cases": 6296,
+      "prevCases": 15545,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:16:37.640Z"
+    },
+    {
+      "startDate": "2024-11-18",
+      "endDate": "2024-11-24",
+      "j00Cases": 7890,
+      "j02Cases": 2385,
+      "j06Cases": 7119,
+      "prevCases": 17394,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:16:54.703Z"
+    },
+    {
+      "startDate": "2024-11-25",
+      "endDate": "2024-12-01",
+      "j00Cases": 8634,
+      "j02Cases": 2403,
+      "j06Cases": 6454,
+      "prevCases": 17491,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:17:12.652Z"
+    },
+    {
+      "startDate": "2024-12-02",
+      "endDate": "2024-12-08",
+      "j00Cases": 9854,
+      "j02Cases": 2148,
+      "j06Cases": 7782,
+      "prevCases": 19784,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:17:30.170Z"
+    },
+    {
+      "startDate": "2024-12-09",
+      "endDate": "2024-12-15",
+      "j00Cases": 10153,
+      "j02Cases": 1954,
+      "j06Cases": 8830,
+      "prevCases": 20937,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:17:47.310Z"
+    },
+    {
+      "startDate": "2024-12-16",
+      "endDate": "2024-12-22",
+      "j00Cases": 9878,
+      "j02Cases": 1969,
+      "j06Cases": 10829,
+      "prevCases": 22676,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:18:04.649Z"
+    },
+    {
+      "startDate": "2024-12-23",
+      "endDate": "2024-12-29",
+      "j00Cases": 10743,
+      "j02Cases": 2463,
+      "j06Cases": 8577,
+      "prevCases": 21783,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:18:21.782Z"
+    },
+    {
+      "startDate": "2024-12-30",
+      "endDate": "2025-01-05",
+      "j00Cases": 10223,
+      "j02Cases": 1947,
+      "j06Cases": 8016,
+      "prevCases": 20186,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:18:39.556Z"
+    },
+    {
+      "startDate": "2025-01-06",
+      "endDate": "2025-01-12",
+      "j00Cases": 9735,
+      "j02Cases": 2324,
+      "j06Cases": 8884,
+      "prevCases": 20943,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:18:56.998Z"
+    },
+    {
+      "startDate": "2025-01-13",
+      "endDate": "2025-01-19",
+      "j00Cases": 9360,
+      "j02Cases": 1920,
+      "j06Cases": 7680,
+      "prevCases": 18960,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:19:14.774Z"
+    },
+    {
+      "startDate": "2025-01-20",
+      "endDate": "2025-01-26",
+      "j00Cases": 11539,
+      "j02Cases": 2393,
+      "j06Cases": 8205,
+      "prevCases": 22137,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:19:32.439Z"
+    },
+    {
+      "startDate": "2025-01-27",
+      "endDate": "2025-02-02",
+      "j00Cases": 8287,
+      "j02Cases": 1424,
+      "j06Cases": 6039,
+      "prevCases": 15750,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:19:50.641Z"
+    },
+    {
+      "startDate": "2025-02-03",
+      "endDate": "2025-02-09",
+      "j00Cases": 9299,
+      "j02Cases": 2467,
+      "j06Cases": 9258,
+      "prevCases": 21024,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:20:09.542Z"
+    },
+    {
+      "startDate": "2025-02-10",
+      "endDate": "2025-02-16",
+      "j00Cases": 9797,
+      "j02Cases": 2190,
+      "j06Cases": 9202,
+      "prevCases": 21189,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:20:27.641Z"
+    },
+    {
+      "startDate": "2025-02-17",
+      "endDate": "2025-02-23",
+      "j00Cases": 9229,
+      "j02Cases": 2376,
+      "j06Cases": 9840,
+      "prevCases": 21445,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:20:45.502Z"
+    },
+    {
+      "startDate": "2025-02-24",
+      "endDate": "2025-03-02",
+      "j00Cases": 9047,
+      "j02Cases": 1984,
+      "j06Cases": 8698,
+      "prevCases": 19729,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:21:02.653Z"
+    },
+    {
+      "startDate": "2025-03-03",
+      "endDate": "2025-03-09",
+      "j00Cases": 9144,
+      "j02Cases": 2174,
+      "j06Cases": 8630,
+      "prevCases": 19948,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:21:19.687Z"
+    },
+    {
+      "startDate": "2025-03-10",
+      "endDate": "2025-03-16",
+      "j00Cases": 9754,
+      "j02Cases": 2538,
+      "j06Cases": 8922,
+      "prevCases": 21214,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:21:37.517Z"
+    },
+    {
+      "startDate": "2025-03-17",
+      "endDate": "2025-03-23",
+      "j00Cases": 9159,
+      "j02Cases": 2320,
+      "j06Cases": 6899,
+      "prevCases": 18378,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:21:54.596Z"
+    },
+    {
+      "startDate": "2025-03-24",
+      "endDate": "2025-03-30",
+      "j00Cases": 6911,
+      "j02Cases": 1588,
+      "j06Cases": 6314,
+      "prevCases": 14813,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:22:11.881Z"
+    },
+    {
+      "startDate": "2025-03-31",
+      "endDate": "2025-04-06",
+      "j00Cases": 5798,
+      "j02Cases": 1612,
+      "j06Cases": 4232,
+      "prevCases": 11642,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:22:29.399Z"
+    },
+    {
+      "startDate": "2025-04-07",
+      "endDate": "2025-04-13",
+      "j00Cases": 7953,
+      "j02Cases": 1467,
+      "j06Cases": 6476,
+      "prevCases": 15896,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:22:46.658Z"
+    },
+    {
+      "startDate": "2025-04-14",
+      "endDate": "2025-04-20",
+      "j00Cases": 8389,
+      "j02Cases": 2052,
+      "j06Cases": 6947,
+      "prevCases": 17388,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:23:03.794Z"
+    },
+    {
+      "startDate": "2025-04-21",
+      "endDate": "2025-04-27",
+      "j00Cases": 8487,
+      "j02Cases": 2096,
+      "j06Cases": 6525,
+      "prevCases": 17108,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:23:21.144Z"
+    },
+    {
+      "startDate": "2025-04-28",
+      "endDate": "2025-05-04",
+      "j00Cases": 8085,
+      "j02Cases": 2467,
+      "j06Cases": 6391,
+      "prevCases": 16943,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:23:38.534Z"
+    },
+    {
+      "startDate": "2025-05-05",
+      "endDate": "2025-05-11",
+      "j00Cases": 8786,
+      "j02Cases": 2021,
+      "j06Cases": 5939,
+      "prevCases": 16746,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:23:56.183Z"
+    },
+    {
+      "startDate": "2025-05-12",
+      "endDate": "2025-05-18",
+      "j00Cases": 7210,
+      "j02Cases": 1927,
+      "j06Cases": 5128,
+      "prevCases": 14265,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:24:13.776Z"
+    },
+    {
+      "startDate": "2025-05-19",
+      "endDate": "2025-05-25",
+      "j00Cases": 8459,
+      "j02Cases": 2101,
+      "j06Cases": 6778,
+      "prevCases": 17338,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:24:31.733Z"
+    },
+    {
+      "startDate": "2025-05-26",
+      "endDate": "2025-06-01",
+      "j00Cases": 8911,
+      "j02Cases": 2244,
+      "j06Cases": 6646,
+      "prevCases": 17801,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:24:50.172Z"
+    },
+    {
+      "startDate": "2025-06-02",
+      "endDate": "2025-06-08",
+      "j00Cases": 8854,
+      "j02Cases": 2060,
+      "j06Cases": 7022,
+      "prevCases": 17936,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:25:08.239Z"
+    },
+    {
+      "startDate": "2025-06-09",
+      "endDate": "2025-06-15",
+      "j00Cases": 8548,
+      "j02Cases": 2137,
+      "j06Cases": 6386,
+      "prevCases": 17071,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:25:25.985Z"
+    },
+    {
+      "startDate": "2025-06-16",
+      "endDate": "2025-06-22",
+      "j00Cases": 8892,
+      "j02Cases": 1999,
+      "j06Cases": 7688,
+      "prevCases": 18579,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:25:43.134Z"
+    },
+    {
+      "startDate": "2025-06-23",
+      "endDate": "2025-06-29",
+      "j00Cases": 9396,
+      "j02Cases": 2209,
+      "j06Cases": 8198,
+      "prevCases": 19803,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:26:00.588Z"
+    },
+    {
+      "startDate": "2025-06-30",
+      "endDate": "2025-07-06",
+      "j00Cases": 8752,
+      "j02Cases": 1975,
+      "j06Cases": 7539,
+      "prevCases": 18266,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:26:19.403Z"
+    },
+    {
+      "startDate": "2025-07-07",
+      "endDate": "2025-07-13",
+      "j00Cases": 9389,
+      "j02Cases": 1976,
+      "j06Cases": 7665,
+      "prevCases": 19030,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:26:36.925Z"
+    },
+    {
+      "startDate": "2025-07-14",
+      "endDate": "2025-07-20",
+      "j00Cases": 9804,
+      "j02Cases": 2500,
+      "j06Cases": 8197,
+      "prevCases": 20501,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:26:54.771Z"
+    },
+    {
+      "startDate": "2025-07-21",
+      "endDate": "2025-07-27",
+      "j00Cases": 10610,
+      "j02Cases": 2979,
+      "j06Cases": 8694,
+      "prevCases": 22283,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:27:12.177Z"
+    },
+    {
+      "startDate": "2025-07-28",
+      "endDate": "2025-08-03",
+      "j00Cases": 11055,
+      "j02Cases": 2927,
+      "j06Cases": 9100,
+      "prevCases": 23082,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:27:29.541Z"
+    },
+    {
+      "startDate": "2025-08-04",
+      "endDate": "2025-08-10",
+      "j00Cases": 10965,
+      "j02Cases": 3145,
+      "j06Cases": 10092,
+      "prevCases": 24202,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:27:47.611Z"
+    },
+    {
+      "startDate": "2025-08-11",
+      "endDate": "2025-08-17",
+      "j00Cases": 11126,
+      "j02Cases": 3286,
+      "j06Cases": 9748,
+      "prevCases": 24160,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:28:04.693Z"
+    },
+    {
+      "startDate": "2025-08-18",
+      "endDate": "2025-08-24",
+      "j00Cases": 11658,
+      "j02Cases": 3146,
+      "j06Cases": 9130,
+      "prevCases": 23934,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:28:22.136Z"
+    },
+    {
+      "startDate": "2025-08-25",
+      "endDate": "2025-08-31",
+      "j00Cases": 12836,
+      "j02Cases": 3561,
+      "j06Cases": 10720,
+      "prevCases": 27117,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:28:39.312Z"
+    },
+    {
+      "startDate": "2025-09-01",
+      "endDate": "2025-09-07",
+      "j00Cases": 11510,
+      "j02Cases": 3735,
+      "j06Cases": 10734,
+      "prevCases": 25979,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:28:56.655Z"
+    },
+    {
+      "startDate": "2025-09-08",
+      "endDate": "2025-09-14",
+      "j00Cases": 11910,
+      "j02Cases": 3547,
+      "j06Cases": 10243,
+      "prevCases": 25700,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:29:14.009Z"
+    },
+    {
+      "startDate": "2025-09-15",
+      "endDate": "2025-09-21",
+      "j00Cases": 12597,
+      "j02Cases": 4255,
+      "j06Cases": 10911,
+      "prevCases": 27763,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:29:31.677Z"
+    },
+    {
+      "startDate": "2025-09-22",
+      "endDate": "2025-09-28",
+      "j00Cases": 13926,
+      "j02Cases": 4291,
+      "j06Cases": 11680,
+      "prevCases": 29897,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:29:49.525Z"
+    },
+    {
+      "startDate": "2025-09-29",
+      "endDate": "2025-10-05",
+      "j00Cases": 13529,
+      "j02Cases": 4599,
+      "j06Cases": 12864,
+      "prevCases": 30992,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:30:07.590Z"
+    },
+    {
+      "startDate": "2025-10-06",
+      "endDate": "2025-10-12",
+      "j00Cases": 15740,
+      "j02Cases": 5264,
+      "j06Cases": 13183,
+      "prevCases": 34187,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:30:25.351Z"
+    },
+    {
+      "startDate": "2025-10-13",
+      "endDate": "2025-10-19",
+      "j00Cases": 13652,
+      "j02Cases": 4628,
+      "j06Cases": 11638,
+      "prevCases": 29918,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:30:42.782Z"
+    },
+    {
+      "startDate": "2025-10-20",
+      "endDate": "2025-10-26",
+      "j00Cases": 11850,
+      "j02Cases": 3532,
+      "j06Cases": 9813,
+      "prevCases": 25195,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:31:00.002Z"
+    },
+    {
+      "startDate": "2025-10-27",
+      "endDate": "2025-11-02",
+      "j00Cases": 11130,
+      "j02Cases": 3172,
+      "j06Cases": 8358,
+      "prevCases": 22660,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:31:17.285Z"
+    },
+    {
+      "startDate": "2025-11-03",
+      "endDate": "2025-11-09",
+      "j00Cases": 12138,
+      "j02Cases": 3367,
+      "j06Cases": 9676,
+      "prevCases": 25181,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:31:35.063Z"
+    },
+    {
+      "startDate": "2025-11-10",
+      "endDate": "2025-11-16",
+      "j00Cases": 12320,
+      "j02Cases": 3672,
+      "j06Cases": 9357,
+      "prevCases": 25349,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:31:52.664Z"
+    },
+    {
+      "startDate": "2025-11-17",
+      "endDate": "2025-11-23",
+      "j00Cases": 10879,
+      "j02Cases": 3427,
+      "j06Cases": 8442,
+      "prevCases": 22748,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:32:09.993Z"
+    },
+    {
+      "startDate": "2025-11-24",
+      "endDate": "2025-11-30",
+      "j00Cases": 11082,
+      "j02Cases": 3373,
+      "j06Cases": 7923,
+      "prevCases": 22378,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:32:27.458Z"
+    },
+    {
+      "startDate": "2025-12-01",
+      "endDate": "2025-12-07",
+      "j00Cases": 11224,
+      "j02Cases": 3400,
+      "j06Cases": 8301,
+      "prevCases": 22925,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:32:44.591Z"
+    },
+    {
+      "startDate": "2025-12-08",
+      "endDate": "2025-12-14",
+      "j00Cases": 11988,
+      "j02Cases": 3118,
+      "j06Cases": 8708,
+      "prevCases": 23814,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:33:01.902Z"
+    },
+    {
+      "startDate": "2025-12-15",
+      "endDate": "2025-12-21",
+      "j00Cases": 11763,
+      "j02Cases": 2429,
+      "j06Cases": 8618,
+      "prevCases": 22810,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:33:19.430Z"
+    },
+    {
+      "startDate": "2025-12-22",
+      "endDate": "2025-12-28",
+      "j00Cases": 10103,
+      "j02Cases": 2301,
+      "j06Cases": 8113,
+      "prevCases": 20517,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:33:36.575Z"
+    },
+    {
+      "startDate": "2025-12-29",
+      "endDate": "2026-01-04",
+      "j00Cases": 10694,
+      "j02Cases": 2927,
+      "j06Cases": 8081,
+      "prevCases": 21702,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:33:54.689Z"
+    },
+    {
+      "startDate": "2026-01-05",
+      "endDate": "2026-01-11",
+      "j00Cases": 12124,
+      "j02Cases": 3046,
+      "j06Cases": 9121,
+      "prevCases": 24291,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:34:12.300Z"
+    },
+    {
+      "startDate": "2026-01-12",
+      "endDate": "2026-01-18",
+      "j00Cases": 11960,
+      "j02Cases": 2559,
+      "j06Cases": 8568,
+      "prevCases": 23087,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:34:29.977Z"
+    },
+    {
+      "startDate": "2026-01-19",
+      "endDate": "2026-01-25",
+      "j00Cases": 13524,
+      "j02Cases": 3344,
+      "j06Cases": 9526,
+      "prevCases": 26394,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:34:47.999Z"
+    },
+    {
+      "startDate": "2026-01-26",
+      "endDate": "2026-02-01",
+      "j00Cases": 13462,
+      "j02Cases": 2944,
+      "j06Cases": 8890,
+      "prevCases": 25296,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:35:05.729Z"
+    },
+    {
+      "startDate": "2026-02-02",
+      "endDate": "2026-02-08",
+      "j00Cases": 13566,
+      "j02Cases": 3049,
+      "j06Cases": 10134,
+      "prevCases": 26749,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:35:23.494Z"
+    },
+    {
+      "startDate": "2026-02-09",
+      "endDate": "2026-02-15",
+      "j00Cases": 13885,
+      "j02Cases": 3290,
+      "j06Cases": 10248,
+      "prevCases": 27423,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:35:40.581Z"
+    },
+    {
+      "startDate": "2026-02-16",
+      "endDate": "2026-02-22",
+      "j00Cases": 12497,
+      "j02Cases": 2829,
+      "j06Cases": 9025,
+      "prevCases": 24351,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:35:58.498Z"
+    },
+    {
+      "startDate": "2026-02-23",
+      "endDate": "2026-03-01",
+      "j00Cases": 14641,
+      "j02Cases": 3829,
+      "j06Cases": 10508,
+      "prevCases": 28978,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:36:15.874Z"
+    },
+    {
+      "startDate": "2026-03-02",
+      "endDate": "2026-03-08",
+      "j00Cases": 12690,
+      "j02Cases": 3048,
+      "j06Cases": 9056,
+      "prevCases": 24794,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:36:33.374Z"
+    },
+    {
+      "startDate": "2026-03-09",
+      "endDate": "2026-03-15",
+      "j00Cases": 12921,
+      "j02Cases": 3151,
+      "j06Cases": 9347,
+      "prevCases": 25419,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:36:51.465Z"
+    },
+    {
+      "startDate": "2026-03-16",
+      "endDate": "2026-03-22",
+      "j00Cases": 10357,
+      "j02Cases": 2513,
+      "j06Cases": 6939,
+      "prevCases": 19809,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:37:08.475Z"
+    },
+    {
+      "startDate": "2026-03-23",
+      "endDate": "2026-03-29",
+      "j00Cases": 11212,
+      "j02Cases": 2749,
+      "j06Cases": 8639,
+      "prevCases": 22600,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:37:26.167Z"
+    },
+    {
+      "startDate": "2026-03-30",
+      "endDate": "2026-04-05",
+      "j00Cases": 11108,
+      "j02Cases": 2654,
+      "j06Cases": 8740,
+      "prevCases": 22502,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:37:43.701Z"
+    },
+    {
+      "startDate": "2026-04-06",
+      "endDate": "2026-04-12",
+      "j00Cases": 9994,
+      "j02Cases": 2240,
+      "j06Cases": 8197,
+      "prevCases": 20431,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:38:00.833Z"
+    },
+    {
+      "startDate": "2026-04-13",
+      "endDate": "2026-04-19",
+      "j00Cases": 9937,
+      "j02Cases": 2379,
+      "j06Cases": 8511,
+      "prevCases": 20827,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:38:18.217Z"
+    },
+    {
+      "startDate": "2026-04-20",
+      "endDate": "2026-04-26",
+      "j00Cases": 10793,
+      "j02Cases": 2823,
+      "j06Cases": 8243,
+      "prevCases": 21859,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:38:35.649Z"
+    },
+    {
+      "startDate": "2026-04-27",
+      "endDate": "2026-05-03",
+      "j00Cases": 9616,
+      "j02Cases": 2344,
+      "j06Cases": 7677,
+      "prevCases": 19637,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:38:53.766Z"
+    },
+    {
+      "startDate": "2026-05-04",
+      "endDate": "2026-05-10",
+      "j00Cases": 9814,
+      "j02Cases": 2048,
+      "j06Cases": 7774,
+      "prevCases": 19636,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:39:11.663Z"
+    },
+    {
+      "startDate": "2026-05-11",
+      "endDate": "2026-05-17",
+      "j00Cases": 9954,
+      "j02Cases": 2342,
+      "j06Cases": 7313,
+      "prevCases": 19609,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:39:29.454Z"
+    },
+    {
+      "startDate": "2026-05-18",
+      "endDate": "2026-05-24",
+      "j00Cases": 10011,
+      "j02Cases": 1808,
+      "j06Cases": 7111,
+      "prevCases": 18930,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:39:47.246Z"
+    },
+    {
+      "startDate": "2026-05-25",
+      "endDate": "2026-05-31",
+      "j00Cases": 9034,
+      "j02Cases": 2150,
+      "j06Cases": 6936,
+      "prevCases": 18120,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:40:01.639Z"
+    },
+    {
+      "startDate": "2026-06-01",
+      "endDate": "2026-06-07",
+      "j00Cases": 9124,
+      "j02Cases": 2064,
+      "j06Cases": 6424,
+      "prevCases": 17612,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:40:19.255Z"
+    },
+    {
+      "startDate": "2026-06-08",
+      "endDate": "2026-06-14",
+      "j00Cases": 9665,
+      "j02Cases": 2083,
+      "j06Cases": 7052,
+      "prevCases": 18800,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:40:36.915Z"
+    },
+    {
+      "startDate": "2026-06-15",
+      "endDate": "2026-06-21",
+      "j00Cases": 8558,
+      "j02Cases": 1893,
+      "j06Cases": 6879,
+      "prevCases": 17330,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:40:54.281Z"
+    },
+    {
+      "startDate": "2026-06-22",
+      "endDate": "2026-06-28",
+      "j00Cases": 8271,
+      "j02Cases": 1646,
+      "j06Cases": 5741,
+      "prevCases": 15658,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:41:11.718Z"
+    },
+    {
+      "startDate": "2026-06-29",
+      "endDate": "2026-07-05",
+      "j00Cases": 8141,
+      "j02Cases": 1500,
+      "j06Cases": 5284,
+      "prevCases": 14925,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:41:29.463Z"
+    },
+    {
+      "startDate": "2026-07-06",
+      "endDate": "2026-07-12",
+      "j00Cases": 9060,
+      "j02Cases": 1636,
+      "j06Cases": 6056,
+      "prevCases": 16752,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:41:46.915Z"
+    },
+    {
+      "startDate": "2026-07-13",
+      "endDate": "2026-07-19",
+      "j00Cases": 8679,
+      "j02Cases": 2049,
+      "j06Cases": 6142,
+      "prevCases": 16870,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:42:04.336Z"
+    },
+    {
+      "startDate": "2026-07-20",
+      "endDate": "2026-07-26",
+      "j00Cases": 10521,
+      "j02Cases": 2355,
+      "j06Cases": 7131,
+      "prevCases": 20007,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:42:21.891Z"
+    },
+    {
+      "startDate": "2026-07-27",
+      "endDate": "2026-08-02",
+      "j00Cases": 11224,
+      "j02Cases": 2334,
+      "j06Cases": 7719,
+      "prevCases": 21277,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:42:39.920Z"
+    },
+    {
+      "startDate": "2026-08-03",
+      "endDate": "2026-08-09",
+      "j00Cases": 10262,
+      "j02Cases": 2382,
+      "j06Cases": 7073,
+      "prevCases": 19717,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:42:57.148Z"
+    },
+    {
+      "startDate": "2026-08-10",
+      "endDate": "2026-08-16",
+      "j00Cases": 9956,
+      "j02Cases": 2825,
+      "j06Cases": 7085,
+      "prevCases": 19866,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:43:14.327Z"
+    },
+    {
+      "startDate": "2026-08-17",
+      "endDate": "2026-08-23",
+      "j00Cases": 9622,
+      "j02Cases": 2163,
+      "j06Cases": 6114,
+      "prevCases": 17899,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:43:31.663Z"
+    },
+    {
+      "startDate": "2026-08-24",
+      "endDate": "2026-08-30",
+      "j00Cases": 12040,
+      "j02Cases": 3056,
+      "j06Cases": 7529,
+      "prevCases": 22625,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:43:49.052Z"
+    },
+    {
+      "startDate": "2026-08-31",
+      "endDate": "2026-09-06",
+      "j00Cases": 12420,
+      "j02Cases": 3499,
+      "j06Cases": 8519,
+      "prevCases": 24438,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:44:06.376Z"
+    },
+    {
+      "startDate": "2026-09-07",
+      "endDate": "2026-09-13",
+      "j00Cases": 13901,
+      "j02Cases": 3311,
+      "j06Cases": 9655,
+      "prevCases": 26867,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:44:24.264Z"
+    },
+    {
+      "startDate": "2026-09-14",
+      "endDate": "2026-09-20",
+      "j00Cases": 13546,
+      "j02Cases": 3350,
+      "j06Cases": 9244,
+      "prevCases": 26140,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:44:42.093Z"
+    },
+    {
+      "startDate": "2026-09-21",
+      "endDate": "2026-09-27",
+      "j00Cases": 11927,
+      "j02Cases": 3159,
+      "j06Cases": 8946,
+      "prevCases": 24032,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:45:00.015Z"
+    },
+    {
+      "startDate": "2026-09-28",
+      "endDate": "2026-10-04",
+      "j00Cases": 12579,
+      "j02Cases": 2986,
+      "j06Cases": 7708,
+      "prevCases": 23273,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:45:17.383Z"
+    },
+    {
+      "startDate": "2026-10-05",
+      "endDate": "2026-10-11",
+      "j00Cases": 11455,
+      "j02Cases": 2247,
+      "j06Cases": 8160,
+      "prevCases": 21862,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:45:34.682Z"
+    },
+    {
+      "startDate": "2026-10-12",
+      "endDate": "2026-10-18",
+      "j00Cases": 9551,
+      "j02Cases": 2127,
+      "j06Cases": 6411,
+      "prevCases": 18089,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:45:51.933Z"
+    },
+    {
+      "startDate": "2026-10-19",
+      "endDate": "2026-10-25",
+      "j00Cases": 8742,
+      "j02Cases": 1787,
+      "j06Cases": 5743,
+      "prevCases": 16272,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:46:09.459Z"
+    },
+    {
+      "startDate": "2026-10-26",
+      "endDate": "2026-11-01",
+      "j00Cases": 6892,
+      "j02Cases": 1785,
+      "j06Cases": 4833,
+      "prevCases": 13510,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:46:26.582Z"
+    },
+    {
+      "startDate": "2026-11-02",
+      "endDate": "2026-11-08",
+      "j00Cases": 6924,
+      "j02Cases": 1613,
+      "j06Cases": 4541,
+      "prevCases": 13078,
+      "source": "dinkes_dki_rawat_jalan",
+      "retrievedAt": "2026-11-17T11:46:43.968Z"
+    }
+  ]
+}

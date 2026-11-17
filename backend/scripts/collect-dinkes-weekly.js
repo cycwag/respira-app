@@ -66,11 +66,29 @@ async function main() {
       continue;
     }
 
-    const result = await fetchDinkesWeeklyCases(periodStart, periodEnd);
-    periods.push(result);
-    periods.sort((a, b) => a.startDate.localeCompare(b.startDate));
-    persist(periods);
-    console.log(`${key}: J00=${result.j00Cases}, J02=${result.j02Cases}, J06=${result.j06Cases}`);
+    let result = null;
+    let retries = 0;
+    while (!result && retries < 4) {
+      try {
+        result = await fetchDinkesWeeklyCases(periodStart, periodEnd);
+      } catch (err) {
+        retries += 1;
+        if (retries >= 4) {
+          console.warn(`Peringatan: Gagal minggu ${key} setelah 4x coba (${err.message}). Lanjut ke minggu berikutnya.`);
+          break;
+        }
+        const waitSec = retries * 3;
+        console.warn(`Koneksi lambat pada ${key} (${err.message}). Menunggu ${waitSec} detik sebelum coba lagi (percobaan ${retries}/3)...`);
+        await new Promise((r) => setTimeout(r, waitSec * 1000));
+      }
+    }
+
+    if (result) {
+      periods.push(result);
+      periods.sort((a, b) => a.startDate.localeCompare(b.startDate));
+      persist(periods);
+      console.log(`${key}: J00=${result.j00Cases}, J02=${result.j02Cases}, J06=${result.j06Cases}`);
+    }
   }
 
   console.log(`Selesai. ${periods.length} minggu tersimpan di ${outputPath}`);

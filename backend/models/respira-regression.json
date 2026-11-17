@@ -1,0 +1,60 @@
+{
+  "version": 3,
+  "trainedAt": "2026-11-17T11:48:06.808Z",
+  "sampleCount": 160,
+  "features": [
+    "pm25",
+    "temperature",
+    "humidity",
+    "rainfall",
+    "windSpeed",
+    "prevCases"
+  ],
+  "targets": [
+    "j00Cases",
+    "j02Cases",
+    "j06Cases"
+  ],
+  "coefficients": {
+    "intercept": {
+      "j00Cases": 22866.434428515127,
+      "j02Cases": 8972.952852929604,
+      "j06Cases": 18068.370704746307
+    },
+    "pm25": {
+      "j00Cases": -3.7679071958811123,
+      "j02Cases": 4.753096685153957,
+      "j06Cases": -6.788632663640191
+    },
+    "temperature": {
+      "j00Cases": -362.5194418909556,
+      "j02Cases": -238.37758148824466,
+      "j06Cases": -436.3110315600067
+    },
+    "humidity": {
+      "j00Cases": -142.93319407803506,
+      "j02Cases": -36.757652848868304,
+      "j06Cases": -47.03277614359011
+    },
+    "rainfall": {
+      "j00Cases": 18.880819375867958,
+      "j02Cases": 1.970614590225894,
+      "j06Cases": 3.7121247042428505
+    },
+    "windSpeed": {
+      "j00Cases": -129.32069673818293,
+      "j02Cases": -32.18383965934395,
+      "j06Cases": -111.4097133953654
+    },
+    "prevCases": {
+      "j00Cases": 0.4038392635461735,
+      "j02Cases": 0.1327848807415224,
+      "j06Cases": 0.3203578432098468
+    }
+  },
+  "caseBaselines": {
+    "j00Cases": 13529,
+    "j02Cases": 3561,
+    "j06Cases": 10722
+  }
+}

@@ -83,7 +83,7 @@ async function fetchDinkesWeeklyCases(startDate, endDate) {
 
   await waitForRequestSlot();
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 20000);
+  const timeoutId = setTimeout(() => controller.abort(), 35000);
   let response;
   let payload;
 

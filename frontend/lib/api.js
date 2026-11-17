@@ -168,3 +168,12 @@ export async function fetchArticleDetail(url) {
   }
   return data;
 }
+
+export async function getRegressionInfo() {
+  const res = await fetchWithTimeout(`${BACKEND_URL}/api/regression/info`);
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(data.error || `Gagal memuat info model regresi (status ${res.status}).`);
+  }
+  return data;
+}
