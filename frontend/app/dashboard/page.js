@@ -691,22 +691,12 @@ export default function DashboardPage() {
                   <h3>Prediksi Spesifik Sub-Kategori ISPA (ICD-10)</h3>
                   <p>Estimasi probabilitas dan beban kasus mingguan di DKI Jakarta berbasis model regresi terlatih (160 minggu data riil Dinkes &amp; Open-Meteo) dari interaksi konsentrasi PM2.5, suhu, kelembapan, curah hujan, angin, dan kasus historis.</p>
                   
-                  <div style={{ marginTop: '0.85rem', display: 'flex', flexWrap: 'wrap', gap: '0.6rem', alignItems: 'center', fontSize: '0.8rem' }}>
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', background: 'rgba(239, 68, 68, 0.15)', color: '#ef4444', padding: '0.2rem 0.55rem', borderRadius: '6px', fontWeight: 600 }}>
-                      ● Waspada (&gt; 20%)
-                    </span>
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', background: 'rgba(245, 158, 11, 0.15)', color: '#f59e0b', padding: '0.2rem 0.55rem', borderRadius: '6px', fontWeight: 600 }}>
-                      ● Moderat (10% – 20%)
-                    </span>
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', background: 'rgba(16, 185, 129, 0.15)', color: '#10b981', padding: '0.2rem 0.55rem', borderRadius: '6px', fontWeight: 600 }}>
-                      ● Aman (&lt; 10%)
-                    </span>
-                    {regressionTargetPeriod && (
-                      <span style={{ marginLeft: 'auto', opacity: 0.9 }}>
-                        Target Proyeksi: <strong>{regressionTargetPeriod.startDate} s/d {regressionTargetPeriod.endDate}</strong>
-                      </span>
-                    )}
-                  </div>
+                  {regressionTargetPeriod && (
+                    <div style={{ marginTop: '0.75rem', fontSize: '0.82rem', opacity: 0.95, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#34d399' }}></span>
+                      <span>Target Proyeksi: <strong>{regressionTargetPeriod.startDate} s/d {regressionTargetPeriod.endDate}</strong></span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="disease-cards-container">
