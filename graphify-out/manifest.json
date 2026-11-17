@@ -1,0 +1,104 @@
+{
+  "backend/package.json": {
+    "mtime": 1793253849.3041563,
+    "seen": 1794323635.5030994,
+    "ast_hash": "bd8db1143947c5c69c4105f1d1712bf3",
+    "semantic_hash": "bd8db1143947c5c69c4105f1d1712bf3"
+  },
+  "backend/src/index.js": {
+    "mtime": 1794308323.1202357,
+    "seen": 1794323635.5030994,
+    "ast_hash": "ecddd39670062fe31403b42919e4bccf",
+    "semantic_hash": "ecddd39670062fe31403b42919e4bccf"
+  },
+  "backend/src/newsService.js": {
+    "mtime": 1793517067.7243733,
+    "seen": 1794323635.5030994,
+    "ast_hash": "b3610a65ea35975038724f3dbb011a8f",
+    "semantic_hash": "b3610a65ea35975038724f3dbb011a8f"
+  },
+  "backend/src/scoring.js": {
+    "mtime": 1793516999.6491568,
+    "seen": 1794323635.5030994,
+    "ast_hash": "04bde88d82895fad510dbcbd347274ca",
+    "semantic_hash": "04bde88d82895fad510dbcbd347274ca"
+  },
+  "backend/src/supabase.js": {
+    "mtime": 1793496737.9475644,
+    "seen": 1794323635.5030994,
+    "ast_hash": "61cb6fc88963acaf27667cde2009dd5d",
+    "semantic_hash": "61cb6fc88963acaf27667cde2009dd5d"
+  },
+  "backend/src/weatherService.js": {
+    "mtime": 1794308195.747264,
+    "seen": 1794323635.5030994,
+    "ast_hash": "1d3bb143b81cd6ebe883a4fe94c0170e",
+    "semantic_hash": "1d3bb143b81cd6ebe883a4fe94c0170e"
+  },
+  "frontend/app/assessment/page.js": {
+    "mtime": 1793517217.3393333,
+    "seen": 1794323635.5030994,
+    "ast_hash": "cd75b4b96d4cf406d4a3b8f02ee2c55d",
+    "semantic_hash": "cd75b4b96d4cf406d4a3b8f02ee2c55d"
+  },
+  "frontend/app/dashboard/page.js": {
+    "mtime": 1794319185.382334,
+    "seen": 1794323635.5030994,
+    "ast_hash": "49aec6940f4c72f6aa7faaf2ac94d0ae",
+    "semantic_hash": "49aec6940f4c72f6aa7faaf2ac94d0ae"
+  },
+  "frontend/app/layout.js": {
+    "mtime": 1794319182.0824256,
+    "seen": 1794323635.5030994,
+    "ast_hash": "9c6d9cd941848c0e58d8c603e73b4785",
+    "semantic_hash": "9c6d9cd941848c0e58d8c603e73b4785"
+  },
+  "frontend/app/page.js": {
+    "mtime": 1793500221.056313,
+    "seen": 1794323635.5030994,
+    "ast_hash": "75fa5d461bc8c9f1de04005fa68a57af",
+    "semantic_hash": "75fa5d461bc8c9f1de04005fa68a57af"
+  },
+  "frontend/components/NewsModal.js": {
+    "mtime": 1793518130.7328372,
+    "seen": 1794323635.5030994,
+    "ast_hash": "acfb8481f374f2bd2a6c81e2d5d27624",
+    "semantic_hash": "acfb8481f374f2bd2a6c81e2d5d27624"
+  },
+  "frontend/components/ParticleCanvas.js": {
+    "mtime": 1793500082.7758396,
+    "seen": 1794323635.5030994,
+    "ast_hash": "b1c0764b74b7439e1bd430c98014a9cb",
+    "semantic_hash": "b1c0764b74b7439e1bd430c98014a9cb"
+  },
+  "frontend/jsconfig.json": {
+    "mtime": 1793500454.695633,
+    "seen": 1794323635.5030994,
+    "ast_hash": "1785e71c7510902b04f35784b434ec4b",
+    "semantic_hash": "1785e71c7510902b04f35784b434ec4b"
+  },
+  "frontend/lib/api.js": {
+    "mtime": 1794320577.2847898,
+    "seen": 1794323635.5030994,
+    "ast_hash": "ccb3c6ab7a8397e285fe2bbc48c31a63",
+    "semantic_hash": "ccb3c6ab7a8397e285fe2bbc48c31a63"
+  },
+  "frontend/next.config.js": {
+    "mtime": 1793500316.264976,
+    "seen": 1794323635.5030994,
+    "ast_hash": "368f129b1abbe2d82b25351cde2785d9",
+    "semantic_hash": "368f129b1abbe2d82b25351cde2785d9"
+  },
+  "frontend/package.json": {
+    "mtime": 1793499919.9510016,
+    "seen": 1794323635.5030994,
+    "ast_hash": "e6342d78756a31e15961651146fd6092",
+    "semantic_hash": "e6342d78756a31e15961651146fd6092"
+  },
+  "start.ps1": {
+    "mtime": 1794306045.1429272,
+    "seen": 1794323635.5030994,
+    "ast_hash": "ab1e4115c59c837ecf516dd9854dd887",
+    "semantic_hash": "ab1e4115c59c837ecf516dd9854dd887"
+  }
+}

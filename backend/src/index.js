@@ -13,7 +13,9 @@ const {
 } = require('./scoring');
 const {
   fetchJakartaEnvironmentalData,
-  fetchJakartaEnvironmentalDataForWeek
+  fetchJakartaEnvironmentalDataForWeek,
+  fetchJakarta7DaysHistory,
+  fetchJakarta5RegionsAirQuality
 } = require('./weatherService');
 const { fetchDinkesWeeklyCases, getPreviousCompleteJakartaWeek } = require('./dinkesService');
 const { getIspaNewsList, getArticleDetail, validateNewsUrl } = require('./newsService');
@@ -326,6 +328,49 @@ app.get('/api/environment', async (req, res) => {
     res.json(envData);
   } catch (err) {
     res.status(500).json({ error: 'Gagal memuat data lingkungan', details: err.message });
+  }
+});
+
+app.get('/api/environment/history', async (req, res) => {
+  try {
+    const history = await fetchJakarta7DaysHistory();
+    res.json({
+      status: 'success',
+      location: 'DKI Jakarta',
+      days: history.length,
+      history
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Gagal memuat data historis lingkungan', details: err.message });
+  }
+});
+
+let regionsAirCache = { data: null, expiresAt: 0 };
+
+app.get('/api/environment/regions', async (req, res) => {
+  try {
+    const now = Date.now();
+    if (regionsAirCache.data && regionsAirCache.expiresAt > now) {
+      return res.json({
+        status: 'success',
+        source: 'cache',
+        regions: regionsAirCache.data
+      });
+    }
+
+    const regions = await fetchJakarta5RegionsAirQuality();
+    regionsAirCache = {
+      data: regions,
+      expiresAt: now + 10 * 60 * 1000 // Cache 10 menit
+    };
+
+    return res.json({
+      status: 'success',
+      source: 'live',
+      regions
+    });
+  } catch (err) {
+    return res.status(500).json({ error: 'Gagal memuat kualitas udara 5 wilayah Jakarta', details: err.message });
   }
 });
 

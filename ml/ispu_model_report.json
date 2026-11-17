@@ -1,0 +1,170 @@
+{
+  "Random Forest Classifier": {
+    "accuracy": 99.44,
+    "precision": 99.75,
+    "recall": 97.83,
+    "f1_score": 98.76,
+    "confusion_matrix": [
+      [
+        18,
+        1,
+        0
+      ],
+      [
+        0,
+        261,
+        0
+      ],
+      [
+        0,
+        1,
+        79
+      ]
+    ],
+    "report": {
+      "BAIK": {
+        "precision": 1.0,
+        "recall": 0.9473684210526315,
+        "f1-score": 0.972972972972973,
+        "support": 19.0
+      },
+      "SEDANG": {
+        "precision": 0.9923954372623575,
+        "recall": 1.0,
+        "f1-score": 0.9961832061068703,
+        "support": 261.0
+      },
+      "TIDAK SEHAT": {
+        "precision": 1.0,
+        "recall": 0.9875,
+        "f1-score": 0.9937106918238994,
+        "support": 80.0
+      },
+      "accuracy": 0.9944444444444445,
+      "macro avg": {
+        "precision": 0.9974651457541192,
+        "recall": 0.9782894736842106,
+        "f1-score": 0.9876222903012476,
+        "support": 360.0
+      },
+      "weighted avg": {
+        "precision": 0.9944866920152091,
+        "recall": 0.9944444444444445,
+        "f1-score": 0.9944087739619211,
+        "support": 360.0
+      }
+    }
+  },
+  "Support Vector Machine (SVM)": {
+    "accuracy": 95.56,
+    "precision": 94.3,
+    "recall": 87.04,
+    "f1_score": 90.05,
+    "confusion_matrix": [
+      [
+        13,
+        6,
+        0
+      ],
+      [
+        1,
+        255,
+        5
+      ],
+      [
+        0,
+        4,
+        76
+      ]
+    ],
+    "report": {
+      "BAIK": {
+        "precision": 0.9285714285714286,
+        "recall": 0.6842105263157895,
+        "f1-score": 0.7878787878787878,
+        "support": 19.0
+      },
+      "SEDANG": {
+        "precision": 0.9622641509433962,
+        "recall": 0.9770114942528736,
+        "f1-score": 0.9695817490494296,
+        "support": 261.0
+      },
+      "TIDAK SEHAT": {
+        "precision": 0.9382716049382716,
+        "recall": 0.95,
+        "f1-score": 0.9440993788819876,
+        "support": 80.0
+      },
+      "accuracy": 0.9555555555555556,
+      "macro avg": {
+        "precision": 0.9430357281510321,
+        "recall": 0.8704073401895543,
+        "f1-score": 0.900519971936735,
+        "support": 360.0
+      },
+      "weighted avg": {
+        "precision": 0.9551542470392925,
+        "recall": 0.9555555555555556,
+        "f1-score": 0.954329121617103,
+        "support": 360.0
+      }
+    }
+  },
+  "Logistic Regression": {
+    "accuracy": 95.28,
+    "precision": 91.49,
+    "recall": 80.7,
+    "f1_score": 84.55,
+    "confusion_matrix": [
+      [
+        9,
+        10,
+        0
+      ],
+      [
+        2,
+        257,
+        2
+      ],
+      [
+        0,
+        3,
+        77
+      ]
+    ],
+    "report": {
+      "BAIK": {
+        "precision": 0.8181818181818182,
+        "recall": 0.47368421052631576,
+        "f1-score": 0.6,
+        "support": 19.0
+      },
+      "SEDANG": {
+        "precision": 0.9518518518518518,
+        "recall": 0.9846743295019157,
+        "f1-score": 0.967984934086629,
+        "support": 261.0
+      },
+      "TIDAK SEHAT": {
+        "precision": 0.9746835443037974,
+        "recall": 0.9625,
+        "f1-score": 0.9685534591194969,
+        "support": 80.0
+      },
+      "accuracy": 0.9527777777777777,
+      "macro avg": {
+        "precision": 0.9149057381124891,
+        "recall": 0.8069528466760771,
+        "f1-score": 0.8455127977353752,
+        "support": 360.0
+      },
+      "weighted avg": {
+        "precision": 0.9498707539530324,
+        "recall": 0.9527777777777777,
+        "f1-score": 0.9486898459060276,
+        "support": 360.0
+      }
+    }
+  }
+}

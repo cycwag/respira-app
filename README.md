@@ -201,6 +201,14 @@ Regresi menghasilkan estimasi kasus mingguan untuk 3 sub-kategori ICD-10 ISPA:
 
 Hasil regresi eksternal dan skor Odds Ratio internal diteruskan ke **Weighted Scoring Model** (rasio bobot saat ini **60% Eksternal : 40% Internal**) untuk menghasilkan skor risiko. Skor ini adalah skor berbasis aturan dan belum dikalibrasi sebagai probabilitas medis.
 
+### 4. Model Klasifikasi Kualitas Udara (ISPU 5 Wilayah DKI Jakarta)
+Selain model regresi kasus, sistem dilengkapi model **Multiclass Classification** untuk mengevaluasi kualitas udara 5 wilayah administratif DKI Jakarta (Permen LHK No. 14 Tahun 2020):
+* **Dataset Latih**: Data riil SPKU Dinas Lingkungan Hidup DKI Jakarta 2021-2022 (`ml/data/cleaned_ispu_dataset.csv`).
+* **Algoritma Terlatih**: Random Forest Classifier (Akurasi: **99.44%**, F1-Score: **98.76%**), SVM, dan Logistic Regression.
+* **Fitur Input**: $\text{PM}_{2.5}$, $\text{PM}_{10}$, $\text{SO}_2$, $\text{CO}$, $\text{O}_3$, dan $\text{NO}_2$.
+* **Target Kelas**: `BAIK` (Hijau), `SEDANG` (Kuning), `TIDAK SEHAT` (Merah).
+* **Integrasi UI**: Peta Vektor SVG Interaktif 5 Wilayah dengan tooltip polutan saat di-hover dan sinkronisasi rincian stasiun SPKU saat di-klik.
+
 ---
 
 ## 📡 Daftar Endpoint REST API Backend (`Port 5000`)
@@ -213,6 +221,8 @@ Hasil regresi eksternal dan skor Odds Ratio internal diteruskan ke **Weighted Sc
 | `/api/profile/:id` | `GET` | Mengambil data profil klinis pengguna (memerlukan Bearer Token) |
 | `/api/profile` | `POST` | Menyimpan/memperbarui data TB, BB, BMI, & komorbid pengguna |
 | `/api/environment` | `GET` | Mengambil data cuaca & $\text{PM}_{2.5}$ live DKI Jakarta |
+| `/api/environment/history` | `GET` | Mengambil data historis cuaca & $\text{PM}_{2.5}$ 7 hari terakhir |
+| `/api/environment/regions` | `GET` | Mengambil status klasifikasi ISPU 5 wilayah administratif DKI Jakarta (Live) |
 | `/api/assess` | `POST` | Menjalankan kalkulasi hybrid risiko ISPA & menyimpan riwayat |
 | `/api/news` | `GET` | Mengambil daftar kurasi berita ISPA terkini |
 | `/api/news/detail` | `GET` | Mengekstrak isi artikel lengkap untuk tampilan *Reader View* |

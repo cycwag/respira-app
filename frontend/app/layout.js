@@ -1,12 +1,4 @@
 import './globals.css';
-import { Plus_Jakarta_Sans } from 'next/font/google';
-
-const plusJakartaSans = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-sans',
-  display: 'swap',
-});
 
 export const metadata = {
   title: 'RESPIRA - ML-Powered Respiratory Risk Monitoring',
@@ -18,7 +10,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="id" className={plusJakartaSans.variable}>
+    <html lang="id">
       <body>{children}</body>
     </html>
   );
