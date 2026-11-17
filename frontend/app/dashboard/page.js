@@ -424,7 +424,7 @@ export default function DashboardPage() {
       detailRows = [
         { k: 'Stasiun Pemantau', v: selectedRegion.station },
         { k: 'Klaster Spasial (K-Means)', v: selectedRegion.cluster ? `${selectedRegion.cluster.name} (${selectedRegion.cluster.badge})` : 'Klaster Risiko Moderat' },
-        { k: 'Status Klasifikasi ISPU', v: selectedRegion.ispu?.status || 'SEDANG' },
+        { k: 'Klasifikasi (Random Forest)', v: `${selectedRegion.ispu?.status || 'SEDANG'}${selectedRegion.ispu?.mlPrediction ? ` (${Math.round(selectedRegion.ispu.mlPrediction.confidenceScore * 100)}% Voting Pohon)` : ''}` },
         { k: 'PM2.5 Wilayah', v: `${selectedRegion.ispu?.pollutants?.pm25 ?? 42} µg/m³` },
         { k: 'PM10 Wilayah', v: `${selectedRegion.ispu?.pollutants?.pm10 ?? 55} µg/m³` },
         { k: 'Polutan Dominan', v: selectedRegion.ispu?.dominantPollutant || 'PM2.5' },
