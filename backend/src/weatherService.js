@@ -356,6 +356,7 @@ async function fetchJakarta7DaysHistory() {
  * (Pusat, Utara, Barat, Selatan, Timur) dan mengklasifikasikannya menggunakan model ISPU
  */
 const { classifyIspu } = require('./ispuClassifier');
+const { predictCluster } = require('./kmeansClusterService');
 
 const JAKARTA_REGIONS = [
   { id: 'pusat', name: 'Jakarta Pusat', station: 'SPKU 1 Bundaran HI', lat: -6.1865, lon: 106.8341, fallbackPm25: 42.5 },
@@ -392,6 +393,7 @@ async function fetchJakarta5RegionsAirQuality() {
       const humidity = parseEnvNum(w?.current?.relative_humidity_2m, 76.0, 0, 100);
 
       const evaluation = classifyIspu({ pm25, pm10, so2, co, o3, no2 });
+      const cluster = predictCluster({ pm25, pm10, so2, co, o3, no2 });
 
       return {
         id: reg.id,
@@ -401,11 +403,13 @@ async function fetchJakarta5RegionsAirQuality() {
         lon: reg.lon,
         temperature: parseFloat(temperature.toFixed(1)),
         humidity: Math.round(humidity),
-        ispu: evaluation
+        ispu: evaluation,
+        cluster: cluster
       };
     } catch (err) {
       console.warn(`Gagal fetch wilayah ${reg.name}, pakai estimasi:`, err.message);
       const evaluation = classifyIspu({ pm25: reg.fallbackPm25, pm10: reg.fallbackPm25 * 1.3 });
+      const cluster = predictCluster({ pm25: reg.fallbackPm25, pm10: reg.fallbackPm25 * 1.3 });
       return {
         id: reg.id,
         name: reg.name,
@@ -414,7 +418,8 @@ async function fetchJakarta5RegionsAirQuality() {
         lon: reg.lon,
         temperature: 29.0,
         humidity: 78,
-        ispu: evaluation
+        ispu: evaluation,
+        cluster: cluster
       };
     }
   });

@@ -100,6 +100,15 @@ export default function JakartaAirMap({ regions = [], selectedRegionId, onSelect
           dominantPollutant: 'PM2.5',
           advice: 'Kualitas udara sangat baik dan bersih. Wilayah perairan kepulauan memiliki risiko polusi terendah di DKI Jakarta.',
           pollutants: { pm25: 14.2, pm10: 24, so2: 8, co: 10, o3: 20, no2: 9 }
+        },
+        cluster: {
+          clusterId: 2,
+          rank: 0,
+          name: 'Klaster Risiko Terkontrol',
+          badge: 'Zona Aman Pesisir',
+          level: 'low',
+          color: '#10b981',
+          description: 'Sirkulasi udara laut terbuka, konsentrasi partikulat terendah di DKI Jakarta.'
         }
       };
     }
@@ -116,6 +125,15 @@ export default function JakartaAirMap({ regions = [], selectedRegionId, onSelect
         dominantPollutant: 'PM2.5',
         advice: 'Kualitas udara dapat diterima. Kelompok sensitif dianjurkan mengenakan masker.',
         pollutants: { pm25: 42, pm10: 55, so2: 18, co: 20, o3: 35, no2: 22 }
+      },
+      cluster: {
+        clusterId: 0,
+        rank: 1,
+        name: 'Klaster Risiko Moderat',
+        badge: 'Zona Paparan Sedang',
+        level: 'medium',
+        color: '#f59e0b',
+        description: 'Kawasan urban komersial/pemukiman, polusi meningkat saat jam sibuk.'
       }
     };
   };
@@ -124,7 +142,7 @@ export default function JakartaAirMap({ regions = [], selectedRegionId, onSelect
     <div className="jakarta-map-card">
       <div className="map-card-header">
         <div className="map-title-wrap">
-          <div className="map-badge">SPATIAL ML CLASSIFICATION</div>
+          <div className="map-badge">SPATIAL ML CLUSTERING & CLASSIFICATION</div>
           <h4>Peta Kualitas Udara 5 Wilayah DKI Jakarta</h4>
           <p>
             Representasi kartografis resmi Provinsi DKI Jakarta. Arahkan kursor untuk melihat status polutan, klik wilayah untuk sinkronisasi rincian data.
@@ -409,6 +427,23 @@ export default function JakartaAirMap({ regions = [], selectedRegionId, onSelect
               </span>
             </div>
             <div className="tooltip-sub">{hoveredRegion.station}</div>
+            {hoveredRegion.cluster && (
+              <div
+                style={{
+                  display: 'inline-block',
+                  margin: '4px 0 6px 0',
+                  padding: '2px 8px',
+                  borderRadius: '999px',
+                  fontSize: '10px',
+                  fontWeight: '700',
+                  color: hoveredRegion.cluster.color || '#0284c7',
+                  backgroundColor: `${hoveredRegion.cluster.color || '#0284c7'}15`,
+                  border: `1px solid ${hoveredRegion.cluster.color || '#0284c7'}40`
+                }}
+              >
+                K-Means: {hoveredRegion.cluster.badge || hoveredRegion.cluster.name}
+              </div>
+            )}
             <div className="tooltip-metrics">
               <span>PM2.5: <strong>{hoveredRegion.ispu?.pollutants?.pm25 ?? 42} µg/m³</strong></span>
               <span>PM10: <strong>{hoveredRegion.ispu?.pollutants?.pm10 ?? 55} µg/m³</strong></span>

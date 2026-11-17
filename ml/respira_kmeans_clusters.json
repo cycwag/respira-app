@@ -1,0 +1,118 @@
+{
+  "version": "1.0.0",
+  "algorithm": "K-Means Clustering",
+  "k": 3,
+  "metric": "euclidean",
+  "sampleCount": 1796,
+  "features": [
+    "pm25",
+    "pm10",
+    "so2",
+    "co",
+    "o3",
+    "no2"
+  ],
+  "scaler": {
+    "mean": [
+      83.1047,
+      55.4722,
+      38.5117,
+      13.0807,
+      37.3486,
+      21.9226
+    ],
+    "scale": [
+      23.8241,
+      13.626,
+      12.1828,
+      5.8507,
+      19.7028,
+      9.4293
+    ]
+  },
+  "centroids": [
+    [
+      88.0857,
+      58.4334,
+      37.1958,
+      12.2121,
+      29.4357,
+      22.5852
+    ],
+    [
+      101.3004,
+      66.8925,
+      49.3947,
+      18.0855,
+      58.8947,
+      28.8728
+    ],
+    [
+      56.6981,
+      39.1971,
+      30.4885,
+      9.8679,
+      31.0671,
+      14.0797
+    ]
+  ],
+  "clusterDefinitions": {
+    "2": {
+      "cluster_id": 2,
+      "rank": 0,
+      "name": "Klaster Risiko Terkontrol",
+      "badge": "Zona Aman Pesisir",
+      "level": "low",
+      "color": "#10b981",
+      "description": "Sirkulasi udara terbuka, konsentrasi PM2.5 terendah (<35 \u00b5g/m\u00b3).",
+      "sample_count": 477,
+      "sample_percentage": 26.6,
+      "centroid": {
+        "pm25": 56.7,
+        "pm10": 39.2,
+        "so2": 30.49,
+        "co": 9.87,
+        "o3": 31.07,
+        "no2": 14.08
+      }
+    },
+    "0": {
+      "cluster_id": 0,
+      "rank": 1,
+      "name": "Klaster Risiko Moderat",
+      "badge": "Zona Paparan Sedang",
+      "level": "medium",
+      "color": "#f59e0b",
+      "description": "Kawasan urban komersial/pemukiman, polusi meningkat saat jam sibuk.",
+      "sample_count": 863,
+      "sample_percentage": 48.1,
+      "centroid": {
+        "pm25": 88.09,
+        "pm10": 58.43,
+        "so2": 37.2,
+        "co": 12.21,
+        "o3": 29.44,
+        "no2": 22.59
+      }
+    },
+    "1": {
+      "cluster_id": 1,
+      "rank": 2,
+      "name": "Klaster Risiko Tinggi",
+      "badge": "Zona Bahaya Paparan Akut",
+      "level": "high",
+      "color": "#ef4444",
+      "description": "Kawasan koridor industri & lalu lintas padat dengan akumulasi PM2.5 & PM10 pekat.",
+      "sample_count": 456,
+      "sample_percentage": 25.4,
+      "centroid": {
+        "pm25": 101.3,
+        "pm10": 66.89,
+        "so2": 49.39,
+        "co": 18.09,
+        "o3": 58.89,
+        "no2": 28.87
+      }
+    }
+  }
+}

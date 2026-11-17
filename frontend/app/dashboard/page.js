@@ -423,14 +423,17 @@ export default function DashboardPage() {
       detailBadge = selectedRegion.ispu?.status || 'SEDANG';
       detailRows = [
         { k: 'Stasiun Pemantau', v: selectedRegion.station },
-        { k: 'Status Klasifikasi ML', v: selectedRegion.ispu?.status || 'SEDANG' },
+        { k: 'Klaster Spasial (K-Means)', v: selectedRegion.cluster ? `${selectedRegion.cluster.name} (${selectedRegion.cluster.badge})` : 'Klaster Risiko Moderat' },
+        { k: 'Status Klasifikasi ISPU', v: selectedRegion.ispu?.status || 'SEDANG' },
         { k: 'PM2.5 Wilayah', v: `${selectedRegion.ispu?.pollutants?.pm25 ?? 42} µg/m³` },
-        { k: 'PM10 Wilayah', v: `${selectedRegion.ispu?.pollutants?.pm10 ?? 55}` },
+        { k: 'PM10 Wilayah', v: `${selectedRegion.ispu?.pollutants?.pm10 ?? 55} µg/m³` },
         { k: 'Polutan Dominan', v: selectedRegion.ispu?.dominantPollutant || 'PM2.5' },
         { k: 'Suhu Wilayah', v: `${selectedRegion.temperature ?? 28.5}°C` },
         { k: 'Kelembapan Udara', v: `${selectedRegion.humidity ?? 78}%` }
       ];
-      currentAdvice = selectedRegion.ispu?.advice || defaultAdvice;
+      currentAdvice = selectedRegion.cluster?.description
+        ? `${selectedRegion.cluster.description} ${selectedRegion.ispu?.advice || ''}`
+        : (selectedRegion.ispu?.advice || defaultAdvice);
     } else {
       detailTitle = 'Monitoring Cuaca & Polutan';
       detailBadge = 'Open-Meteo';
