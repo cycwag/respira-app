@@ -105,7 +105,7 @@ export default function JakartaAirMap({ regions = [], selectedRegionId, onSelect
           clusterId: 2,
           rank: 0,
           name: 'Klaster Risiko Terkontrol',
-          badge: 'Zona Aman Pesisir',
+          badge: 'Zona Risiko Rendah',
           level: 'low',
           color: '#10b981',
           description: 'Sirkulasi udara laut terbuka, konsentrasi partikulat terendah di DKI Jakarta.'

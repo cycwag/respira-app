@@ -7,7 +7,7 @@ const ISPU_THRESHOLDS = {
   pm25: { baik: 15.5, sedang: 55.4 },
   pm10: { baik: 50.0, sedang: 100.0 },
   so2:  { baik: 50.0, sedang: 180.0 },
-  co:   { baik: 25.0, sedang: 50.0 },
+  co:   { baik: 50.0, sedang: 100.0 },
   o3:   { baik: 50.0, sedang: 100.0 },
   no2:  { baik: 50.0, sedang: 100.0 }
 };

@@ -27,10 +27,10 @@ function predictCluster(pollutants = {}) {
         clusterId: 2,
         rank: 0,
         name: 'Klaster Risiko Terkontrol',
-        badge: 'Zona Aman Pesisir',
+        badge: 'Zona Risiko Rendah',
         level: 'low',
         color: '#10b981',
-        description: 'Sirkulasi udara terbuka, konsentrasi PM2.5 terendah (<35 µg/m³).'
+        description: 'Sirkulasi udara terbuka, konsentrasi PM2.5 terendah dengan paparan minimal.'
       };
     } else if (pm25 < 70) {
       return {

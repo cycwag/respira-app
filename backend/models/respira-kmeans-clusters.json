@@ -61,10 +61,10 @@
       "cluster_id": 2,
       "rank": 0,
       "name": "Klaster Risiko Terkontrol",
-      "badge": "Zona Aman Pesisir",
+      "badge": "Zona Risiko Rendah",
       "level": "low",
       "color": "#10b981",
-      "description": "Sirkulasi udara terbuka, konsentrasi PM2.5 terendah (<35 \u00b5g/m\u00b3).",
+      "description": "Sirkulasi udara terbuka, konsentrasi PM2.5 terendah dengan paparan minimal.",
       "sample_count": 477,
       "sample_percentage": 26.6,
       "centroid": {
