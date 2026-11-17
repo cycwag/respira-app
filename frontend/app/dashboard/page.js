@@ -388,7 +388,6 @@ export default function DashboardPage() {
             <div className="sidebar-top">
               <div className="sidebar-brand">
                 <span className="brand-title">RESPIRA</span>
-                <span className="brand-tag">RISK SYSTEM</span>
               </div>
 
               <nav className="sidebar-nav">
