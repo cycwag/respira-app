@@ -200,7 +200,8 @@ const JAKARTA_REGIONS = [
   { id: 'utara', name: 'Jakarta Utara', station: 'SPKU 2 Kelapa Gading', lat: -6.1554, lon: 106.9038, fallbackPm25: 58.2 },
   { id: 'barat', name: 'Jakarta Barat', station: 'SPKU 3 Kebon Jeruk', lat: -6.1683, lon: 106.7589, fallbackPm25: 51.0 },
   { id: 'selatan', name: 'Jakarta Selatan', station: 'SPKU 4 Jagakarsa', lat: -6.3006, lon: 106.8183, fallbackPm25: 48.7 },
-  { id: 'timur', name: 'Jakarta Timur', station: 'SPKU 5 Lubang Buaya', lat: -6.2908, lon: 106.8967, fallbackPm25: 64.1 }
+  { id: 'timur', name: 'Jakarta Timur', station: 'SPKU 5 Lubang Buaya', lat: -6.2908, lon: 106.8967, fallbackPm25: 64.1 },
+  { id: 'seribu', name: 'Kepulauan Seribu', station: 'SPKU Pulau Pramuka', lat: -5.7458, lon: 106.6139, fallbackPm25: 18.5 }
 ];
 
 async function fetchJakarta5RegionsAirQuality() {

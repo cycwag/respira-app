@@ -285,8 +285,8 @@ export default function DashboardPage() {
         { k: 'PM2.5 Wilayah', v: `${selectedRegion.ispu?.pollutants?.pm25 ?? 42} µg/m³` },
         { k: 'PM10 Wilayah', v: `${selectedRegion.ispu?.pollutants?.pm10 ?? 55}` },
         { k: 'Polutan Dominan', v: selectedRegion.ispu?.dominantPollutant || 'PM2.5' },
-        { k: 'Suhu Wilayah', v: `${selectedRegion.temperature}°C` },
-        { k: 'Kelembapan Udara', v: `${selectedRegion.humidity}%` }
+        { k: 'Suhu Wilayah', v: `${selectedRegion.temperature ?? 28.5}°C` },
+        { k: 'Kelembapan Udara', v: `${selectedRegion.humidity ?? 78}%` }
       ];
       currentAdvice = selectedRegion.ispu?.advice || defaultAdvice;
     } else {
@@ -381,7 +381,6 @@ export default function DashboardPage() {
             <div className="sidebar-top">
               <div className="sidebar-brand">
                 <span className="brand-title">RESPIRA</span>
-                <span className="brand-tag">ML SYSTEM</span>
               </div>
 
               <nav className="sidebar-nav">
@@ -468,11 +467,6 @@ export default function DashboardPage() {
                 <span className="greeting-time">{greetingTime}</span>
                 <h1 className="greeting-user">{displayName}!</h1>
               </div>
-              <button type="button" className="bell-action-btn" aria-label="Notifikasi">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                  <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" />
-                </svg>
-              </button>
             </header>
 
             <div className="news-banner-pill" onClick={handleNewsClick}>
@@ -895,16 +889,6 @@ export default function DashboardPage() {
                 </div>
               </div>
             )}
-
-            <div
-              className="feedback-capsule-btn"
-              onClick={() => alert('Terima kasih atas partisipasi Anda dalam evaluasi RESPIRA!')}
-            >
-              <span>Berikan penilaian untuk aplikasi kami!</span>
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="#fbbf24">
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-              </svg>
-            </div>
           </main>
 
           {/* PANE 3: DETAIL PANEL */}
