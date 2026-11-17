@@ -65,8 +65,8 @@ export function calculateWeightedRisksClientSide(oddsRatio = 1.30, cases = {}) {
 
   const computeScore = (caseCount, p95Baseline) => {
     const c = Math.max(0, Number(caseCount) || 100);
-    const effectiveMedian = Math.max(500, (Number(p95Baseline) || 8000) * 0.42);
-    const caseRatio = Math.min(1.0, Math.max(0.05, c / effectiveMedian));
+    const baseline = Math.max(500, (Number(p95Baseline) || 8000) * 0.70);
+    const caseRatio = Math.min(1.0, Math.max(0.05, c / baseline));
     const externalRisk = 0.12 + (caseRatio * 0.48);
     const internalRisk = normalizedInternal * 0.40;
     return Math.min(99, Math.max(1, Math.round((externalRisk + internalRisk) * 100)));

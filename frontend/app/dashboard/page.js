@@ -204,7 +204,7 @@ export default function DashboardPage() {
         });
 
         const or = activeFactors.oddsRatio || 1.30;
-        const fallbackEnv = { pm25: 45.2, temperature: 29.1, humidity: 76.5, rainfall: 14.0, windSpeed: 7.5, prevCases: 19450 };
+        const fallbackEnv = { pm25: 45.2, temperature: 29.1, humidity: 76.5, rainfall: 14.0, windSpeed: 7.5, prevCases: 1850 };
         const clientCases = predictCasesClientSide(fallbackEnv);
         const clientRisks = calculateWeightedRisksClientSide(or, clientCases);
 

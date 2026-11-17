@@ -283,8 +283,8 @@ function calculateWeightedRisk({ internalOR, regressionCases, caseBaselines } = 
   // Dilengkapi baseline paparan polusi Jakarta (12%)
   const computeScore = (caseCount, p95Baseline) => {
     const c = parseNum(caseCount, 100, 0, 1000000);
-    const effectiveMedian = Math.max(500, parseNum(p95Baseline, 8000, 1, 100000) * 0.42);
-    const caseRatio = Math.min(1.0, Math.max(0.05, c / effectiveMedian));
+    const baseline = Math.max(500, parseNum(p95Baseline, 8000, 1, 100000) * 0.70);
+    const caseRatio = Math.min(1.0, Math.max(0.05, c / baseline));
     const externalRisk = 0.12 + (caseRatio * 0.48);
     const internalRisk = normalizedInternal * 0.40;
     
