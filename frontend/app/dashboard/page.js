@@ -442,7 +442,7 @@ export default function DashboardPage() {
     detailTitle = 'Analisis Faktor Polutan';
     detailBadge = 'Eksternal';
     detailRows = [
-      { k: 'Konsentrasi PM2.5 (Live)', v: pm25Val },
+      { k: 'Konsentrasi PM2.5 (Terkalibrasi)', v: pm25Val },
       { k: 'Skor Odds Ratio Personal', v: `${orVal}x` },
       { k: 'Kontribusi Polutan vs Internal', v: `${pollutantSharePercentage}% / ${100 - pollutantSharePercentage}%` },
       { k: 'Riwayat Kasus Minggu Lalu', v: prevCasesVal }
@@ -704,7 +704,7 @@ export default function DashboardPage() {
                 {/* STRIP DATA LINGKUNGAN / CUACA */}
                 <div className="env-data-strip" ref={envStripRef}>
                   <div className="env-col">
-                    <span className="env-k">PM2.5</span>
+                    <span className="env-k">PM2.5 (Terkalibrasi)</span>
                     <span className="env-v">{pm25Val}</span>
                   </div>
                   <div className="env-col">

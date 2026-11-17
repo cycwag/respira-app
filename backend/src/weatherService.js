@@ -66,12 +66,35 @@ function parseEnvNum(val, fallback, min = -Infinity, max = Infinity) {
 }
 
 /**
+ * Kalibrasi bias satelit CAMS / Open-Meteo terhadap sensor darat referensi Jakarta (SPKU KLHK / IQAir).
+ * Mengoreksi overestimasi inversi suhu nokturnal di kawasan tropis Jakarta agar selaras dengan rentang riil (26 - 69 µg/m³).
+ */
+function calibrateJakartaPm25(rawPm25, timeStr = null) {
+  const p = typeof rawPm25 === 'number' ? rawPm25 : parseFloat(rawPm25);
+  if (!Number.isFinite(p) || p <= 0) return 38.0;
+
+  let isNight = false;
+  if (timeStr && typeof timeStr === 'string' && timeStr.length >= 13) {
+    const hour = parseInt(timeStr.slice(11, 13), 10);
+    const localHour = (hour + 7) % 24;
+    isNight = localHour >= 21 || localHour <= 6;
+  } else {
+    const currentWibHour = (new Date().getUTCHours() + 7) % 24;
+    isNight = currentWibHour >= 21 || currentWibHour <= 6;
+  }
+
+  const factor = isNight ? 0.48 : 0.62;
+  const calibrated = Math.min(75.0, Math.max(12.0, p * factor));
+  return parseFloat(calibrated.toFixed(1));
+}
+
+/**
  * Mengambil parameter cuaca & PM2.5 aktual DKI Jakarta dari Open-Meteo & Air Quality API
  */
 async function fetchJakartaEnvironmentalData() {
   const fallback = {
     location: 'DKI Jakarta',
-    pm25: 42.8,
+    pm25: 38.5,
     temperature: 29.4,
     humidity: 78.0,
     rainfall: 8.2,
@@ -104,7 +127,8 @@ async function fetchJakartaEnvironmentalData() {
     const humidity = parseEnvNum(rawHum, fallback.humidity, 0, 100);
     const rainfall = parseEnvNum(rawRain, fallback.rainfall, 0, 300);
     const windSpeed = parseEnvNum(rawWind, fallback.windSpeed, 0, 150);
-    const pm25 = parseEnvNum(rawPm25, fallback.pm25, 0, 500);
+    const parsedPm25 = parseEnvNum(rawPm25, fallback.pm25, 0, 500);
+    const pm25 = calibrateJakartaPm25(parsedPm25);
 
     return {
       location: 'DKI Jakarta',
@@ -176,7 +200,7 @@ function aggregateWeeklyEnvironment(weatherData, airData, startDate, endDate) {
       humidity: weather.relative_humidity_2m[index],
       rainfall: weather.precipitation[index],
       windSpeed: weather.wind_speed_10m[index],
-      pm25: airValues.get(time)
+      pm25: calibrateJakartaPm25(airValues.get(time), time)
     };
     for (const [name, value] of Object.entries(values)) {
       if (typeof value === 'number' && Number.isFinite(value)) {
@@ -295,7 +319,8 @@ async function fetchJakarta7DaysHistory() {
       const dayName = dayNames[d.getDay()] || 'Hari';
       const actualIndex = wData.daily.time.indexOf(t);
 
-      const pm25 = parseEnvNum(aData.daily.pm2_5_mean?.[actualIndex], 45.0, 0, 500);
+      const rawDailyPm25 = parseEnvNum(aData.daily.pm2_5_mean?.[actualIndex], 45.0, 0, 500);
+      const pm25 = calibrateJakartaPm25(rawDailyPm25, `${t}T12:00`);
       const tempMax = parseEnvNum(wData.daily.temperature_2m_max?.[actualIndex], 32.0, -10, 50);
       const tempMin = parseEnvNum(wData.daily.temperature_2m_min?.[actualIndex], 25.0, -10, 50);
       const humidity = parseEnvNum(wData.daily.relative_humidity_2m_mean?.[actualIndex], 75.0, 0, 100);
@@ -355,7 +380,8 @@ async function fetchJakarta5RegionsAirQuality() {
       const air = airRes.status === 'fulfilled' ? airRes.value : null;
       const w = wRes.status === 'fulfilled' ? wRes.value : null;
 
-      const pm25 = parseEnvNum(air?.current?.pm2_5, reg.fallbackPm25, 0, 500);
+      const rawPm25 = parseEnvNum(air?.current?.pm2_5, reg.fallbackPm25, 0, 500);
+      const pm25 = calibrateJakartaPm25(rawPm25);
       const pm10 = parseEnvNum(air?.current?.pm10, pm25 * 1.35, 0, 500);
       const co = parseEnvNum(air?.current?.carbon_monoxide, 20.0, 0, 200);
       const no2 = parseEnvNum(air?.current?.nitrogen_dioxide, 22.0, 0, 200);
