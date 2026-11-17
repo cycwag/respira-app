@@ -7,7 +7,7 @@ import ParticleCanvas from '@/components/ParticleCanvas';
 import NewsModal from '@/components/NewsModal';
 import JakartaAirMap from '@/components/JakartaAirMap';
 import { assessRisk, getProfile, getEnvironmentHistory, getJakartaRegionsAirQuality } from '@/lib/api';
-import { predictCasesClientSide, calculateWeightedRisksClientSide, REGRESSION_WEIGHTS } from '@/lib/regressionInference';
+import { predictCasesClientSide, calculateWeightedRisksClientSide, classifyRisk, REGRESSION_WEIGHTS } from '@/lib/regressionInference';
 
 const TIP_DETAILS_MAP = {
   masker: {
@@ -213,7 +213,7 @@ export default function DashboardPage() {
           environmentalData: fallbackEnv,
           regressionCases: clientCases,
           riskPercentages: clientRisks,
-          riskLevel: clientRisks.overall >= 60 ? 'Tinggi - Bahaya' : (clientRisks.overall >= 35 ? 'Sedang - Waspada' : 'Rendah - Terkontrol'),
+          riskLevel: clientRisks.riskLevel || (clientRisks.overall > 20 ? 'Waspada' : (clientRisks.overall >= 10 ? 'Moderat' : 'Aman')),
           regressionModelStatus: 'trained_model',
           regressionInput: {
             targetPeriod: { startDate: '10 Nov 2026', endDate: '16 Nov 2026' },
@@ -308,9 +308,20 @@ export default function DashboardPage() {
     }
   ];
 
-  const sortedDiseases = [...rawDiseases].sort((a, b) => b.score - a.score);
+  const sortedDiseases = [...rawDiseases]
+    .sort((a, b) => b.score - a.score)
+    .map((d, idx) => {
+      const classification = classifyRisk(d.score, idx === 0);
+      return {
+        ...d,
+        statusLabel: classification.label,
+        tagClass: classification.tagClass,
+        category: classification.category,
+        isHighest: idx === 0
+      };
+    });
 
-  const riskLevel = assessmentData?.riskLevel || 'Sedang - Waspada';
+  const riskLevel = assessmentData?.riskLevel || (sortedDiseases[0]?.score > 20 ? 'Waspada' : (sortedDiseases[0]?.score >= 10 ? 'Moderat' : 'Aman'));
   const orVal = assessmentData?.oddsRatio ? assessmentData.oddsRatio.toFixed(2) : '1.30';
   const regressionTargetPeriod = assessmentData?.regressionInput?.targetPeriod;
   const regressionStatusText = (assessmentData?.regressionModelStatus === 'trained_model' || assessmentData?.regressionCases)
@@ -321,6 +332,22 @@ export default function DashboardPage() {
 
   const defaultAdvice = (assessmentData?.preventiveAdvice && assessmentData.preventiveAdvice[0]) ||
     'Gunakan masker saat berkendara atau beraktivitas luar ruangan karena partikel PM2.5 sedang tinggi.';
+
+  const topRiskScore = sortedDiseases[0]?.score || overallRisk;
+  const mascotStatus = topRiskScore > 20
+    ? {
+        heading: 'Status Waspada',
+        desc: 'Probabilitas risiko ISPA melebihi ambang batas 20%. Disarankan gunakan masker protektif saat di luar.'
+      }
+    : (topRiskScore >= 10
+      ? {
+          heading: 'Status Moderat',
+          desc: 'Probabilitas risiko ISPA berada dalam rentang moderat (10%–20%). Jaga daya tahan tubuh dan hidrasi.'
+        }
+      : {
+          heading: 'Status Aman',
+          desc: 'Indeks paparan lingkungan dalam ambang batas aman terkontrol (<10%).'
+        });
 
   // Determine Pane 3 contents based on active Tab and Selection
   let detailTitle = 'Analisis Faktor Polutan';
@@ -367,8 +394,8 @@ export default function DashboardPage() {
     detailTitle = 'Rincian Luaran Penyakit';
     detailBadge = 'Klinis';
     detailRows = [
-      ...sortedDiseases.map((d, idx) => ({
-        k: `${d.code} (${idx === 0 ? 'Tertinggi' : (idx === 1 ? 'Moderat' : 'Terkontrol')})`,
+      ...sortedDiseases.map((d) => ({
+        k: `${d.code} (${d.statusLabel})`,
         v: `${d.score}% • ${d.cases} kasus`
       })),
       { k: 'Akurasi Model OLS', v: '86.6% (Validasi Uji 2026)' },
@@ -663,23 +690,32 @@ export default function DashboardPage() {
                   <div className="prediction-intro-badge">MULTIVARIATE LINEAR REGRESSION • AKURASI UJI 86.6%</div>
                   <h3>Prediksi Spesifik Sub-Kategori ISPA (ICD-10)</h3>
                   <p>Estimasi probabilitas dan beban kasus mingguan di DKI Jakarta berbasis model regresi terlatih (160 minggu data riil Dinkes &amp; Open-Meteo) dari interaksi konsentrasi PM2.5, suhu, kelembapan, curah hujan, angin, dan kasus historis.</p>
-                  {regressionTargetPeriod && (
-                    <div style={{ marginTop: '0.75rem', fontSize: '0.82rem', opacity: 0.95, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#34d399' }}></span>
-                      <span>Target Proyeksi: <strong>{regressionTargetPeriod.startDate} s/d {regressionTargetPeriod.endDate}</strong></span>
-                    </div>
-                  )}
+                  
+                  <div style={{ marginTop: '0.85rem', display: 'flex', flexWrap: 'wrap', gap: '0.6rem', alignItems: 'center', fontSize: '0.8rem' }}>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', background: 'rgba(239, 68, 68, 0.15)', color: '#ef4444', padding: '0.2rem 0.55rem', borderRadius: '6px', fontWeight: 600 }}>
+                      ● Waspada (&gt; 20%)
+                    </span>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', background: 'rgba(245, 158, 11, 0.15)', color: '#f59e0b', padding: '0.2rem 0.55rem', borderRadius: '6px', fontWeight: 600 }}>
+                      ● Moderat (10% – 20%)
+                    </span>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', background: 'rgba(16, 185, 129, 0.15)', color: '#10b981', padding: '0.2rem 0.55rem', borderRadius: '6px', fontWeight: 600 }}>
+                      ● Aman (&lt; 10%)
+                    </span>
+                    {regressionTargetPeriod && (
+                      <span style={{ marginLeft: 'auto', opacity: 0.9 }}>
+                        Target Proyeksi: <strong>{regressionTargetPeriod.startDate} s/d {regressionTargetPeriod.endDate}</strong>
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 <div className="disease-cards-container">
-                  {sortedDiseases.map((disease, idx) => {
-                    const tagClass = idx === 0 ? 'tag-high' : (idx === 1 ? 'tag-med' : 'tag-low');
-                    const tagLabel = idx === 0 ? 'Prediksi Tertinggi' : (idx === 1 ? 'Moderat' : 'Terkontrol');
+                  {sortedDiseases.map((disease) => {
                     return (
                       <div key={disease.code} className={`disease-card ${disease.theme}`}>
                         <div className="disease-card-header">
                           <div className="disease-code-pill">{disease.pill}</div>
-                          <span className={`disease-status-tag ${tagClass}`}>{tagLabel}</span>
+                          <span className={`disease-status-tag ${disease.tagClass}`}>{disease.statusLabel}</span>
                         </div>
                         <div className="disease-title-wrap">
                           <h4>{disease.title}</h4>
@@ -916,8 +952,8 @@ export default function DashboardPage() {
                 />
                 <div className="mascot-meta">
                   <span className="meta-tag">KONDISI PERNAPASAN</span>
-                  <h3 className="meta-heading">Status Terlindungi</h3>
-                  <p className="meta-desc">Indeks paparan lingkungan dalam ambang batas terkontrol.</p>
+                  <h3 className="meta-heading">{mascotStatus.heading}</h3>
+                  <p className="meta-desc">{mascotStatus.desc}</p>
                 </div>
               </div>
 

@@ -75,11 +75,53 @@ export function calculateWeightedRisksClientSide(oddsRatio = 1.30, cases = {}) {
   const scoreJ00 = computeScore(cases.j00Cases, REGRESSION_WEIGHTS.caseBaselines.j00Cases);
   const scoreJ02 = computeScore(cases.j02Cases, REGRESSION_WEIGHTS.caseBaselines.j02Cases);
   const scoreJ06 = computeScore(cases.j06Cases, REGRESSION_WEIGHTS.caseBaselines.j06Cases);
+  const overall = Math.round((scoreJ00 + scoreJ02 + scoreJ06) / 3);
+
+  let riskLevel = 'Aman';
+  const maxRisk = Math.max(scoreJ00, scoreJ02, scoreJ06);
+  if (maxRisk > 20) {
+    riskLevel = 'Waspada';
+  } else if (maxRisk >= 10) {
+    riskLevel = 'Moderat';
+  }
 
   return {
     j00: scoreJ00,
     j02: scoreJ02,
     j06: scoreJ06,
-    overall: Math.round((scoreJ00 + scoreJ02 + scoreJ06) / 3)
+    overall,
+    riskLevel
+  };
+}
+
+/**
+ * Klasifikasi kategori risiko berdasarkan ambang batas:
+ * - > 20%: Waspada (tag-high)
+ * - 10% - 20%: Moderat (tag-med)
+ * - < 10%: Aman (tag-low)
+ */
+export function classifyRisk(score, isHighest = false) {
+  const s = Number(score) || 0;
+  if (s > 20) {
+    return {
+      category: 'Waspada',
+      label: isHighest ? 'Waspada (Tertinggi)' : 'Waspada',
+      tagClass: 'tag-high',
+      tone: 'danger'
+    };
+  }
+  if (s >= 10) {
+    return {
+      category: 'Moderat',
+      label: isHighest ? 'Moderat (Tertinggi)' : 'Moderat',
+      tagClass: 'tag-med',
+      tone: 'warning'
+    };
+  }
+  return {
+    category: 'Aman',
+    label: isHighest ? 'Aman (Tertinggi)' : 'Aman',
+    tagClass: 'tag-low',
+    tone: 'safe'
   };
 }

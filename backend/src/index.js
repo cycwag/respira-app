@@ -617,9 +617,12 @@ app.post('/api/assess', async (req, res) => {
     });
 
     const maxRisk = Math.max(risks.j00, risks.j02, risks.j06);
-    let riskLevel = 'Rendah - Terkontrol';
-    if (maxRisk >= 60) riskLevel = 'Tinggi - Bahaya';
-    else if (maxRisk >= 35) riskLevel = 'Sedang - Waspada';
+    let riskLevel = 'Aman';
+    if (maxRisk > 20) {
+      riskLevel = 'Waspada';
+    } else if (maxRisk >= 10) {
+      riskLevel = 'Moderat';
+    }
 
     const parseBounded = (v, def, min, max) => {
       const n = typeof v === 'number' ? v : parseFloat(v);
