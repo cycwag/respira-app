@@ -1533,6 +1533,12 @@ label {
   color: var(--color-text-title);
 }
 
+.widget-head p {
+  margin-top: 4px;
+  font-size: 0.68rem;
+  color: var(--color-text-body);
+}
+
 .progress-bar-group {
   display: flex;
   flex-direction: column;

@@ -209,6 +209,7 @@ export default function DashboardPage() {
           environmentalData: { pm25: 42.8, temperature: 29.4, humidity: 78, rainfall: 8.2, prevCases: 2412 },
           riskPercentages: { overall: calculatedRisk, j06: 38, j00: 28, j02: 24 },
           riskLevel: 'Sedang - Waspada',
+          regressionModelStatus: 'offline_fallback',
           preventiveAdvice: ['Gunakan masker saat berkendara atau beraktivitas luar ruangan karena partikel PM2.5 sedang tinggi.']
         });
       }
@@ -242,6 +243,12 @@ export default function DashboardPage() {
   const j02Val = risks.j02 ?? 24;
   const riskLevel = assessmentData?.riskLevel || 'Sedang - Waspada';
   const orVal = assessmentData?.oddsRatio ? assessmentData.oddsRatio.toFixed(2) : '1.30';
+  const regressionTargetPeriod = assessmentData?.regressionInput?.targetPeriod;
+  const regressionStatusText = assessmentData?.regressionModelStatus === 'trained_model'
+    ? (regressionTargetPeriod
+        ? `Regresi terlatih • prediksi ${regressionTargetPeriod.startDate} – ${regressionTargetPeriod.endDate}`
+        : 'Regresi terlatih aktif')
+    : 'Simulasi placeholder — model terlatih/data Dinkes belum aktif';
 
   const defaultAdvice = (assessmentData?.preventiveAdvice && assessmentData.preventiveAdvice[0]) ||
     'Gunakan masker saat berkendara atau beraktivitas luar ruangan karena partikel PM2.5 sedang tinggi.';
@@ -321,7 +328,7 @@ export default function DashboardPage() {
             <div className="sidebar-top">
               <div className="sidebar-brand">
                 <span className="brand-title">RESPIRA</span>
-                <span className="brand-tag">ML SYSTEM</span>
+                <span className="brand-tag">RISK SYSTEM</span>
               </div>
 
               <nav className="sidebar-nav">
@@ -661,10 +668,11 @@ export default function DashboardPage() {
                 </div>
               </div>
 
-              {/* ML PREDICTION BREAKDOWN: J00, J02, J06 */}
+              {/* RISK SCORE BREAKDOWN: J00, J02, J06 */}
               <div className="ml-prediction-widget" ref={mlWidgetRef}>
                 <div className="widget-head">
-                  <h4>Prediksi Sub-Kategori ISPA (ML)</h4>
+                  <h4>Skor Risiko Sub-Kategori ISPA</h4>
+                  <p>{regressionStatusText}</p>
                 </div>
 
                 <div className="progress-bar-group">

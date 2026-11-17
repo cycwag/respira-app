@@ -14,7 +14,7 @@ Proyek Problem-Based Learning (PBL) Mata Kuliah **Pembelajaran Mesin (Machine Le
 ---
 
 ## 🏗️ Arsitektur & Teknologi
-Aplikasi ini menggunakan arsitektur terpisah (*decoupled frontend-backend*) dengan pendekatan *Hybrid Machine Learning Scoring*:
+Aplikasi ini menggunakan arsitektur terpisah (*decoupled frontend-backend*) dengan scoring hybrid: model regresi eksternal dan Odds Ratio faktor internal. Model regresi baru aktif setelah artefak hasil training dan data lag kasus Dinkes tersedia.
 
 * **Frontend**: Next.js 14 (App Router, JavaScript `.js`, Vanilla CSS Modules, HTML5 Canvas Particle System).
 * **Backend**: Node.js + Express.js (REST API, Hybrid Scoring Engine, News Scraper & Reader View).
@@ -34,7 +34,7 @@ respira/
 │   ├── app/
 │   │   ├── page.js             # Halaman Login & Registrasi (Animasi Sliding Split-Screen)
 │   │   ├── assessment/page.js  # Formulir Asesmen Klinis (TB, BB, BMI, Komorbid, Perokok)
-│   │   └── dashboard/page.js   # Dashboard 3-Panel (Sidebar, Feed Utama, Detail Prediksi ML)
+│   │   └── dashboard/page.js   # Dashboard 3-Panel (Sidebar, Feed Utama, Detail Risiko)
 │   ├── components/
 │   │   ├── ParticleCanvas.js   # Animasi partikel udara & PM2.5 melayang
 │   │   └── NewsModal.js        # Modal daftar berita & Reader View artikel
@@ -45,10 +45,18 @@ respira/
 ├── backend/                    # Server REST API & Mesin Kalkulasi (Express.js - Port 5000)
 │   ├── src/
 │   │   ├── index.js            # Entrypoint API, Auth, Rate Limiter, & Security Guards
-│   │   ├── scoring.js          # Modul Regresi Linear Multivariat & Weighted Scoring (60:40)
-│   │   ├── weatherService.js   # Integrasi satelit cuaca & PM2.5 DKI Jakarta
+│   │   ├── scoring.js          # Trainer/prediktor regresi & Weighted Scoring (60:40)
+│   │   ├── weatherService.js   # Integrasi cuaca/PM2.5 live dan historis
+│   │   ├── dinkesService.js    # Kasus ISPA rawat jalan Dinkes DKI
 │   │   ├── newsService.js      # Scraper berita kesehatan & ekstraktor artikel
 │   │   └── supabase.js         # Inisialisasi koneksi Supabase Client & Admin
+│   ├── scripts/
+│   │   ├── collect-dinkes-weekly.js # Koleksi kasus Dinkes per minggu
+│   │   ├── build-regression-dataset.js # Join kasus dan lingkungan historis
+│   │   └── train-regression.js # Training model dari dataset JSON
+│   ├── test/
+│   │   ├── scoring.test.js     # Tes training, prediksi, dan penggabungan skor
+│   │   └── dinkesService.test.js # Tes periode Dinkes
 │   └── .env.example            # Template environment backend
 │
 └── supabase/
@@ -128,11 +136,11 @@ Buka browser dan akses: **[http://localhost:3000](http://localhost:3000)**
 
 ---
 
-## 🧠 Panduan Integrasi untuk Tim Machine Learning
+## 🧠 Regresi Linear Multivariat & Weighted Scoring
 
-Seluruh logika perhitungan risiko berada di file **`backend/src/scoring.js`**. Saat model regresi selesai dilatih menggunakan dataset Dinkes DKI Jakarta & Open-Meteo, tim ML cukup memperbarui fungsi `mockRegressionInference()` dengan koefisien hasil pelatihan ($\beta_0, \beta_1, \dots, \beta_6$):
+Implementasi training OLS multi-output, prediksi, dan penggabungan skor berada di **`backend/src/scoring.js`**. Satu model dilatih dari enam input: PM2.5, empat parameter lingkungan lain (suhu, kelembapan, hujan, angin), dan total kasus Dinkes J00+J02+J06 dari minggu sebelumnya. Model yang sama menghasilkan tiga target sekaligus: kasus rawat jalan minggu berikutnya untuk J00, J02, dan J06. Secara teknis ini regresi linear multivariat (multiple input, multiple output), dengan satu matriks fitur dan tiga kolom target yang di-fit bersama. Untuk OLS standar, hasil koefisiennya setara dengan meng-fit setiap output terpisah; model ini tidak mengklaim mempelajari korelasi residual antar-kategori. Data kasus endpoint Dinkes merupakan agregat DKI, jadi variabel lingkungan juga menggunakan satu titik referensi Jakarta Pusat/Monas.
 
-### 1. Variabel Input Eksternal (Otomatis Disediakan Backend)
+### Fitur model
 | Nama Parameter | Satuan | Sumber Data |
 | :--- | :--- | :--- |
 | `pm25` | $\mu\text{g/m}^3$ | Open-Meteo Air Quality API |
@@ -140,9 +148,44 @@ Seluruh logika perhitungan risiko berada di file **`backend/src/scoring.js`**. S
 | `humidity` | $\%$ | Open-Meteo Weather API |
 | `rainfall` | $\text{mm}$ | Open-Meteo Weather API |
 | `windSpeed` | $\text{km/h}$ | Open-Meteo Weather API |
-| `prevCases` | Jumlah kasus | Historis Mingguan DKI Jakarta |
+| `prevCases` | Jumlah kasus minggu sebelumnya | Dinkes DKI Jakarta |
 
-### 2. Variabel Faktor Internal & Odds Ratio (Tabel 3.2 Proposal)
+Alur dataset menggunakan minggu penuh Senin-Minggu. Untuk setiap baris training, fitur lingkungan dan total kasus berasal dari satu minggu lengkap; target kasus berasal dari minggu tepat setelahnya. Fitur lingkungan mingguan adalah rata-rata PM2.5/suhu/kelembapan/kecepatan angin dan total curah hujan. Jika respons Open-Meteo memiliki cakupan kurang dari 90% untuk salah satu fitur, pembentukan dataset berhenti dengan error alih-alih mengisi atau mengasumsikan nilai. Contoh baris training:
+
+```json
+{
+  "featurePeriodStart": "2023-06-05",
+  "featurePeriodEnd": "2023-06-11",
+  "targetPeriodStart": "2023-06-12",
+  "targetPeriodEnd": "2023-06-18",
+  "pm25": 42.8,
+  "temperature": 29.4,
+  "humidity": 78,
+  "rainfall": 8.2,
+  "windSpeed": 5.4,
+  "prevCases": 1200,
+  "j00Cases": 820,
+  "j02Cases": 510,
+  "j06Cases": 1082
+}
+```
+
+Ambil data Dinkes per minggu penuh. Contoh pengambilan data tahun 2023 (tanggal mulai Senin dan tanggal akhir Minggu):
+
+```bash
+npm run collect:dinkes -- 2023-01-02 2023-12-31
+npm run build:regression-dataset -- .\data\dinkes-weekly.json
+npm run train:regression -- .\data\respira-regression-dataset.json
+npm test
+```
+
+Collector memakai endpoint Dinkes yang sama dengan scraper awal, mengambil agregat rawat jalan dalam rentang mingguan, membatasi ukuran respons, memberi jeda setidaknya 1,1 detik antarpermintaan, dan menyimpan progres setelah setiap minggu. Maksimal 260 minggu per proses; kalau gagal, jalankan ulang dengan rentang yang sama untuk melanjutkan data yang belum terkumpul. Skrip pembangun dataset mengambil data lingkungan historis dari Open-Meteo dan memasangkan setiap minggu dengan minggu target berikutnya. Diperlukan beberapa minggu berurutan; untuk evaluasi yang lebih bermakna, kumpulkan setidaknya satu tahun data mingguan.
+
+Training menghasilkan satu artefak multi-output `backend/models/respira-regression.json` (format model versi 3). Koefisien tiap fitur memetakan ke ketiga target dalam satu model, dan inference menghitung J00/J02/J06 dalam satu pemanggilan. Model juga menyimpan persentil ke-95 kasus training untuk masing-masing target sebagai skala faktor eksternal di weighted scoring; fallback placeholder lama tetap memakai skala tetapnya. Atur `RESPIRA_REGRESSION_MODEL_PATH=.\models\respira-regression.json` di `backend/.env`, lalu restart backend. Artefak versi sebelumnya tidak kompatibel dan perlu dibuat ulang lewat script training. Bila artefak itu dikonfigurasi, `/api/assess` otomatis mengambil kasus rawat jalan dari endpoint Dinkes dan rata-rata lingkungan dari minggu lengkap terakhir, lalu memprediksi jumlah kasus pada minggu berikutnya. Hasil API mencantumkan `regressionInput`, periode prediksi, dan `regressionModelStatus`. Jika model belum dikonfigurasi, dashboard tetap berada di mode placeholder. Jika model sudah dikonfigurasi tetapi Dinkes/Open-Meteo gagal, asesmen mengembalikan error—tidak diam-diam menyajikan placeholder sebagai hasil model.
+
+Sebelum dipakai, evaluasi model pada minggu-minggu yang lebih baru dari data training (bukan pembagian acak), dan bandingkan MAE/RMSE tiap target dengan baseline kasus minggu sebelumnya.
+
+### Faktor internal & Odds Ratio (Tabel 3.2 Proposal)
 | Faktor Risiko Individu | Kondisi | Nilai Odds Ratio (OR) | Referensi |
 | :--- | :--- | :--- | :--- |
 | **BMI Underweight** | $\text{BMI} < 18.5\text{ kg/m}^2$ | $2.14$ | Hammond et al. (2021) |
@@ -151,13 +194,12 @@ Seluruh logika perhitungan risiko berada di file **`backend/src/scoring.js`**. S
 | **Penyakit Hati Kronis** | Ya (`true`) | $1.30$ | Hammond et al. (2021) |
 | **Perokok Aktif** | Ya (`true`) | $1.25$ | Cal et al. (2019) |
 
-### 3. Target Output Model Regresi
-Model mengeluarkan estimasi kasus mingguan untuk 3 sub-kategori ICD-10 ISPA:
+Regresi menghasilkan estimasi kasus mingguan untuk 3 sub-kategori ICD-10 ISPA:
 * **`J00`**: *Acute nasopharyngitis (common cold)*
 * **`J02`**: *Acute pharyngitis*
 * **`J06`**: *Acute upper respiratory infections of multiple and unspecified sites*
 
-Hasil regresi eksternal dan skor Odds Ratio internal digabungkan menggunakan **Weighted Scoring Model** (rasio bobot default **60% Eksternal : 40% Internal**) untuk menghasilkan persentase kerentanan personal ($1\% - 99\%$).
+Hasil regresi eksternal dan skor Odds Ratio internal diteruskan ke **Weighted Scoring Model** (rasio bobot saat ini **60% Eksternal : 40% Internal**) untuk menghasilkan skor risiko. Skor ini adalah skor berbasis aturan dan belum dikalibrasi sebagai probabilitas medis.
 
 ---
 

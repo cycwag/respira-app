@@ -5,7 +5,11 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "test": "node --test",
+    "collect:dinkes": "node scripts/collect-dinkes-weekly.js",
+    "build:regression-dataset": "node scripts/build-regression-dataset.js",
+    "train:regression": "node scripts/train-regression.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.1",

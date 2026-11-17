@@ -4,12 +4,26 @@ const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 
 const { supabase, supabaseAdmin, isConfigured } = require('./supabase');
-const { calculatePersonalOddsRatio, mockRegressionInference, calculateWeightedRisk } = require('./scoring');
-const { fetchJakartaEnvironmentalData } = require('./weatherService');
+const {
+  calculatePersonalOddsRatio,
+  loadRespiraRegressionModel,
+  mockRegressionInference,
+  predictRespiraCases,
+  calculateWeightedRisk
+} = require('./scoring');
+const {
+  fetchJakartaEnvironmentalData,
+  fetchJakartaEnvironmentalDataForWeek
+} = require('./weatherService');
+const { fetchDinkesWeeklyCases, getPreviousCompleteJakartaWeek } = require('./dinkesService');
 const { getIspaNewsList, getArticleDetail, validateNewsUrl } = require('./newsService');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const regressionModelPath = process.env.RESPIRA_REGRESSION_MODEL_PATH;
+const regressionModel = regressionModelPath
+  ? loadRespiraRegressionModel(path.resolve(__dirname, '..', regressionModelPath))
+  : null;
 
 app.use(cors());
 app.use(express.json({ limit: '100kb' }));
@@ -489,8 +503,41 @@ app.post('/api/assess', async (req, res) => {
     }
 
     const oddsRatio = calculatePersonalOddsRatio(internalFactors || {});
-    const regressionCases = mockRegressionInference(activeEnv || {});
-    const risks = calculateWeightedRisk({ internalOR: oddsRatio, regressionCases });
+    let regressionInput = null;
+    let regressionCases;
+    let regressionModelStatus = 'placeholder_fallback_model_not_configured';
+    if (regressionModel) {
+      const featurePeriod = getPreviousCompleteJakartaWeek();
+      const [dinkesWeek, weeklyEnvironment] = await Promise.all([
+        fetchDinkesWeeklyCases(featurePeriod.startDate, featurePeriod.endDate),
+        fetchJakartaEnvironmentalDataForWeek(featurePeriod.startDate, featurePeriod.endDate, { recent: true })
+      ]);
+      const targetStart = new Date(`${featurePeriod.endDate}T00:00:00.000Z`);
+      targetStart.setUTCDate(targetStart.getUTCDate() + 1);
+      const targetEnd = new Date(targetStart.getTime() + 6 * 86400000);
+      regressionInput = {
+        ...weeklyEnvironment,
+        prevCases: dinkesWeek.prevCases,
+        prevCasesSource: 'dinkes',
+        casePeriod: {
+          startDate: featurePeriod.startDate,
+          endDate: featurePeriod.endDate
+        },
+        targetPeriod: {
+          startDate: targetStart.toISOString().slice(0, 10),
+          endDate: targetEnd.toISOString().slice(0, 10)
+        }
+      };
+      regressionCases = predictRespiraCases(regressionInput, regressionModel);
+      regressionModelStatus = 'trained_model';
+    } else {
+      regressionCases = mockRegressionInference(activeEnv || {});
+    }
+    const risks = calculateWeightedRisk({
+      internalOR: oddsRatio,
+      regressionCases,
+      caseBaselines: regressionModel?.caseBaselines
+    });
 
     const maxRisk = Math.max(risks.j00, risks.j02, risks.j06);
     let riskLevel = 'Rendah - Terkontrol';
@@ -503,14 +550,15 @@ app.post('/api/assess', async (req, res) => {
       return Math.min(max, Math.max(min, n));
     };
 
+    const storedEnvironment = regressionInput || activeEnv;
     const record = {
       user_id: validUserId,
-      pm25: parseBounded(activeEnv.pm25, 35.0, 0, 500),
-      temperature: parseBounded(activeEnv.temperature, 28.0, -10, 50),
-      humidity: parseBounded(activeEnv.humidity, 75.0, 0, 100),
-      rainfall: parseBounded(activeEnv.rainfall, 10.0, 0, 300),
-      wind_speed: parseBounded(activeEnv.windSpeed, 5.0, 0, 150),
-      prev_cases: parseBounded(activeEnv.prevCases, 1000, 0, 100000),
+      pm25: parseBounded(storedEnvironment.pm25, 35.0, 0, 500),
+      temperature: parseBounded(storedEnvironment.temperature, 28.0, -10, 50),
+      humidity: parseBounded(storedEnvironment.humidity, 75.0, 0, 100),
+      rainfall: parseBounded(storedEnvironment.rainfall, 10.0, 0, 300),
+      wind_speed: parseBounded(storedEnvironment.windSpeed, 5.0, 0, 150),
+      prev_cases: parseBounded(storedEnvironment.prevCases, 1000, 0, 100000),
       score_j00: risks.j00,
       score_j02: risks.j02,
       score_j06: risks.j06
@@ -528,9 +576,11 @@ app.post('/api/assess', async (req, res) => {
     return res.json({
       status: 'success',
       calculatedAt: new Date().toISOString(),
-      environmentalData: activeEnv,
+      environmentalData: regressionInput || activeEnv,
       oddsRatio,
       regressionCases,
+      regressionInput,
+      regressionModelStatus,
       riskPercentages: {
         overall: Math.round((risks.j00 + risks.j02 + risks.j06) / 3),
         ...risks
