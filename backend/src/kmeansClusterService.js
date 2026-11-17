@@ -63,14 +63,27 @@ function predictCluster(pollutants = {}) {
     return scaler.mean[idx];
   });
 
+  // Bobot relevansi klinis pernapasan pada perhitungan jarak K-Means:
+  // Partikulat halus PM2.5 (2.0) dan PM10 (1.2) memiliki dampak patologis terbesar pada sistem respirasi
+  const FEATURE_WEIGHTS = {
+    pm25: 2.0,
+    pm10: 1.2,
+    so2:  0.6,
+    co:   0.4,
+    o3:   0.8,
+    no2:  0.4
+  };
+
   let minDistance = Infinity;
   let bestClusterId = 0;
 
   centroids.forEach((centroid, cIdx) => {
     let sumSq = 0;
     for (let j = 0; j < features.length; j++) {
+      const featName = features[j];
+      const weight = FEATURE_WEIGHTS[featName] || 1.0;
       const diffScaled = (vector[j] - centroid[j]) / scaler.scale[j];
-      sumSq += diffScaled * diffScaled;
+      sumSq += weight * (diffScaled * diffScaled);
     }
     const dist = Math.sqrt(sumSq);
     if (dist < minDistance) {
@@ -78,6 +91,14 @@ function predictCluster(pollutants = {}) {
       bestClusterId = cIdx;
     }
   });
+
+  // Batas Keamanan Klinis (Clinical Boundary Check):
+  // Jika PM2.5 < 55.4 µg/m³ (kualitas udara Baik/Sedang sesuai Permen LHK 14/2020),
+  // wilayah tidak dapat dikategorikan sebagai "Zona Bahaya Paparan Akut" (Klaster 1).
+  const pm25Input = vector[features.indexOf('pm25')] || 0;
+  if (bestClusterId === 1 && pm25Input < 55.4) {
+    bestClusterId = pm25Input >= 40.0 ? 0 : 2;
+  }
 
   const def = clusterDefinitions[String(bestClusterId)] || {
     cluster_id: bestClusterId,
