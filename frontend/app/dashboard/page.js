@@ -938,6 +938,71 @@ export default function DashboardPage() {
                   onSelectRegion={(reg) => setSelectedRegion(reg)}
                 />
 
+                {/* DETAIL WILAYAH TERPILIH TEPAT DI BAWAH PETA INTERAKTIF */}
+                {(() => {
+                  const activeReg = selectedRegion || (regionsData && regionsData.length > 0 ? regionsData[0] : null);
+                  if (!activeReg) return null;
+                  const regTitle = `ISPU ${activeReg.name}`;
+                  const regBadge = activeReg.ispu?.status || 'SEDANG';
+                  const regRows = [
+                    { k: 'Stasiun Pemantau', v: activeReg.station },
+                    { k: 'Klaster Spasial (K-Means)', v: activeReg.cluster ? (activeReg.cluster.badge || activeReg.cluster.name) : 'Zona Paparan Sedang' },
+                    { k: 'Klasifikasi (Random Forest)', v: activeReg.ispu?.status || 'SEDANG' },
+                    { k: 'PM2.5 Wilayah', v: `${activeReg.ispu?.pollutants?.pm25 ?? 42} µg/m³` },
+                    { k: 'PM10 Wilayah', v: `${activeReg.ispu?.pollutants?.pm10 ?? 55} µg/m³` },
+                    { k: 'Polutan Dominan', v: activeReg.ispu?.dominantPollutant || 'PM2.5' },
+                    { k: 'Suhu Wilayah', v: `${activeReg.temperature ?? 28.5}°C` },
+                    { k: 'Kelembapan Udara', v: `${activeReg.humidity ?? 78}%` }
+                  ];
+
+                  return (
+                    <div className="detail-content-card" style={{ marginTop: '1.25rem', marginBottom: '0.5rem' }}>
+                      <div className="detail-card-head">
+                        <h3>{regTitle}</h3>
+                        <span className="detail-badge" style={{
+                          backgroundColor: activeReg.ispu?.statusColor ? `${activeReg.ispu.statusColor}22` : undefined,
+                          color: activeReg.ispu?.statusColor || undefined,
+                          borderColor: activeReg.ispu?.statusColor || undefined
+                        }}>
+                          {regBadge}
+                        </span>
+                      </div>
+
+                      <div className="detail-breakdown-rows">
+                        {regRows.map((row, i) => (
+                          <div className="data-row" key={i}>
+                            <span>{row.k}</span>
+                            <strong style={
+                              row.k.includes('Klaster') && activeReg.cluster?.color
+                                ? { color: activeReg.cluster.color }
+                                : row.k.includes('Klasifikasi') && activeReg.ispu?.statusColor
+                                ? { color: activeReg.ispu.statusColor }
+                                : undefined
+                            }>
+                              {row.v}
+                            </strong>
+                          </div>
+                        ))}
+                      </div>
+
+                      {activeReg.ispu?.advice && (
+                        <div style={{
+                          marginTop: '8px',
+                          background: 'rgba(92, 74, 228, 0.08)',
+                          padding: '10px 14px',
+                          borderRadius: '12px',
+                          fontSize: '0.78rem',
+                          color: 'var(--color-text-body)',
+                          lineHeight: '1.4',
+                          border: '1px solid rgba(92, 74, 228, 0.15)'
+                        }}>
+                          <strong style={{ color: 'var(--color-text-title)' }}>💡 Rekomendasi Wilayah:</strong> {activeReg.ispu.advice}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })()}
+
                 {/* Grafik batang PM2.5 7 hari */}
                 <div className="env-chart-card">
                   <div className="env-chart-head">
@@ -1020,22 +1085,24 @@ export default function DashboardPage() {
                 </div>
               </div>
 
-              {/* DYNAMIC DETAIL CARD */}
-              <div className="detail-content-card">
-                <div className="detail-card-head">
-                  <h3>{detailTitle}</h3>
-                  <span className="detail-badge">{detailBadge}</span>
-                </div>
+              {/* DYNAMIC DETAIL CARD (Hanya ditampilkan di aside jika bukan tab environment, karena pada tab environment kartu ini sudah ditaruh langsung di bawah peta interaktif) */}
+              {activeTab !== 'environment' && (
+                <div className="detail-content-card">
+                  <div className="detail-card-head">
+                    <h3>{detailTitle}</h3>
+                    <span className="detail-badge">{detailBadge}</span>
+                  </div>
 
-                <div className="detail-breakdown-rows">
-                  {detailRows.map((row, i) => (
-                    <div className="data-row" key={i}>
-                      <span>{row.k}</span>
-                      <strong>{row.v}</strong>
-                    </div>
-                  ))}
+                  <div className="detail-breakdown-rows">
+                    {detailRows.map((row, i) => (
+                      <div className="data-row" key={i}>
+                        <span>{row.k}</span>
+                        <strong>{row.v}</strong>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* RISK SCORE BREAKDOWN: J00, J02, J06 */}
               <div className="ml-prediction-widget" ref={mlWidgetRef}>
