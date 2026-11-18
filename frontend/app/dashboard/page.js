@@ -1076,6 +1076,75 @@ export default function DashboardPage() {
         </div>
       </div>
 
+      {/* MOBILE BOTTOM NAVIGATION BAR */}
+      <nav className="mobile-bottom-nav" aria-label="Navigasi Bawah Mobile">
+        <button
+          type="button"
+          className={`m-nav-item ${activeTab === 'daily' ? 'active' : ''}`}
+          onClick={() => {
+            setActiveTab('daily');
+            setActiveCard('polutan');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+        >
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2">
+            <rect x="3" y="3" width="7" height="9" rx="1" />
+            <rect x="14" y="3" width="7" height="5" rx="1" />
+            <rect x="14" y="12" width="7" height="9" rx="1" />
+            <rect x="3" y="16" width="7" height="5" rx="1" />
+          </svg>
+          <span>Beranda</span>
+        </button>
+
+        <Link href="/assessment" className="m-nav-item">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+          <span>Asesmen</span>
+        </Link>
+
+        <button
+          type="button"
+          className={`m-nav-item ${activeTab === 'environment' ? 'active' : ''}`}
+          onClick={() => {
+            handleNavEnv();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+        >
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+          </svg>
+          <span>Peta ISPU</span>
+        </button>
+
+        <button
+          type="button"
+          className={`m-nav-item ${activeTab === 'prediction' ? 'active' : ''}`}
+          onClick={() => {
+            handleNavAnalysis();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+        >
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M18 20V10M12 20V4M6 20v-6" />
+          </svg>
+          <span>Prediksi</span>
+        </button>
+
+        <button
+          type="button"
+          className="m-nav-item"
+          onClick={handleLogout}
+          title="Keluar"
+        >
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />
+          </svg>
+          <span>Keluar</span>
+        </button>
+      </nav>
+
       <NewsModal isOpen={isNewsModalOpen} onClose={() => setIsNewsModalOpen(false)} />
     </>
   );
