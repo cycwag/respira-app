@@ -441,7 +441,7 @@ export default function JakartaAirMap({ regions = [], selectedRegionId, onSelect
                   border: `1px solid ${hoveredRegion.cluster.color || '#0284c7'}40`
                 }}
               >
-                K-Means: {hoveredRegion.cluster.badge || hoveredRegion.cluster.name}
+                {hoveredRegion.cluster.badge || hoveredRegion.cluster.name}
               </div>
             )}
             <div className="tooltip-metrics">

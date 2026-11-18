@@ -423,8 +423,8 @@ export default function DashboardPage() {
       detailBadge = selectedRegion.ispu?.status || 'SEDANG';
       detailRows = [
         { k: 'Stasiun Pemantau', v: selectedRegion.station },
-        { k: 'Klaster Spasial (K-Means)', v: selectedRegion.cluster ? `${selectedRegion.cluster.name} (${selectedRegion.cluster.badge})` : 'Klaster Risiko Moderat' },
-        { k: 'Klasifikasi (Random Forest)', v: `${selectedRegion.ispu?.status || 'SEDANG'}${selectedRegion.ispu?.mlPrediction ? ` (${Math.round(selectedRegion.ispu.mlPrediction.confidenceScore * 100)}% Voting Pohon)` : ''}` },
+        { k: 'Klaster Spasial (K-Means)', v: selectedRegion.cluster ? (selectedRegion.cluster.badge || selectedRegion.cluster.name) : 'Zona Paparan Sedang' },
+        { k: 'Klasifikasi (Random Forest)', v: selectedRegion.ispu?.status || 'SEDANG' },
         { k: 'PM2.5 Wilayah', v: `${selectedRegion.ispu?.pollutants?.pm25 ?? 42} µg/m³` },
         { k: 'PM10 Wilayah', v: `${selectedRegion.ispu?.pollutants?.pm10 ?? 55} µg/m³` },
         { k: 'Polutan Dominan', v: selectedRegion.ispu?.dominantPollutant || 'PM2.5' },
@@ -471,7 +471,7 @@ export default function DashboardPage() {
     detailTitle = 'Analisis Faktor Polutan';
     detailBadge = 'Eksternal';
     detailRows = [
-      { k: 'Konsentrasi PM2.5 (Terkalibrasi)', v: pm25Val },
+      { k: 'Konsentrasi PM2.5', v: pm25Val },
       { k: 'Skor Odds Ratio Personal', v: `${orVal}x` },
       { k: 'Kontribusi Polutan vs Internal', v: `${pollutantSharePercentage}% / ${100 - pollutantSharePercentage}%` },
       { k: 'Riwayat Kasus Minggu Lalu', v: prevCasesVal }
@@ -733,7 +733,7 @@ export default function DashboardPage() {
                 {/* STRIP DATA LINGKUNGAN / CUACA */}
                 <div className="env-data-strip" ref={envStripRef}>
                   <div className="env-col">
-                    <span className="env-k">PM2.5 (Terkalibrasi)</span>
+                    <span className="env-k">PM2.5</span>
                     <span className="env-v">{pm25Val}</span>
                   </div>
                   <div className="env-col">
@@ -756,7 +756,6 @@ export default function DashboardPage() {
             {activeTab === 'prediction' && (
               <div className="feed-content-pane">
                 <div className="prediction-intro-card">
-                  <div className="prediction-intro-badge">MULTIVARIATE LINEAR REGRESSION • AKURASI UJI 86.6%</div>
                   <h3>Prediksi Spesifik Sub-Kategori ISPA (ICD-10)</h3>
                   <p>Estimasi probabilitas dan beban kasus mingguan di DKI Jakarta berbasis model regresi terlatih (160 minggu data riil Dinkes &amp; Open-Meteo) dari interaksi konsentrasi PM2.5, suhu, kelembapan, curah hujan, angin, dan kasus historis.</p>
                   
